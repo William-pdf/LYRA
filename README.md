@@ -1,4 +1,13 @@
-# Band Managing App
+# Band Managing App 
+Maybe BMAP for short? 
+
+# Team Members
+Carter
+William
+Deion
+Matt
+Armen
+
 
 # microservices
     song request---
