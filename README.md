@@ -10,6 +10,5 @@
 
 
 team name:
-	
 	the terminal tyrants
 	
