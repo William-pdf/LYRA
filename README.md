@@ -1,4 +1,12 @@
-# Band Managing App
+# Band Managing App\
+
+# Team Members
+Carter
+William
+Deion
+Matt
+
+
 
 # microservices
     song request---
