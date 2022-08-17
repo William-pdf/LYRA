@@ -15,6 +15,7 @@ finance api: "/BMAP/{group_id}/money/money_api"
 
 # App Enpoints
 Home url(create project/signup): "/BMAP"
+
 Project Home: "/BMAP/{group_id}"
 
 
