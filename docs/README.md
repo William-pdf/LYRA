@@ -3,7 +3,7 @@
 PWA - progressive web app ?
 Maybe BMAP for short?
 
-# Team Members
+# Team "The Terminal Tyrants" Members
 
 Carter
 William
@@ -19,12 +19,16 @@ Armen
             * Band layer
                 * Member layer (admin, accountant, songwriter, member)
                     * Microservice permissions
+
+
     song request ---
         * database of song titles
         * list of requests
         * band front-end (list of requests)
         * audience front-end (search bar/selecting functionality)
         * utilizing QR code
+
+
     audio assets ---
         * database of audio files.
         * Upload feature for audio files
@@ -34,6 +38,8 @@ Armen
         * Feature to update and delete song entity
         * Filter through categories feature (search bar or ios side letters)
         * if song completed, add to database of song titles
+
+
     PR and venue assets ---
         * database of image, video, and text files
             * images
@@ -47,9 +53,13 @@ Armen
             * text
                 * bios
                 * press release
-    finance:
 
-team name:
-	
-	the terminal tyrants
+
+    finance ---
+        * database housing finance table
+        * create expense endpoint
+        * create income endpoint
+        * spreadsheet (excel like) with all income and expense instances and a bottome line
+
+
 	
