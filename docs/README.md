@@ -29,7 +29,7 @@ Armen
         * utilizing QR code
 
 
-    audio assets ---
+    songwritting audio assets ---
         * database of audio files.
         * Upload feature for audio files
         * Playback feature for audio files
