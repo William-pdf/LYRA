@@ -1,5 +1,6 @@
 # Band Managing App 
 Maybe BMAP for short? 
+B-MAP?
 
 # Team Members
 Carter
