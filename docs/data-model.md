@@ -67,5 +67,81 @@ Audio file and lyric file linked via a 1 to 1 relationship. One lyric file to on
 | audio_file | database relation to audio file  | no     | no       | 
 | status     | database relation to status type | no     | no       | 
 
-## PR and Venue assets
-[ in progress ]
+## PR Assets
+
+**Image**
+| Name       | Type                               | Unique | Optional |
+| ---------- | ---------------------------------- | ------ | -------- |
+| filename   | string                             | yes    | no       |
+| folder     | database relation to folder        | no     | no       |
+| band_owner | database relation to a single Band | yes    | no       |
+
+**Video**
+| Name       | Type                               | Unique | Optional |
+| ---------- | ---------------------------------- | ------ | -------- |
+| filename   | string                             | yes    | no       |
+| folder     | database relation to folder        | no     | no       |
+| band_owner | database relation to a single Band | yes    | no       |
+
+**Text**
+| Name       | Type                               | Unique | Optional |
+| ---------- | ---------------------------------- | ------ | -------- |
+| filename   | string                             | yes    | no       |
+| folder     | database relation to folder        | no     | no       |
+| band_owner | database relation to a single Band | yes    | no       |
+
+**Folder**
+| Name        | Type   | Unique | Optional |
+| ----------- | ------ | ------ | -------- |
+| folder type | string | yes    | no       |
+
+Folder type would be of type:
+	- images
+		- logo
+		- band pics
+		- image promos
+	- videos
+		- music videos
+		- live videos
+		- video promos
+	- text
+		- text promos
+		- bios
+		- press release
+
+## Venue Info
+* Search bookable venues
+* Save venues:
+	* Plan tour
+	* Save favorites
+
+**Venue Location**
+| Name           | Type    | Unique | Optional |
+| -------------- | ------- | ------ | -------- |
+| name           | string  | yes    | no       |
+| city           | string  | no     | no       |
+| state          | string  | no     | no       |
+| visited_before | boolean | no     | no       | 
+| is_favorite    | boolean | no     | no       |
+| is_scheduled   | boolean | no     | no       |
+| is_available   | boolean | no     | no       |
+
+## Finance
+
+**Expense**
+| Name        | Type                      | Unique | Optional |
+| ----------- | ------------------------- | ------ | -------- |
+| Date        | datetime                  | no     | no       |
+| Amount      | float                     | no     | no       |
+| Description | textfield                 | no     | no       |
+| Type        | string (expense)          | no     | no       |
+| Band_owner  | database relation to Band | no     | no       |
+
+**Income**
+| Name        | Type                      | Unique | Optional |
+| ----------- | ------------------------- | ------ | -------- |
+| Date        | datetime                  | no     | no       |
+| Amount      | float                     | no     | no       |
+| Description | textfield                 | no     | no       |
+| Type        | string (income)           | no     | no       |
+| Band_owner  | database relation to Band | no     | no       |
