@@ -1,6 +1,7 @@
 ## Accounts
 
 **Band/Group/Project**
+
 | Name    | Type                        | Unique | Optional |
 | ------- | --------------------------- | ------ | -------- |
 | name    | string                      | no     | no       |
@@ -9,12 +10,14 @@
 Audio file access handled by permissions? JWT would remove the need to store permissions on db models?
 
 **Admin**
+
 | Name | Type                          | Unique | Optional |
 | ---- | ----------------------------- | ------ | -------- |
 | name | string                        | no     | no       |
 | band | database relationship to Band | no     | no       | 
 
 **Generic Member**
+
 | Name             | Type              | Unique | Optional |
 | ---------------- | ----------------- | ------ | -------- |
 | name             | string            | no     | no       |
@@ -23,6 +26,7 @@ Audio file access handled by permissions? JWT would remove the need to store per
 ## Song Requests
 
 **Song Entry**
+
 | Name           | Type                               | Unique | Optional |
 | -------------- | ---------------------------------- | ------ | -------- |
 | song title     | string                             | yes    | no?      |
@@ -34,6 +38,7 @@ Audio file access handled by permissions? JWT would remove the need to store per
 (The database can store the same song name under different band owners.)
 
 **Category/genre**
+
 | Name | Type   | Unique | Optional |
 | ---- | ------ | ------ | -------- |
 | name | string | yes    | no       | 
@@ -43,14 +48,16 @@ Songs marked as requested would be sent and stored to the frontend, likely React
 ## Songwriting Audio Assets
 
 **Audio Files**
+
 | Name       | Type                               | Unique | Optional |
 | ---------- | ---------------------------------- | ------ | -------- |
 | filename   | string? binary?                    | yes    | no       |
-| status     | database relation to status type   | no     | no       |
+| status     | database relation to status type         | no     | no       |
 | band_owner | database relation to a single Band | yes    | no       |
 | lyric_file | database relation to lyric file    | yes    | no       |
 
 **Song Status**
+
 | Name                                        | Type   | Unique | Optional |
 | ------------------------------------------- | ------ | ------ | -------- |
 | status type (shelf, in progress, completed) | string | yes    | no       | 
@@ -60,6 +67,7 @@ This model will only have three entries: shelf, in progress, and completed. Audi
 Audio file and lyric file linked via a 1 to 1 relationship. One lyric file to one song file.
 
 **Lyric Files**
+
 | Name       | Type                             | Unique | Optional | 
 | ---------- | -------------------------------- | ------ | -------- | 
 | song_name  | string                           | yes    | no       | 
@@ -70,6 +78,7 @@ Audio file and lyric file linked via a 1 to 1 relationship. One lyric file to on
 ## PR Assets
 
 **Image**
+
 | Name       | Type                               | Unique | Optional |
 | ---------- | ---------------------------------- | ------ | -------- |
 | filename   | string                             | yes    | no       |
@@ -77,6 +86,7 @@ Audio file and lyric file linked via a 1 to 1 relationship. One lyric file to on
 | band_owner | database relation to a single Band | yes    | no       |
 
 **Video**
+
 | Name       | Type                               | Unique | Optional |
 | ---------- | ---------------------------------- | ------ | -------- |
 | filename   | string                             | yes    | no       |
@@ -84,6 +94,7 @@ Audio file and lyric file linked via a 1 to 1 relationship. One lyric file to on
 | band_owner | database relation to a single Band | yes    | no       |
 
 **Text**
+
 | Name       | Type                               | Unique | Optional |
 | ---------- | ---------------------------------- | ------ | -------- |
 | filename   | string                             | yes    | no       |
@@ -91,6 +102,7 @@ Audio file and lyric file linked via a 1 to 1 relationship. One lyric file to on
 | band_owner | database relation to a single Band | yes    | no       |
 
 **Folder**
+
 | Name        | Type   | Unique | Optional |
 | ----------- | ------ | ------ | -------- |
 | folder type | string | yes    | no       |
@@ -116,6 +128,7 @@ Folder type would be of type:
 	* Save favorites
 
 **Venue Location**
+
 | Name           | Type    | Unique | Optional |
 | -------------- | ------- | ------ | -------- |
 | name           | string  | yes    | no       |
@@ -129,6 +142,7 @@ Folder type would be of type:
 ## Finance
 
 **Expense**
+
 | Name        | Type                      | Unique | Optional |
 | ----------- | ------------------------- | ------ | -------- |
 | Date        | datetime                  | no     | no       |
@@ -138,6 +152,7 @@ Folder type would be of type:
 | Band_owner  | database relation to Band | no     | no       |
 
 **Income**
+
 | Name        | Type                      | Unique | Optional |
 | ----------- | ------------------------- | ------ | -------- |
 | Date        | datetime                  | no     | no       |
