@@ -29,11 +29,12 @@ Audio file access handled by permissions? JWT would remove the need to store per
 
 | Name           | Type                               | Unique | Optional |
 | -------------- | ---------------------------------- | ------ | -------- |
-| song title     | string                             | yes    | no?      |
+| song title     | string                             | yes    | no       |
 | artist         | string                             | no     | yes      | 
 | category/genre | database relation to Category      | yes    | no       |
 | is_requested   | boolean                            | no     | no       |
 | band_owner     | database relation to a single Band | yes    | no       |
+|is_requestable  | boolean                            | no     | no       |
 
 (The database can store the same song name under different band owners.)
 

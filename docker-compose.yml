@@ -1,0 +1,41 @@
+volumes:
+  lyra-data:
+    external: true
+services:
+  react:
+    image: node:lts-bullseye
+    command: /bin/bash run.sh
+    working_dir: /app
+    volumes:
+      - ./ghi/app:/app
+    ports:
+      - "3000:3000"
+    environment: 
+      HOST_OS: ${OS}
+      NODE_ENV: development
+      HOST: "0.0.0.0"
+  databases:
+    image: postgres:14.2-bullseye
+    volumes:
+      - lyra-data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.data
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=accounts,songs
+      - POSTGRES_PASSWORD=lyrapass
+    ports:
+      - 15432:5432
+  lyra:
+    build:
+      context: ./lyra
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./lyra:/app
+    depends_on:
+      - database
+    environment:
+      ACCOUNTS_DATABASE_URL: postgres://inventory:password@database:5432/accounts
+      SONGS_DATABASE_URL: postgres://inventory:password@database:5432/songs
+      WAIT_HOSTS: database:5432
+      WAIT_TIMEOUT: 240
