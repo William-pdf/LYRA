@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -76,9 +77,10 @@ WSGI_APPLICATION = 'lyra.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {}
-DATABASES["default"] = dj_database_url.config()
+DATABASES["default"] = dj_database_url.config(default = 'postgresql://songs_user:songs_user_password@postgres:5432/songs')
+DATABASES["accounts"] = dj_database_url.config('postgresql://accounts_user:accounts_user_password@postgres:5432/accounts')
 
-
+#go into the database and use SQL to make the databases and users when you make a new volume.
 
 
 

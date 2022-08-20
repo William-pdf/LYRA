@@ -36,7 +36,7 @@ services:
     depends_on:
       - postgres
     environment:
-      ACCOUNTS_DATABASE_URL: postgresql://accounts:password@postgres:5432/accounts
-      SONGS_DATABASE_URL: postgresql://songs:password@postgres:5432/songs
+      ACCOUNTS_DATABASE_URL: postgres://accounts:password@postgres:5432/accounts
+      SONGS_DATABASE_URL: postgres://songs:password@postgres:5432/songs
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
