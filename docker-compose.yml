@@ -16,15 +16,16 @@ services:
       HOST: "0.0.0.0"
       REACT_APP_DJANGO_SERVICE: http://localhost:8000
   postgres:
-    image: postgres:14.2-bullseye
+    build:
+      context: ./relational-data
+      dockerfile: ./Dockerfile.dev
     volumes:
-      - lyra-data:/var/lib/postgresql/data
-      - ./db:/docker-entrypoint-initdb.data
+    - lyra-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_MULTIPLE_DATABASES=accounts,songs
-      - POSTGRES_PASSWORD=test-databases
+    - POSTGRES_MULTIPLE_DATABASES=accounts,songs
+    - POSTGRES_PASSWORD=test-databases
     ports:
-      - 15432:5432
+    - 15432:5432
   lyra:
     build:
       context: ./lyra
@@ -36,7 +37,5 @@ services:
     depends_on:
       - postgres
     environment:
-      ACCOUNTS_DATABASE_URL: postgres://accounts:password@postgres:5432/accounts
-      SONGS_DATABASE_URL: postgres://songs:password@postgres:5432/songs
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
