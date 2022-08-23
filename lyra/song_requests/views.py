@@ -37,13 +37,13 @@ def api_songs(request):
         )
     else:
         content = json.loads(request.body)
-        try:
-            band = request.user.band.id
-            content["owner_band"] = band
-        except:
-            return JsonResponse(
-                {'message': "band does not exist or user is not logged in"}
-            )
+        # try:
+        #     band = request.user.band.id
+        #     content["owner_band"] = band
+        # except:
+        #     return JsonResponse(
+        #         {'message': "band does not exist or user is not logged in"}
+            #)
         try:
             category = Category.objects.get(name=content["category"])
             content["category"] = category
@@ -69,7 +69,7 @@ def api_song(request, pk):
         )
     else:
         content = json.loads(request.body)
-        song.update(**content)
+        Song.objects.filter(id=pk).update(**content)
         return JsonResponse(
             song,
             encoder=SongEncoder,
@@ -97,7 +97,6 @@ def api_categories(request):
 require_http_methods(["GET", "PUT"])
 def api_category(request, pk):
     category = Category.objects.get(id=pk)
-    content = json.loads(request.body)
     if request.method == "GET":
         return JsonResponse(
             category,
@@ -105,7 +104,8 @@ def api_category(request, pk):
             safe=False
         )
     else:
-        category.update(**content)
+        content = json.loads(request.body)
+        Category.objects.filter(id=pk).update(**content)
         return JsonResponse(
             category,
             encoder=CategoryEncoder,
