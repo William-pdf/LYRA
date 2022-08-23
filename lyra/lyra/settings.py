@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -75,29 +76,8 @@ WSGI_APPLICATION = 'lyra.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {}
-# DATABASES["default"] = dj_database_url.config(default='postgresql://songs_user:songs_user_password@postgres:5432/songs')
-# DATABASES["accounts"] = dj_database_url.config('postgresql://accounts_user:accounts_user_password@postgres:5432/accounts')
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'songs',
-        'USER': 'songs',
-        'PASSWORD': 'password',
-        'HOST': 'postgres',
-        'PORT': '5432',
-    },
-
-    'accounts': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'accounts',
-        'USER': 'accounts',
-        'PASSWORD': 'password',
-        'HOST': 'postgres',
-        'PORT': '5432',
-    }
-}
+DATABASES = {}
+DATABASES["default"] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
