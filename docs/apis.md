@@ -1,17 +1,14 @@
 # APIs
-audio file api: "/BMAP/{group_id}/writting/audio"
 
-lyrics file api: "/BMAP/{group_id}/writting/lyrics"
+songs api: "songs/"
 
-songlist api: "/BMAP/{group_id}/requests_titles"
+song api: "songs/<int:pk/">
 
-video file api: "/BMAP/{group_id}/pr/video_api"
+categories api: "categories/"
 
-image api: "/BMAP/{group_id}/pr/image_api"
+category api: "categories/<int:pk>/"
 
-text api: "/BMAP/{group_id}/pr/text_api"
 
-finance api: "/BMAP/{group_id}/money/money_api"
 
 # App Enpoints
 Home url(create project/signup): "/BMAP"
@@ -34,15 +31,28 @@ public front end for requests: "/BMAP/{group_id}/requests"
 
 band frontend request list: "/BMAP/{group_id}/requests_list"
 
-songlist api: "/BMAP/{group_id}/requests_titles"
+songlist api: "songs/"
+
+song api: "songs/<int:pk/">
+
+categories api: "categories/"
+
+category api: "categories/<int:pk>/"
+
+
+
+
+
+
+
 
 
 # songwritting audio asset endpoints
-audio file api: "/BMAP/{group_id}/writting/audio"
+audio file api: "/BMAP/{group_id}/writing/audio"
 
-lyrics file api: "/BMAP/{group_id}/writting/lyrics"
+lyrics file api: "/BMAP/{group_id}/writing/lyrics"
 
-writting, projects(group) frontend: "/BMAP/{group_id}/writting"
+writing, projects(group) frontend: "/BMAP/{group_id}/writing"
 
 
 # PR and Venue Assets endpoints
