@@ -22,7 +22,7 @@ services:
     volumes:
     - lyra-data:/var/lib/postgresql/data
     environment:
-    - POSTGRES_MULTIPLE_DATABASES=accounts,songs
+    - POSTGRES_MULTIPLE_DATABASES=lyra
     - POSTGRES_PASSWORD=test-databases
     ports:
     - 15432:5432
@@ -37,5 +37,6 @@ services:
     depends_on:
       - postgres
     environment:
+      DATABASE_URL: "postgres://lyra:password@postgres:5432/lyra"
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
