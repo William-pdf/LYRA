@@ -1,17 +1,14 @@
 # APIs
-audio file api: "/BMAP/{group_id}/writting/audio"
 
-lyrics file api: "/BMAP/{group_id}/writting/lyrics"
+songs api: "songs/"
 
-songlist api: "/BMAP/{group_id}/requests_titles"
+song api: "songs/<int:pk/">
 
-video file api: "/BMAP/{group_id}/pr/video_api"
+categories api: "categories/"
 
-image api: "/BMAP/{group_id}/pr/image_api"
+category api: "categories/<int:pk>/"
 
-text api: "/BMAP/{group_id}/pr/text_api"
 
-finance api: "/BMAP/{group_id}/money/money_api"
 
 # App Enpoints
 Home url(create project/signup): "/BMAP"
@@ -34,56 +31,10 @@ public front end for requests: "/BMAP/{group_id}/requests"
 
 band frontend request list: "/BMAP/{group_id}/requests_list"
 
-songlist api: "/BMAP/{group_id}/requests_titles"
+songlist api: "songs/"
 
+song api: "songs/<int:pk/">
 
-# songwritting audio asset endpoints
-audio file api: "/BMAP/{group_id}/writting/audio"
+categories api: "categories/"
 
-lyrics file api: "/BMAP/{group_id}/writting/lyrics"
-
-writting, projects(group) frontend: "/BMAP/{group_id}/writting"
-
-
-# PR and Venue Assets endpoints
-video file api: "/BMAP/{group_id}/pr/video_api"
-
-image api: "/BMAP/{group_id}/pr/image_api"
-
-text api: "/BMAP/{group_id}/pr/text_api"
-
-user main front end: "/BMAP/{group_id}/pr"
-
-images folder frontend: "/BMAP/{group_id}/pr/images"
-
-image "logo": "/BMAP/{group_id}/pr/images/logos"
-
-image "band pics": "/BMAP/{group_id}/pr/images/group_pics"
-
-image "Promo": "/BMAP/{group_id}/pr/images/promo"
-
-video folder frontend: "/BMAP/{group_id}/pr/videos"
-
-video "music videos": "/BMAP/{group_id}/pr/videos/music_vids"
-
-video "live video": "/BMAP/{group_id}/pr/videos/live_vid"
-
-video "promo": "/BMAP/{group_id}/pr/videos/promo"
-
-text folder frontend: "/BMAP/{group_id}/pr/text"
-
-text "bios": "/BMAP/{group_id}/pr/text/bios"
-
-text "press releases": "/BMAP/{group_id}/pr/text/press"
-
-text "promo": "/BMAP/{group_id}/pr/text/promo"
-
-
-# finance endpoints
-finance api: "/BMAP/{group_id}/money/money_api"
-
-finance spreadsheet frontend: "/BMAP/{group_id}/money"
-
-expense: "/BMAP/{group_id}/money/expense"
-
-income: "/BMAP/{group_id}/money/income"
+category api: "categories/<int:pk>/"
