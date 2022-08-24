@@ -27,14 +27,21 @@ delete/edit permissions and roles(with auth): "/BMAP/{group_id}/admin"
 
 
 # song request endpoints
-public front end for requests: "/BMAP/{group_id}/requests"
+public front end for requests: "/trl/requests"
 
-band frontend request list: "/BMAP/{group_id}/requests_list"
+band frontend request list: "/trl/requests_list"
 
-songlist api: "songs/"
+user catalog: "trl/catalog/"
 
-song api: "songs/<int:pk/">
+create song: "/trl/catalog/new/"
 
-categories api: "categories/"
+edit song: "trl/catalog/<int:pk>"
 
-category api: "categories/<int:pk>/"
+
+songlist api: "trl/api/songs/"
+
+song api: "trl/api/songs/<int:pk/">
+
+categories api: "trl/api/categories/"
+
+category api: "trl/api/categories/<int:pk>/"
