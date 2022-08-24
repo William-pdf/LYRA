@@ -29,7 +29,7 @@ build-front-end-job:
   image: node:lts-bullseye
   needs:
     - lyra-unit-test-job
-    - lint-test-job
+    - lint-job
   script:
     - cd ghi
     - npm install
