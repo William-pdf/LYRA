@@ -17,3 +17,5 @@ Captain's Log Stardate 8/23/2022: More Tests and the back of the Backend:
 
     The tests...are proving to be...more...and more helpful.  I met their leader today.  A quite creature...filled... with wisdom.  He told me that the tests...are there to guide...your code, and then...after they issue a decree of passed.  You can...try it...in..insomnia.  Ok thats enough Kirk.  But as I have come to the end of the first pass of back end code with models, views and urls.  The use of writing tests before manual testing has been really helpful.  I need to get more into testing specifics of certain things like, testing specific content instead of response codes.  But for now I am able to use the response code test as a first hurdle, and then I can get into insomnia and see what is actually being returned, to make sure the json responses can be used in the front end.
 
+Captain's Log Stardate 8/24/2022: CI/CD Pipelines:
+    Today I am implementing the CI/CD pipeline.
