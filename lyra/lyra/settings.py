@@ -26,13 +26,12 @@ SECRET_KEY = 'django-insecure-b_t49ydtkykr-9n^n1)e(%==h-*n!qixc7*%s6x79jn9ya_*r4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'accounts_rest']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'accounts.apps.AccountsConfig',
     'song_requests.apps.SongRequestsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
