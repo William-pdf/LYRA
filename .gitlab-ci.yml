@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - deploy
 
 services:
   - postgres:14.2-bullseye

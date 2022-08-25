@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import dj_database_url
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,12 +27,12 @@ SECRET_KEY = 'django-insecure-b_t49ydtkykr-9n^n1)e(%==h-*n!qixc7*%s6x79jn9ya_*r4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'song_requests.apps.SongRequestsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -50,6 +52,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+ALLOWED_HOSTS = ['localhost', 'accounts_rest']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    os.environ.get("CORS_HOST", "http://localhost:3000")
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+DJWTO_MODE = "TWO-COOKIES"
+DJWTO_ACCESS_TOKEN_LIFETIME = None
+
 
 ROOT_URLCONF = 'lyra.urls'
 
