@@ -10,15 +10,16 @@ class QuerySetEncoder(JSONEncoder):
         else:
             return super().default(o)
 
+
 class ModelEncoder(QuerySetEncoder):
-    encoders={}
-    
+    encoders = {}
+
     def default(self, o):
         if isinstance(o, self.model):
-            d={}
+            d = {}
             if hasattr(o, "get_api_url"):
                 try:
-                    d['href'] = o.get_api_url()
+                    d["href"] = o.get_api_url()
                 except NoReverseMatch:
                     pass
             for property in self.properties:
@@ -31,6 +32,6 @@ class ModelEncoder(QuerySetEncoder):
             return d
         else:
             return super().default(o)
-    
+
     def get_extra_data(self, o):
         return {}
