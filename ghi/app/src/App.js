@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { login, logout, getCurrentUser } from './authFunctions'
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={() => login("Lyra", "winrar69420")}>test login</button>
+        <button onClick={() => getCurrentUser()}>test get</button>
+        <button onClick={() => logout()}>test logout</button>
       </header>
     </div>
   );

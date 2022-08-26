@@ -18,6 +18,14 @@ lyra-unit-test-job:
     - pip install -r requirements.txt
     - python manage.py test
 
+acounts-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd accounts
+    - pip install -r requirements.txt
+    - python manage.py test
+
 lint-job:
   image: python:3-bullseye
   stage: test
