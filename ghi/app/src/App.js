@@ -1,28 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
-import { login, logout, getCurrentUser } from './authFunctions'
+import { AuthProvider } from './useToken';
+import AuthDemo from './AuthDemo';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import UserHome from './UserHome';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={() => login("Lyra", "winrar69420")}>test login</button>
-        <button onClick={() => getCurrentUser()}>test get</button>
-        <button onClick={() => logout()}>test logout</button>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<AuthDemo />} />
+          <Route path="/home" element={<UserHome />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
