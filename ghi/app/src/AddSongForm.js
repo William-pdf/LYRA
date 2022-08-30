@@ -8,7 +8,7 @@ class AddSongForm extends React.Component {
       artist: "",
       category: "",
       categories: [],
-      // requestable: false,
+      is_requestable: true,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleArtistChange = this.handleArtistChange.bind(this);
@@ -23,7 +23,7 @@ class AddSongForm extends React.Component {
     delete data.categories;
     console.log(data);
 
-    const songUrl = "http://localhost:8000/api/songs";
+    const songUrl = "http://localhost:8000/trl/api/songs/";
     const fetchOptions = {
       method: "POST",
       body: JSON.stringify(data),
@@ -46,7 +46,7 @@ class AddSongForm extends React.Component {
   }
 
   async componentDidMount() {
-    const url = "http://localhost:8000/api/categories/";
+    const url = "http://localhost:8000/trl/api/categories/";
     const response = await fetch(url);
     if (response.ok) {
       const data = await response.json();
@@ -114,7 +114,7 @@ class AddSongForm extends React.Component {
                   <option value="category">Choose a category</option>
                   {this.state.categories.map((cat) => {
                     return (
-                      <option key={cat.id} value={cat.id}>
+                      <option key={cat.id} value={cat.name}>
                         {cat.name}
                       </option>
                     );

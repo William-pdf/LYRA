@@ -1,31 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-grid";
+import { useToken } from "./useToken";
 
-class SongRequests extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      next_song: "",
-      most_requested: "",
-      search: "",
-      requests: [],
-      songs: [],
-    };
-    this.handleQueue = this.handleQueue.bind(this);
-    this.handleUnqueue = this.handleUnqueue.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+function SongRequestsPage(props) {
+  const [user, setUser] = useState("");
+  const [token] = useToken();
+  const [songInfo, setSongInfo] = useState({
+    next_song: "",
+    most_requested: "",
+    search: "",
+    requests: [],
+    songs: [],
+  });
 
-  async componentDidMount() {
-    const response = await fetch("http://localhost:8000/api/songs/");
-    if (response.ok) {
-      const data = await response.json();
+  useEffect(() => {
+    async function loadData() {
+      const response = await fetch("http://localhost:8000/trl/api/songs/");
+      if (response.ok) {
+        const data = await response.json();
+        setSongInfo({ ...songInfo, songs: data });
+      }
+      console.log(token);
+      async function getCurrentUser() {
+        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
+        const response = await fetch(url, {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const user = await response.json();
+          setUser(user);
+        }
+      }
+      if (token) {
+        getCurrentUser();
+      }
     }
-  }
+    loadData();
+  }, []);
 
-  async handleQueue(song) {
+  async function handleQueue(song) {
     console.log(song);
-    const url = `http://localhost:8000/api/songs/${song}`;
+    const url = `http://localhost:8000/trl/api/songs/${song}`;
     const requestOption = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -33,14 +48,14 @@ class SongRequests extends React.Component {
     const response = await fetch(url, requestOption);
     if (response.ok) {
       const data = await response.json();
-      const updatedList = [...this.state.songs];
+      const updatedList = [...songInfo.songs];
       let index = updatedList.indexOf(song);
       const queuedSong = updatedList.splice(index, 1);
-      this.setState({ songs: updatedList });
+      setSongInfo({ ...songInfo, songs: updatedList });
     }
   }
 
-  async handleUnqueue(song) {
+  async function handleUnqueue(song) {
     console.log(song);
     const songsUrl = `http://localhost:8080/api/songs/${song}/`;
     const fetchConfig = {
@@ -52,92 +67,89 @@ class SongRequests extends React.Component {
     };
   }
 
-  handleSearchChange(event) {
-    const value = event.target.value;
-    this.setState({ search: value });
+  function handleSearchChange(e) {
+    const value = e.target.value;
+    setSongInfo({ ...songInfo, search: value });
   }
 
-  async handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    const songs_list = this.state.songs.filter((song) => {
-      return song.name === this.state.name;
+    const songs_list = songInfo.songs.filter((song) => {
+      return song.name === songInfo.name;
     });
-    this.setState({ songs: songs_list });
+    setSongInfo({ ...songInfo, songs: songs_list });
   }
 
-  render() {
-    return (
-      <>
-        <h1>Request a song</h1>
-        <form onSubmit={this.handleSubmit} id="song_list">
-          <div className="main-search-input-wrap">
-            <div className="main-search-input fl-wrap">
-              <div className="main-search-input-item">
-                <input
-                  onChange={this.handleSearchChange}
-                  value={this.state.search}
-                  type="text"
-                  placeholder="Search song"
-                  requiredtype="text"
-                  name="search"
-                  id="search"
-                />
-              </div>
-              <button className="main-search-button">Search</button>
+  return (
+    <>
+      <h1>Request a song</h1>
+      <form onSubmit={handleSubmit} id="song_list">
+        <div className="main-search-input-wrap">
+          <div className="main-search-input fl-wrap">
+            <div className="main-search-input-item">
+              <input
+                onChange={handleSearchChange}
+                value={songInfo.search}
+                type="text"
+                placeholder="Search song"
+                name="search"
+                id="search"
+              />
             </div>
+            <button className="main-search-button">Search</button>
           </div>
-        </form>
-        <Container>
-          <Row>
-            <Col />
-            <table>
-              <thead>
-                <tr>
-                  <th>Songs</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.songs.map((song) => {
-                  return (
-                    <tr key={song.name}>
-                      <td>{song.name}</td>
-                      <td>
-                        <button
-                          onClick={() => this.handleQueue(song.id)}
-                          type="button"
-                          className="btn btn-danger"
-                        >
-                          Queue
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <Col />
-            <table>
-              <thead>
-                <tr>
-                  <th>Next up</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.songs.map((song) => {
-                  return (
-                    <tr key={song.name}>
-                      <td>{song.name}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </Row>
-        </Container>
-      </>
-    );
-  }
+        </div>
+      </form>
+      <Container>
+        <Row>
+          <Col />
+          <table>
+            <thead>
+              <tr>
+                <th>Songs</th>
+              </tr>
+            </thead>
+            <tbody>
+              {songInfo.songs.songs?.map((song) => {
+                return (
+                  <tr key={song.id}>
+                    <td>{song.title}</td>
+                    <td>
+                      <button
+                        onClick={() => handleQueue(song.id)}
+                        type="button"
+                        className="btn btn-danger"
+                      >
+                        Queue
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <Col />
+          <table>
+            <thead>
+              <tr>
+                <th>Next up</th>
+              </tr>
+            </thead>
+            <tbody>
+              {songInfo.songs.songs?.map((song) => {
+                return (
+                  <tr key={song.id}>
+                    <td>{song.title}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </Row>
+      </Container>
+    </>
+  );
 }
 
-export default SongRequests;
+export default SongRequestsPage;

@@ -15,6 +15,8 @@ function App() {
         <Routes>
           <Route path="song_requests/" element={<SongRequestPage />} />
           <Route path="add_song/" element={<AddSongForm />} />
+          <Route path="login/" element={<AuthDemo />} />
+          <Route path="user_home/" element={<UserHome />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
