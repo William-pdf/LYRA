@@ -102,7 +102,7 @@ export function useToken() {
     return handleErrorMessage(error);
   }
 
-  async function signup(username, password, email, firstName, lastName) {
+  async function signup(username, password, email) {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/accounts/`;
     const response = await fetch(url, {
       method: 'post',
@@ -110,8 +110,6 @@ export function useToken() {
         username,
         password,
         email,
-        first_name: firstName,
-        last_name: lastName,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -123,7 +121,7 @@ export function useToken() {
     return false;
   }
 
-  async function update(username, password, email, firstName, lastName) {
+  async function update(username, password, email) {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/accounts/`;
     const response = await fetch(url, {
       method: 'post',
@@ -131,8 +129,6 @@ export function useToken() {
         username,
         password,
         email,
-        first_name: firstName,
-        last_name: lastName,
       }),
       headers: {
         'Content-Type': 'application/json',
