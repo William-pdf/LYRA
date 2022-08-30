@@ -30,7 +30,6 @@ build-front-end-job:
   image: node:lts-bullseye
   needs:
     - lyra-unit-test-job
-    - lint-job
   script:
     - cd ghi
     - cd app
