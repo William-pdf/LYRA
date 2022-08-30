@@ -25,8 +25,6 @@ class SongEncoder(ModelEncoder):
 
 
 require_http_methods(["GET", "POST"])
-
-
 def api_songs(request):
     if request.method == "GET":
         songs = Song.objects.all()
@@ -50,8 +48,6 @@ def api_songs(request):
 
 
 require_http_methods(["GET", "PUT"])
-
-
 def api_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method == "GET":
@@ -63,8 +59,6 @@ def api_song(request, pk):
 
 
 require_http_methods(["GET", "POST"])
-
-
 def api_categories(request):
     if request.method == "GET":
         categories = Category.objects.all()
@@ -78,8 +72,6 @@ def api_categories(request):
 
 
 require_http_methods(["GET", "PUT"])
-
-
 def api_category(request, pk):
     category = Category.objects.get(id=pk)
     if request.method == "GET":

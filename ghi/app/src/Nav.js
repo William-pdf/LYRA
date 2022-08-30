@@ -23,6 +23,9 @@ function Nav() {
             <li className="nav-item">
               <NavLink to="song_requests/">Request a song</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to="add_song/">Add a song</NavLink>
+            </li>
           </ul>
         </div>
       </div>
