@@ -65,7 +65,7 @@ pages:  # THIS STEP MUST BE NAME PAGES
      # THE FIRST PART OF THIS COMMAND MUST BE THE DIRECTORY
      # THAT YOU cd INTO TO BUILD IT PLUS THE build/ AT THE
      # END
-    - mv ghi/build/ public
+    - mv ghi/app/build/ public
   artifacts:
     paths:
       - public
