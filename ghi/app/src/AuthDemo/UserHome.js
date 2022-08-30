@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 function UserHome() {
   // eslint-disable-next-line no-unused-vars
-  const [token, login, logout] = useToken();
+  const [token] = useToken();
   const [user, setUser] = useState('');
 
   useEffect(() => {

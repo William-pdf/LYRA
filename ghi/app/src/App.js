@@ -1,8 +1,8 @@
 import './App.css';
 import { AuthProvider } from './useToken';
-import AuthDemo from './AuthDemo';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserHome from './AuthDemo/UserHome';
+import AuthDemo from './AuthDemo/AuthDemo';
 
 function App() {
   return (

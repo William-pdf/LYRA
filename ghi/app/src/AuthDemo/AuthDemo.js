@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useToken } from './useToken';
+import { useToken } from '../useToken';
 
 export default function AuthDemo() {
   // eslint-disable-next-line no-unused-vars
