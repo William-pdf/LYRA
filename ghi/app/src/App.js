@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 function App() {
   const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, 'https://Deion.Liu.gitlab.io/band-managing-app');
+  const basename = process.env.PUBLIC_URL.replace(domain, 'lyra/');
   return (
     <BrowserRouter basename={basename}>
       {
