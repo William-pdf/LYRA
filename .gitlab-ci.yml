@@ -41,7 +41,6 @@ build-front-end-job:
     # SEE BELOW HOW TO SET THIS
   needs:
     - lyra-unit-test-job
-    - accounts-unit-test-job
   script:
     - cd ghi
     - cd app
