@@ -31,8 +31,8 @@ lint-job:
   image: python:3-bullseye
   stage: test
   script:
-  - pip install flake8
-  - flake8 lyra
+    - pip install flake8
+    - flake8 lyra
 
 build-front-end-job:
   stage: build
@@ -40,7 +40,6 @@ build-front-end-job:
   needs:
     - lyra-unit-test-job
     - acounts-unit-test-job
-    - lint-job
   script:
     - cd ghi
     - cd app
