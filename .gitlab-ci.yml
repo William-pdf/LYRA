@@ -104,7 +104,7 @@ build-accounts-image-job:  # RENAME THIS
     # TO A MORE MEANINGFUL SERVICE NAME (5 PLACES)
     - docker build -t ${CI_REGISTRY_IMAGE}/accounts:latest .
     - docker tag ${CI_REGISTRY_IMAGE}/accounts:latest ${CI_REGISTRY_IMAGE}/accounts:$CI_JOB_ID
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker push ${CI_REGISTRY_IMAGE}/accounts:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/accounts:latest
 
@@ -119,7 +119,7 @@ deploy-song-request-image-job:  # RENAME THIS
   services:
     - docker:20.10.16-dind
   script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
     # EVERYWHERE IT SHOWS fastapi_api BELOW, CHANGE THOSE
@@ -146,7 +146,7 @@ deploy-accounts-image-job:  # RENAME THIS
   services:
     - docker:20.10.16-dind
   script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
 
     # EVERYWHERE IT SHOWS fastapi_api BELOW, CHANGE THOSE
