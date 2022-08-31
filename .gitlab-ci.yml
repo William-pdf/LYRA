@@ -51,7 +51,7 @@ build-front-end-job:
     - cp build/index.html build/404.html  # Make this a SPA
   artifacts:
     paths:
-      - ghi/build/  # Save all of the files in the build path
+      - ghi/app/build/  # Save all of the files in the build path
 
 pages:  # THIS STEP MUST BE NAME PAGES
   stage: deploy
