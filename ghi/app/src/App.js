@@ -6,7 +6,7 @@ import AuthDemo from './AuthDemo/AuthDemo';
 
 function App() {
   const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, 'lyra/');
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
     <BrowserRouter basename={basename}>
       <AuthProvider>

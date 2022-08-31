@@ -62,6 +62,7 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://lyra-song-request-api.herokuapp.com",
     os.environ.get("CORS_HOST", "http://localhost:3000")
 ]
 

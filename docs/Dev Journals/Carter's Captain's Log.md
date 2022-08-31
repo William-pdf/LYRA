@@ -25,5 +25,7 @@ Captain's Log Star-date 8/24/2022: CI Pipelines:
 
 Captain's Log Star-date 8/30/2022: Deployment Testing:
 
-    Remove the protected tag in the gitlab variables page will prevent a dev branch from deploying a CD pipeline.  Error comes up as can't interact with non TTY device.
+    After 11 tests I finally got the Deployment pipeline to complete.  Heroku DBs are all up and running and I even tested them out with insomnia, I can make some data.  There is an issue coming up with the Gitlab page though.  I feel like there is some miner setting somewhere in either the CI file or the package.json.  I'm not really sure right now.  Im just really tired and vey happy that a major part of the deployment is done.  Tomorrow I will take another crack at the GHI and see if I can figure that out on my own, and if i need help i'll shoot someone a message.  The following is a bug fix that I wanted written down somewhere as I'm sure it will plague me in the future.
+
+    bug_fix: The protected tag in the gitlab variables page will prevent a dev branch from deploying a CD pipeline.  Either remove the protected tag or make the branch a protected branch.  Error comes up as "can't interact with non TTY device."  
 
