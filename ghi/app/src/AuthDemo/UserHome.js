@@ -3,7 +3,6 @@ import { useToken } from '../useToken';
 import { useState, useEffect } from 'react';
 
 function UserHome() {
-  // eslint-disable-next-line no-unused-vars
   const [token] = useToken();
   const [user, setUser] = useState('');
 

@@ -6,14 +6,14 @@ import AuthDemo from './AuthDemo/AuthDemo';
 
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <AuthProvider>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<AuthDemo />} />
           <Route path="/home" element={<UserHome />} />
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
