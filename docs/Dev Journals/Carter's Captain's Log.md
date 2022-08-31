@@ -25,5 +25,5 @@ Captain's Log Star-date 8/24/2022: CI Pipelines:
 
 Captain's Log Star-date 8/30/2022: Deployment Testing:
 
-    
+    Remove the protected tag in the gitlab variables page will prevent a dev branch from deploying a CD pipeline.  Error comes up as can't interact with non TTY device.
 
