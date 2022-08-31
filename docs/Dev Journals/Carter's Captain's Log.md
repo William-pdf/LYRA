@@ -23,3 +23,7 @@ Captain's Log Star-date 8/24/2022: CI Pipelines:
 
     Also I think Matt finally landed on an infrastructure to build the accounts with.  Its going to be a separate microservice with JWTs as the authentication.  Its been such a back and forth for him on this.  Its like he's been standing over a console with two different buttons and keeps changing his mind right before he pushes one.  But hey, if all the fuss saves him from a bunch of headaches down the line, I can dig it.  I'm just glade he can take a breath and get into some code.    
 
+Captain's Log Star-date 8/30/2022: Deployment Testing:
+
+    
+

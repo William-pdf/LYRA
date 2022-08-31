@@ -55,7 +55,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    ".localhost",
+    "127.0.0.1",
+    "[::1]",
+    'lyra-accounts-api.herokuapp.com',
+    os.environ.get("DEPLOYED_HOST", "localhost"),
+]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
