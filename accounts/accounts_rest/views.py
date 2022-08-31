@@ -37,7 +37,7 @@ def api_current_user(request):
     user = CustomUser.objects.get(id=user_id)
     return JsonResponse(
         {
-            "is_staff": user.is_staff,
+            "id": user.id,
             "username": user.username,
             "email": user.email,
             "artist_name": user.artist_name,
@@ -78,6 +78,29 @@ def create_user(json_content):
         return 409, {"message": str(e)}, None
     except ValueError as e:
         return 400, {"message": str(e)}, None
+
+
+@require_http_methods(["GET", "PUT", "DELETE"])
+def api_account_detail(request, id):
+    try:
+        account = CustomUser.objects.filter(is_active=True).get(id=id)
+    except CustomUser.DoesNotExist:
+        response = JsonResponse({"message": f"User with id of {id} does not exist."})
+        response.status_code = 404
+        return response
+
+    if request.method == "GET":
+        return JsonResponse(account, encoder=AccountDetailEncoder, safe=False)
+    elif request.method == "PUT":
+        content = json.loads(request.body)
+        for field in content:
+            setattr(account, field, content[field])
+        account.save()
+        return JsonResponse(account, encoder=AccountDetailEncoder, safe=False)
+    else:
+        account.is_active = False
+        account.save()
+        return JsonResponse({"message": "User successfully deleted."})
 
 
 @require_http_methods(["POST"])
