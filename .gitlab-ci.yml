@@ -10,7 +10,6 @@ variables:
   POSTGRES_PASSWORD: test
   DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
   DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb
-  DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb
 
 lyra-unit-test-job:
   image: python:3-bullseye
