@@ -24,9 +24,7 @@ class SongEncoder(ModelEncoder):
     encoders = {CategoryEncoder}
 
 
-require_http_methods(["GET", "POST"])
-
-
+@require_http_methods(["GET", "POST"])
 def api_songs(request):
     if request.method == "GET":
         songs = Song.objects.all()
@@ -49,9 +47,7 @@ def api_songs(request):
         return JsonResponse(song, encoder=SongEncoder, safe=False)
 
 
-require_http_methods(["GET", "PUT"])
-
-
+@require_http_methods(["GET", "PUT"])
 def api_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method == "GET":
@@ -62,9 +58,7 @@ def api_song(request, pk):
         return JsonResponse(song, encoder=SongEncoder, safe=False)
 
 
-require_http_methods(["GET", "POST"])
-
-
+@require_http_methods(["GET", "POST"])
 def api_categories(request):
     if request.method == "GET":
         categories = Category.objects.all()
@@ -77,9 +71,7 @@ def api_categories(request):
         return JsonResponse(category, encoder=CategoryEncoder, safe=False)
 
 
-require_http_methods(["GET", "PUT"])
-
-
+@require_http_methods(["GET", "PUT"])
 def api_category(request, pk):
     category = Category.objects.get(id=pk)
     if request.method == "GET":

@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-b_t49ydtkykr-9n^n1)e(%==h-*n!qixc7*%s6x79jn9ya_*r4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not os.environ.get("DEBUG")
 
 
 
@@ -52,10 +52,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-ALLOWED_HOSTS = ['localhost', 'accounts_rest']
+ALLOWED_HOSTS = [
+    ".localhost",
+    "127.0.0.1",
+    "[::1]",
+    'lyra-song-request-api.herokuapp.com',
+    os.environ.get("DEPLOYED_HOST", "localhost"),
+]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://lyra-song-request-api.herokuapp.com",
     os.environ.get("CORS_HOST", "http://localhost:3000")
 ]
 

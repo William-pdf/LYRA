@@ -8,7 +8,9 @@ categories api: "categories/"
 
 category api: "categories/<int:pk>/"
 
+accounts api base: https://lyra-accounts-api.herokuapp.com/
 
+song-request-api base: https://lyra-song-request-api.herokuapp.com/
 
 # App Enpoints
 Home url(create project/signup): "/BMAP"

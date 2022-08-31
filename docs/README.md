@@ -69,3 +69,7 @@
             -can be part of multiple projects
             -has access to Song Request Audience feature
 
+
+# Stretch Continuation
+
+-use websockets for request queue
