@@ -38,7 +38,7 @@ build-front-end-job:
   stage: build
   image: node:lts-bullseye
   variables:
-    PUBLIC_URL: https://Deion.Liu.gitlab.io/band-managing-app
+    PUBLIC_URL: https://deion.liu.gitlab.io/band-managing-app
     # SEE BELOW HOW TO SET THIS
   needs:
     - lyra-unit-test-job
