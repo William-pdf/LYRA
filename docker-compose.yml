@@ -38,7 +38,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: "postgres://lyra:password@postgres:5432/lyra"
+      DATABASE_URL: "postgres://rnvlzaubkvzlzx:17894fabe641d7663fc3a2ed62f6ca11769fb74bdc80cb96c8df623a7191cf3b@ec2-44-193-178-122.compute-1.amazonaws.com:5432/ddgll41b9upt8b"
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
       DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb
@@ -53,7 +53,7 @@ services:
     depends_on:
       - postgres
     environment:
-        DATABASE_URL: "postgres://lyra:password@postgres:5432/accounts"
+        DATABASE_URL: "postgres://stovlnucnvqezr:814d978383224d40fe61c0001f41326b81e0b3e8f588db2dc6821adeb73c0686@ec2-44-205-63-142.compute-1.amazonaws.com:5432/dtkl4bajrlrcp"
         WAIT_HOSTS: postgres:5432
         WAIT_TIMEOUT: 240
         DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb

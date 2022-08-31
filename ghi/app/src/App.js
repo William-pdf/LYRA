@@ -5,9 +5,11 @@ import UserHome from './AuthDemo/UserHome';
 import AuthDemo from './AuthDemo/AuthDemo';
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<AuthDemo />} />
           <Route path="/home" element={<UserHome />} />
