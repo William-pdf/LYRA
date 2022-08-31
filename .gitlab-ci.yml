@@ -108,7 +108,7 @@ build-accounts-image-job:  # RENAME THIS
     - docker push ${CI_REGISTRY_IMAGE}/accounts:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/accounts:latest
 
-deploy-song-request-image-job:  # RENAME THIS
+deploy-song-request-image-job: 
   rules:
     - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
   stage: deploy
@@ -135,7 +135,7 @@ deploy-song-request-image-job:  # RENAME THIS
     - docker tag ${CI_REGISTRY_IMAGE}/song_request:latest registry.heroku.com/$HEROKU_SONG_REQUEST_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_SONG_REQUEST_APP/web:latest
 
-deploy-accounts-image-job:  # RENAME THIS
+deploy-accounts-image-job:  
   rules:
     - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
   stage: deploy
