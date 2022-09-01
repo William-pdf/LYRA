@@ -39,7 +39,8 @@ build-front-end-job:
   image: node:lts-bullseye
   variables:
     PUBLIC_URL: https://deion.liu.gitlab.io/band-managing-app
-    REACT_APP_ACCOUNTS_HOST: https://deion.liu.gitlab.io/band-managing-app
+    REACT_APP_ACCOUNTS_HOST: https://lyra-accounts-api.herokuapp.com/
+    REACT_APP_DJANGO_SERVICE: https://lyra-song-request-api.herokuapp.com/trl/
     # SEE BELOW HOW TO SET THIS
   needs:
     - lyra-unit-test-job
