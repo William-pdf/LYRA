@@ -1,8 +1,11 @@
-import './App.css';
-import { AuthProvider } from './useToken';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UserHome from './AuthDemo/UserHome';
-import AuthDemo from './AuthDemo/AuthDemo';
+import "./App.css";
+import { AuthProvider } from "./useToken";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import UserHome from "./AuthDemo/UserHome";
+import AuthDemo from "./AuthDemo/AuthDemo";
+import Nav from "./Nav";
+import SongRequestPage from "./SongRequestPage";
+import AddSongForm from "./AddSongForm";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -10,9 +13,10 @@ function App() {
   return (
     <BrowserRouter basename={basename}>
       <AuthProvider>
+        <Nav />
         <Routes>
-          <Route path="/" element={<AuthDemo />} />
-          <Route path="/home" element={<UserHome />} />
+          <Route path="song_requests/" element={<SongRequestPage />} />
+          <Route path="add_song/" element={<AddSongForm />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
