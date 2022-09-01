@@ -1,3 +1,4 @@
+import djwto.authentication as auth
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from .models import Song, Category
@@ -18,13 +19,14 @@ class SongEncoder(ModelEncoder):
         "id",
         "title",
         "artist",
-        "owner_band",
+        "owner_artist",
         "category_id",
     ]
     encoders = {CategoryEncoder}
 
 
 @require_http_methods(["GET", "POST"])
+@auth.jwt_login_required
 def api_songs(request):
     if request.method == "GET":
         songs = Song.objects.all()
@@ -39,7 +41,8 @@ def api_songs(request):
         #         {'message': "band does not exist or user is not logged in"}
         # )
         try:
-            category = Category.objects.get(name=content["category"])
+            # TODO: Change to look up by category id for consistency?
+            category = Category.objects.get(id=content["category"])
             content["category"] = category
         except Category.DoesNotExist:
             return JsonResponse({"message": "category does not exist"})
@@ -48,6 +51,7 @@ def api_songs(request):
 
 
 @require_http_methods(["GET", "PUT"])
+@auth.jwt_login_required
 def api_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method == "GET":
@@ -59,6 +63,7 @@ def api_song(request, pk):
 
 
 @require_http_methods(["GET", "POST"])
+@auth.jwt_login_required
 def api_categories(request):
     if request.method == "GET":
         categories = Category.objects.all()
@@ -72,6 +77,7 @@ def api_categories(request):
 
 
 @require_http_methods(["GET", "PUT"])
+@auth.jwt_login_required
 def api_category(request, pk):
     category = Category.objects.get(id=pk)
     if request.method == "GET":

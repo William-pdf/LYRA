@@ -15,7 +15,7 @@ class Song(models.Model):
     artist = models.CharField(max_length=50, null=True, blank=True)
     is_requested = models.BooleanField(default=False)
     is_requestable = models.BooleanField(default=True)
-    owner_band = models.PositiveIntegerField(default=0)
+    owner_artist = models.PositiveIntegerField()
     category = models.ForeignKey(
         Category, related_name="songs", on_delete=models.PROTECT
     )

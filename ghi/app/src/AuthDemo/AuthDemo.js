@@ -32,6 +32,8 @@ export default function AuthDemo() {
             onChange={(e) => setUsername(e.target.value)}
           />
           <label htmlFor="username">Username</label>
+        </div>
+        <div className="form-floating mb-3">
           <input
             type="password"
             className="form-control"
@@ -41,6 +43,7 @@ export default function AuthDemo() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <label htmlFor="password">Password</label>
         </div>
         <button type="submit" className="btn btn-primary">
           Submit

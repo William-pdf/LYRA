@@ -8,14 +8,14 @@ function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
-    <AuthProvider>
-      <BrowserRouter basename={basename}>
+    <BrowserRouter basename={basename}>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<AuthDemo />} />
           <Route path="/home" element={<UserHome />} />
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
