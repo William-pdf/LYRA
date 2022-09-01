@@ -26,7 +26,7 @@ class SongModelTests(TestCase):
             {
                 "title": "Ur new song",
                 "artist": "Billy joel",
-                "owner_band": 0,
+                "owner_artist": 0,
                 "category": "rock",
             }
         )

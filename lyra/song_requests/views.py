@@ -1,10 +1,12 @@
-from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
-from .models import Song, Category
-from .json import ModelEncoder
 import json
 
-# Create your views here.
+import djwto.authentication as auth
+from django.db import IntegrityError
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+
+from .models import Song, Category
+from .json import ModelEncoder
 
 
 class CategoryEncoder(ModelEncoder):
@@ -18,14 +20,21 @@ class SongEncoder(ModelEncoder):
         "id",
         "title",
         "artist",
-        "owner_band",
+        "owner_artist",
         "category_id",
+        "is_requested",
+        "is_requestable",
     ]
     encoders = {CategoryEncoder}
 
 
-require_http_methods(["GET", "POST"])
+@require_http_methods(["GET", "POST"])
+@auth.jwt_login_required
 def api_songs(request):
+    dict_from_payload = json.dumps(request.payload)
+    user_info = json.loads(dict_from_payload)
+    user_id = user_info["user"]["id"]
+
     if request.method == "GET":
         songs = Song.objects.all()
         return JsonResponse({"songs": songs}, encoder=SongEncoder, safe=False)
@@ -39,26 +48,28 @@ def api_songs(request):
         #         {'message': "band does not exist or user is not logged in"}
         # )
         try:
-            category = Category.objects.get(name=content["category"])
+            category = Category.objects.get(id=content["category"])
             content["category"] = category
         except Category.DoesNotExist:
-            return JsonResponse({"message": "category does not exist"})
+            return JsonResponse({"message": "category does not exist"}, status=404)
         song = Song.objects.create(**content)
         return JsonResponse(song, encoder=SongEncoder, safe=False)
 
 
-require_http_methods(["GET", "PUT"])
+@require_http_methods(["GET", "PUT"])
+@auth.jwt_login_required
 def api_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method == "GET":
         return JsonResponse(song, encoder=SongEncoder, safe=False)
     else:
         content = json.loads(request.body)
-        Song.objects.filter(id=pk).update(**content)
+        Song.objects.get(id=pk).update(**content)
         return JsonResponse(song, encoder=SongEncoder, safe=False)
 
 
-require_http_methods(["GET", "POST"])
+@require_http_methods(["GET", "POST"])
+@auth.jwt_login_required
 def api_categories(request):
     if request.method == "GET":
         categories = Category.objects.all()
@@ -67,11 +78,17 @@ def api_categories(request):
         )
     else:
         content = json.loads(request.body)
-        category = Category.objects.create(**content)
+        try:
+            category = Category.objects.create(**content)
+        except IntegrityError:
+            return JsonResponse(
+                {"message": "Category with same name already exists."}, status=409
+            )
         return JsonResponse(category, encoder=CategoryEncoder, safe=False)
 
 
-require_http_methods(["GET", "PUT"])
+@require_http_methods(["GET", "PUT"])
+@auth.jwt_login_required
 def api_category(request, pk):
     category = Category.objects.get(id=pk)
     if request.method == "GET":

@@ -8,8 +8,10 @@ import SongRequestPage from "./SongRequestPage";
 import AddSongForm from "./AddSongForm";
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <AuthProvider>
         <Nav />
         <Routes>
