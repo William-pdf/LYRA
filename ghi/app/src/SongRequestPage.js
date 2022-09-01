@@ -40,9 +40,10 @@ function SongRequestsPage(props) {
 
   async function handleQueue(song) {
     console.log(song);
-    const url = `http://localhost:8000/trl/api/songs/${song}`;
+    const url = `http://localhost:8000/trl/api/songs/${song}/`;
     const requestOption = {
       method: "PUT",
+      body: JSON.stringify(song),
       headers: { "Content-Type": "application/json" },
     };
     const response = await fetch(url, requestOption);
@@ -103,7 +104,6 @@ function SongRequestsPage(props) {
       </form>
       <Container>
         <Row>
-          <Col />
           <table>
             <thead>
               <tr>
@@ -124,23 +124,6 @@ function SongRequestsPage(props) {
                         Queue
                       </button>
                     </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <Col />
-          <table>
-            <thead>
-              <tr>
-                <th>Next up</th>
-              </tr>
-            </thead>
-            <tbody>
-              {songInfo.songs.songs?.map((song) => {
-                return (
-                  <tr key={song.id}>
-                    <td>{song.title}</td>
                   </tr>
                 );
               })}

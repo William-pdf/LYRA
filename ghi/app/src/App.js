@@ -6,6 +6,7 @@ import AuthDemo from "./AuthDemo/AuthDemo";
 import Nav from "./Nav";
 import SongRequestPage from "./SongRequestPage";
 import AddSongForm from "./AddSongForm";
+import CategoryForm from "./CategoryForm";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
@@ -19,6 +20,7 @@ function App() {
           <Route path="add_song/" element={<AddSongForm />} />
           <Route path="login/" element={<AuthDemo />} />
           <Route path="user_home/" element={<UserHome />} />
+          <Route path="add_category/" element={<CategoryForm />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
