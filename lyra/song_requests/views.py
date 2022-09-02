@@ -31,22 +31,18 @@ class SongEncoder(ModelEncoder):
 @require_http_methods(["GET", "POST"])
 @auth.jwt_login_required
 def api_songs(request):
-    dict_from_payload = json.dumps(request.payload)
-    user_info = json.loads(dict_from_payload)
-    user_id = user_info["user"]["id"]
-
     if request.method == "GET":
         songs = Song.objects.all()
         return JsonResponse({"songs": songs}, encoder=SongEncoder, safe=False)
     else:
+        # json.loads() requires type string, bytes, or bytearray, so we can't directly
+        # pass in the dict from the request. E.g. json.dumps(request.payload) won't work.
+        dict_from_payload = json.dumps(request.payload)
+        user_info = json.loads(dict_from_payload)
+        user_id = user_info["user"]["id"]
+
         content = json.loads(request.body)
-        # try:
-        #     band = request.user.band.id
-        #     content["owner_band"] = band
-        # except:
-        #     return JsonResponse(
-        #         {'message': "band does not exist or user is not logged in"}
-        # )
+        content["owner_artist"] = user_id
         try:
             category = Category.objects.get(id=content["category"])
             content["category"] = category
@@ -64,7 +60,7 @@ def api_song(request, pk):
         return JsonResponse(song, encoder=SongEncoder, safe=False)
     else:
         content = json.loads(request.body)
-        Song.objects.get(id=pk).update(**content)
+        Song.objects.filter(id=pk).update(**content)
         return JsonResponse(song, encoder=SongEncoder, safe=False)
 
 
