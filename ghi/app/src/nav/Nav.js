@@ -1,11 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import logo from '../lyra_logo/logo_skinny.png';
+import './nav.css';
 
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
-          Band Management App
+          <img className="logo" src={logo} alt="Lyra" />
         </NavLink>
         <button
           className="navbar-toggler"
@@ -19,12 +21,11 @@ function Nav() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0" id="nav-list">
             <li className="nav-item">
-              <NavLink to="requests/">Request a song</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="catalog/add/">Add a song</NavLink>
+              <NavLink className="nav-link" to="catalog/">
+                <h3 className="link-nav">CATALOG</h3>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -32,5 +33,4 @@ function Nav() {
     </nav>
   );
 }
-
 export default Nav;

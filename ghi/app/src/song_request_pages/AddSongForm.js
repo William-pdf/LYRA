@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
 class AddSongForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      artist: "",
-      category: "",
+      title: '',
+      artist: '',
+      category: '',
       is_requestable: true,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -18,16 +18,16 @@ class AddSongForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
-    console.log("####", data);
+    console.log('####', data);
 
-    const songUrl = "http://localhost:8000/trl/api/songs/";
+    const songUrl = 'http://localhost:8000/trl/api/songs/';
     const fetchOptions = {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
     };
     const songResponse = await fetch(songUrl, fetchOptions);
     if (songResponse.ok) {
@@ -35,9 +35,9 @@ class AddSongForm extends React.Component {
       console.log(newSong);
 
       const cleared = {
-        title: "",
-        artist: "",
-        category: "",
+        title: '',
+        artist: '',
+        category: '',
       };
       this.setState(cleared);
     }

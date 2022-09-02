@@ -72,4 +72,12 @@
 
 # Stretch Continuation
 
--use websockets for request queue
+- use websockets for request queue
+- limit artists from adding duplicate songs
+
+
+
+
+
+# Final Deployment Preparations 
+- Populate Category models with our categories in Production DB

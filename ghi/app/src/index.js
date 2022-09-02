@@ -1,33 +1,33 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 async function loadLyraViews() {
   let songsData, categoriesData;
 
   const songsResponse = await fetch(
     `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`,
-    { credentials: "include" }
+    { credentials: 'include' }
   );
   const categoriesResponse = await fetch(
     `${process.env.REACT_APP_DJANGO_SERVICE}/api/categories`,
-    { credentials: "include" }
+    { credentials: 'include' }
   );
 
   if (songsResponse.ok) {
     songsData = await songsResponse.json();
-    console.log("songs in db:", songsData);
+    console.log('songs in db:', songsData);
   } else {
     console.error(songsResponse);
   }
 
   if (categoriesResponse.ok) {
     categoriesData = await categoriesResponse.json();
-    console.log("categories in db:", categoriesData);
+    console.log('categories in db:', categoriesData);
   } else {
     console.error(categoriesResponse);
   }
