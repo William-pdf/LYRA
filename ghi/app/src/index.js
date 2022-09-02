@@ -9,17 +9,19 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 async function loadLyraViews() {
   let songsData, categoriesData;
 
-  const songsResponse = await fetch(`${REACT_APP_DJANGO_SERVICE}/api/songs/`);
+  const songsResponse = await fetch(
+    `${process.env.REACT_APP_DJANGO_SERVICE}api/songs/`
+  );
   const categoriesResponse = await fetch(
-    `${REACT_APP_DJANGO_SERVICE}/api/categories`
+    `${process.env.REACT_APP_DJANGO_SERVICE}api/categories`
   );
 
-  if (songsResponse.ok) {
-    songsData = await songsResponse.json();
-    console.log("songs in db:", songsData);
-  } else {
-    console.error(songsResponse);
-  }
+  // if (songsResponse.ok) {
+  //   songsData = await songsResponse.json();
+  //   console.log("songs in db:", songsData);
+  // } else {
+  //   console.error(songsResponse);
+  // }
 
   if (categoriesResponse.ok) {
     categoriesData = await categoriesResponse.json();

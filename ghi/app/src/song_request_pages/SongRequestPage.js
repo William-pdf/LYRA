@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-grid";
-import { useToken } from "./useToken";
+import { useToken } from "../useToken";
 
 function SongRequestsPage(props) {
   const [user, setUser] = useState("");
@@ -22,7 +22,7 @@ function SongRequestsPage(props) {
       }
       console.log(token);
       async function getCurrentUser() {
-        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
+        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}api/tokens/me/`;
         const response = await fetch(url, {
           credentials: "include",
         });

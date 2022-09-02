@@ -1,9 +1,10 @@
 import "./App.css";
 import { AuthProvider } from "./useToken";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Nav from "./Nav/Nav";
+import Nav from "./nav/Nav";
 import SongRequestPage from "./song_request_pages/SongRequestPage";
 import AddSongForm from "./song_request_pages/AddSongForm";
+import AuthDemo from "./AuthDemo/AuthDemo";
 
 function App(props) {
   let { songs, categories } = props;
@@ -15,28 +16,28 @@ function App(props) {
         <Nav />
         <div className="container">
           <Routes>
-            <Route path="songs/">
-              <Route index element={<MyCatalogPage songs={songs} />} />
+            <Route path="catalog/">
+              {/* <Route index element={<MyCatalogPage songs={songs} />} /> */}
               <Route
                 path="add/"
                 element={<AddSongForm categories={categories} />}
               />
-              <Route
+              {/* <Route
                 path="edit/"
                 element={<EditSongPage categories={categories} />}
-              />
+              /> */}
             </Route>
             <Route path="requests/">
               <Route index element={<SongRequestPage />} />
-              <Route
+              {/* <Route
                 path="${artist_name}/"
                 element={<PublicRequestPage songs={songs} />}
-              />
+              /> */}
             </Route>
-            <Route path="account/" element={<AccountPage />} />
-            <Route path="signup/" element={<SignUpPage />} />
-            <Route path="login/" element={<LoginPage />} />
-            <Route path="logout" element={<LogoutPage />} />
+            {/* <Route path="account/" element={<AccountPage />} /> */}
+            <Route path="signup/" element={<AuthDemo />} />
+            {/* <Route path="login/" element={<LoginPage />} />
+            <Route path="logout" element={<LogoutPage />} /> */}
           </Routes>
         </div>
       </AuthProvider>
