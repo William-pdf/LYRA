@@ -9,8 +9,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 async function loadLyraViews(){
   let songsData, categoriesData;
 
-  const songsResponse = await fetch(`${REACT_APP_DJANGO_SERVICE}/api/songs/`);
-  const categoriesResponse = await fetch(`${REACT_APP_DJANGO_SERVICE}/api/categories`);
+  const songsResponse = await fetch(`${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`);
+  const categoriesResponse = await fetch(`${process.env.REACT_APP_DJANGO_SERVICE}/api/categories`);
 
   if (songsResponse.ok){
     songsData = await songsResponse.json();
