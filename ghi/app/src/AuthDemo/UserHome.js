@@ -1,19 +1,19 @@
-import React from 'react';
-import { useToken } from '../useToken';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useToken } from "../useToken";
+import { useState, useEffect } from "react";
 
 function UserHome() {
   // eslint-disable-next-line no-unused-vars
   const [token, login, logout] = useToken();
-  const [user, setUser] = useState('');
-  const [songTitle, setSongTitle] = useState('');
-  const [artist, setArtist] = useState('');
+  const [user, setUser] = useState("");
+  const [songTitle, setSongTitle] = useState("");
+  const [artist, setArtist] = useState("");
 
   useEffect(() => {
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {
-        credentials: 'include',
+        credentials: "include",
       });
       if (response.ok) {
         const user = await response.json();
@@ -34,16 +34,16 @@ function UserHome() {
       owner_artist: user.id,
     };
     const url = `${process.env.REACT_APP_DJANGO_SERVICE}/trl/api/songs/`;
-    const fetchConfg = {
-      method: 'post',
+    const fetchConfig = {
+      method: "post",
       body: JSON.stringify(data),
-      credentials: 'include',
+      credentials: "include",
     };
 
-    const response = await fetch(url, fetchConfg);
+    const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      console.log('hooray');
-      setSongTitle('');
+      console.log("hooray");
+      setSongTitle("");
     }
   };
 

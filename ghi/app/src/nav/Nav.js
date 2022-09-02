@@ -21,13 +21,10 @@ function Nav() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink to="song_requests/">Request a song</NavLink>
+              <NavLink to="requests/">Request a song</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="add_song/">Add a song</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="add_category/">Add a category</NavLink>
+              <NavLink to="catalog/add/">Add a song</NavLink>
             </li>
           </ul>
         </div>

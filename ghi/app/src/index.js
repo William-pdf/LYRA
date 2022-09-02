@@ -10,18 +10,20 @@ async function loadLyraViews() {
   let songsData, categoriesData;
 
   const songsResponse = await fetch(
-    `${process.env.REACT_APP_DJANGO_SERVICE}api/songs/`
+    `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`,
+    { credentials: "include" }
   );
   const categoriesResponse = await fetch(
-    `${process.env.REACT_APP_DJANGO_SERVICE}api/categories`
+    `${process.env.REACT_APP_DJANGO_SERVICE}/api/categories`,
+    { credentials: "include" }
   );
 
-  // if (songsResponse.ok) {
-  //   songsData = await songsResponse.json();
-  //   console.log("songs in db:", songsData);
-  // } else {
-  //   console.error(songsResponse);
-  // }
+  if (songsResponse.ok) {
+    songsData = await songsResponse.json();
+    console.log("songs in db:", songsData);
+  } else {
+    console.error(songsResponse);
+  }
 
   if (categoriesResponse.ok) {
     categoriesData = await categoriesResponse.json();

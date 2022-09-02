@@ -41,8 +41,8 @@ def api_songs(request):
         content = json.loads(request.body)
         content["owner_artist"] = user_id
         try:
-            category = Category.objects.get(name=content["category"])
-            content["category"] = category.id
+            category = Category.objects.get(id=content["category"])
+            content["category"] = category
         except Category.DoesNotExist:
             return JsonResponse({"message": "category does not exist"}, status=404)
         song = Song.objects.create(**content)

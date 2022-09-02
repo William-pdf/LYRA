@@ -7,7 +7,6 @@ class AddSongForm extends React.Component {
       title: "",
       artist: "",
       category: "",
-      categories: [],
       is_requestable: true,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -19,9 +18,7 @@ class AddSongForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
-    console.log(data);
-    delete data.categories;
-    console.log(data);
+    console.log("####", data);
 
     const songUrl = "http://localhost:8000/trl/api/songs/";
     const fetchOptions = {
@@ -30,6 +27,7 @@ class AddSongForm extends React.Component {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     };
     const songResponse = await fetch(songUrl, fetchOptions);
     if (songResponse.ok) {
@@ -42,15 +40,6 @@ class AddSongForm extends React.Component {
         category: "",
       };
       this.setState(cleared);
-    }
-  }
-
-  async componentDidMount() {
-    const url = "http://localhost:8000/trl/api/categories/";
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({ categories: data.categories });
     }
   }
 
@@ -75,7 +64,7 @@ class AddSongForm extends React.Component {
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Add a song</h1>
-            <form onSubmit={this.handleSubmit} id="create-automobile-form">
+            <form onSubmit={this.handleSubmit} id="create-song-form">
               <div className="form-floating mb-3">
                 <input
                   value={this.state.title}
@@ -112,9 +101,9 @@ class AddSongForm extends React.Component {
                   className="form-select"
                 >
                   <option value="category">Choose a category</option>
-                  {this.state.categories.map((cat) => {
+                  {this.props.categories.categories.map((cat) => {
                     return (
-                      <option key={cat.id} value={cat.name}>
+                      <option key={cat.id} value={cat.id}>
                         {cat.name}
                       </option>
                     );

@@ -5,6 +5,7 @@ import Nav from "./nav/Nav";
 import SongRequestPage from "./song_request_pages/SongRequestPage";
 import AddSongForm from "./song_request_pages/AddSongForm";
 import AuthDemo from "./AuthDemo/AuthDemo";
+import UserHome from "./AuthDemo/UserHome";
 
 function App(props) {
   let { songs, categories } = props;
@@ -36,6 +37,7 @@ function App(props) {
             </Route>
             {/* <Route path="account/" element={<AccountPage />} /> */}
             <Route path="signup/" element={<AuthDemo />} />
+            <Route path="home/" element={<UserHome />} />
             {/* <Route path="login/" element={<LoginPage />} />
             <Route path="logout" element={<LogoutPage />} /> */}
           </Routes>
