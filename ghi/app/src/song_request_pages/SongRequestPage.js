@@ -9,6 +9,7 @@ function SongRequestsPage(props) {
     next_song: "",
     most_requested: "",
     search: "",
+    is_requested: false,
     requests: [],
     songs: [],
   });
@@ -43,8 +44,9 @@ function SongRequestsPage(props) {
     const url = `http://localhost:8000/trl/api/songs/${song}/`;
     const requestOption = {
       method: "PUT",
-      body: JSON.stringify(song),
+      body: JSON.stringify({ is_requested: true }),
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
