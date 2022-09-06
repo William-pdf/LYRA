@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useToken } from '../useToken';
 
-export default function AuthDemo() {
+export default function Login() {
   // eslint-disable-next-line no-unused-vars
   const [token, login, logout] = useToken();
   const [username, setUsername] = useState('');
