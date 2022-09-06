@@ -16,19 +16,23 @@ class SongRequests extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async componentDidMount() {
-    const response = await fetch("http://localhost:8000/api/songs/");
-    if (response.ok) {
-      const data = await response.json();
-    }
-  }
+  // async componentDidMount() {
+  //   const response = await fetch("http://localhost:8000/api/songs/");
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //   }
+  // }
 
   async handleQueue(song) {
     console.log(song);
     const url = `http://localhost:8000/api/songs/${song}`;
     const requestOption = {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        credentials: 
+      },
+
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {

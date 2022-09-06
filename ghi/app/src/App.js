@@ -7,7 +7,7 @@ import AddSongForm from "./song_request_pages/AddSongForm";
 import LandingPage from "./main_page/LandingPage";
 
 function App(props) {
-  let {songs, categories} = props
+  let {categories} = props
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
