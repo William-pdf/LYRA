@@ -10,7 +10,7 @@ import UserHome from "./Auth/UserHome";
 import Signup from "./Auth/Signup";
 
 function App(props) {
-  let { songs, categories } = props;
+  let {categories} = props
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   return (
@@ -19,7 +19,9 @@ function App(props) {
         <Nav />
         <div className="container">
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" 
+              element={<LandingPage/>} 
+            />
             <Route path="catalog/">
               {/* <Route 
                 index
@@ -29,7 +31,7 @@ function App(props) {
               /> */}
               <Route
                 path="add/"
-                element={<AddSongForm categories={categories} />}
+                element={<AddSongForm categories={categories}/>}
               />
               {/* <Route path="edit/"
                 element={<EditSongPage 
@@ -38,29 +40,29 @@ function App(props) {
               /> */}
             </Route>
             <Route path="requests/">
-              <Route index element={<SongRequestPage />} />
+              <Route index 
+                element={<SongRequestPage/>} 
+              />
               {/* <Route path='${artist_name}/'
                 element={<PublicRequestPage
                   songs={songs}
                 />}
               /> */}
             </Route>
-            {/* <Route path="account/" 
-              element={<AccountPage
-              />}
-            /> */}
-            {/* <Route path="signup/"
-              element={<SignUpPage
-              />}
-            /> */}
-            <Route path="login/" element={<Login />} />
+            <Route path="signup/"
+              element={<Signup/>}
+            />
+            <Route path="login/" 
+              element={<Login/>} 
+            />
+            <Route path="account/" 
+              element={<UserHome/>} 
+            />
             {/* <Route path="logout"
               element={<LogoutPage
               />}
             /> */}
-            {/* <Route path="signup/" element={<AuthDemo />} /> */}
-            <Route path="home/" element={<UserHome />} />
-            <Route path="signup/" element={<Signup />} />
+           
           </Routes>
         </div>
       </AuthProvider>

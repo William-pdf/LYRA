@@ -89,7 +89,7 @@ export function useToken() {
     form.append('username', username);
     form.append('password', password);
     const response = await fetch(url, {
-      method: 'post',
+      method: 'POST',
       credentials: 'include',
       body: form,
     });
@@ -109,7 +109,7 @@ export function useToken() {
       body: JSON.stringify({
         username,
         password,
-        email,
+        // email,
       }),
       headers: {
         'Content-Type': 'application/json',

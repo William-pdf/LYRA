@@ -9,6 +9,8 @@
 
 
 #nav-list {
+    display: inline-flex;
+    align-items: flex-start;
     padding-left: 10%;
     padding-top: 5%;
 }

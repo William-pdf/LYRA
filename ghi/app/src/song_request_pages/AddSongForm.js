@@ -13,6 +13,7 @@ class AddSongForm extends React.Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleArtistChange = this.handleArtistChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleRequestableChange = this.handleRequestableChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -39,6 +40,7 @@ class AddSongForm extends React.Component {
         title: "",
         artist: "",
         category: "",
+        is_requestable: true,
       };
       this.setState(cleared);
     }
@@ -57,6 +59,11 @@ class AddSongForm extends React.Component {
   handleCategoryChange(event) {
     const value = event.target.value;
     this.setState({ category: value });
+  }
+
+  handleRequestableChange(event) {
+    const value = event.target.value;
+    this.setState({ is_requestable: value });
   }
 
   render() {
@@ -101,7 +108,7 @@ class AddSongForm extends React.Component {
                   id="category"
                   className="form-select"
                 >
-                  <option value="category">Choose a category</option>
+                  <option value="">Choose a category</option>
                   {this.props.categories.categories.map((cat) => {
                     return (
                       <option key={cat.id} value={cat.id}>
@@ -110,6 +117,18 @@ class AddSongForm extends React.Component {
                     );
                   })}
                 </select>
+                <div className="form-floating mb-3">
+                  <select
+                    value={this.state.is_requestable}
+                    onChange={this.handleRequestableChange}
+                    name="is_requestable"
+                    id="is_requestable"
+                    className="form-select"
+                  >
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                  </select>
+                </div>
               </div>
               <button className="btn btn-primary">Create</button>
             </form>
