@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../lyra_logo/logo_skinny.png";
+import logo from "../lyra_logo/L_only_trans.png";
 import "./nav.css";
 
 function Nav() {

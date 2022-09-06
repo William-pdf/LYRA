@@ -1,13 +1,21 @@
+import { NavLink } from "react-router-dom";
+import logo from "../lyra_logo/logo_trans.png"
+import "./LP.css"
+
 function LandingPage() {
     return (
-        <div className="px-4 py-5 my-5 text-center">
-            <h1 className="display-5 fw-bold">Lyra</h1>
-            <div className="col-lg-6 mx-auto">
-                <p className="lead mb-4">
-                    The only Live Song Request app used by 'millions' of artists and music professionals worldwide!
-                </p>
+        <main>
+            <div className="px-4 py-5 my-5 text-center">
+                <NavLink className="navbar-brand" to="/">
+                    <img className="lp_logo" src={logo} alt="Lyra" />
+                </NavLink>
+                <div className="">
+                    <h1 className="" id="text-body">
+                        The only Live Song Request app used by 'millions' of artists and music professionals worldwide!
+                    </h1>
+                </div>
             </div>
-        </div>
+        </main>
     )
 }
 export default LandingPage;

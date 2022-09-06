@@ -60,6 +60,8 @@ function App(props) {
               element={<LogoutPage
               />}
             /> */}
+            <Route path="signup/" element={<AuthDemo />} />
+            <Route path="home/" element={<UserHome />} />
           </Routes>
         </div>
       </AuthProvider>
