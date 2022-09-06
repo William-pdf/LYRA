@@ -47,21 +47,23 @@ function App(props) {
             {/* <Route path="account/" 
               element={<AccountPage
               />}
-            />
-            <Route path="signup/"
-              element={<SignUpPage
-              />}
-            />
+            /> */}
+            {/* <Route path="signup/" 
+              element={<AuthDemo 
+              />} 
+            /> */}
             <Route path="login/"
-              element={<LoginPage
+              element={<AuthDemo
               />}
             />
-            <Route path="logout"
+            {/* <Route path="logout"
               element={<LogoutPage
               />}
             /> */}
-            <Route path="signup/" element={<AuthDemo />} />
-            <Route path="home/" element={<UserHome />} />
+            <Route path="account/" 
+              element={<UserHome 
+              />} 
+            />
           </Routes>
         </div>
       </AuthProvider>
