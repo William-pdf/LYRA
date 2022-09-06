@@ -27,6 +27,9 @@ function Nav() {
               <NavLink className="nav-link" to="catalog/">
                 <h3 className="link-nav">CATALOG</h3>
               </NavLink>
+              <NavLink className="nav-link" to="catalog/">
+                <h3 className="link-nav">BUTTS</h3>
+              </NavLink>
             </li>
           </ul>
         </div>
