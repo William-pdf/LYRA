@@ -22,17 +22,19 @@ class SongRequests extends React.Component {
   //     const data = await response.json();
   //   }
   // }
+  
+
 
   async handleQueue(song) {
     console.log(song);
     const url = `http://localhost:8000/api/songs/${song}`;
     const requestOption = {
       method: "PUT",
+      body: JSON.stringify({"is_requested": True}),
       headers: { 
         "Content-Type": "application/json",
-        credentials: 
       },
-
+      credentials: 'include',
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
@@ -102,7 +104,9 @@ class SongRequests extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.songs.map((song) => {
+                {this.state.songs.filter(songs => {
+                  if ()
+                }).map((song) => {
                   return (
                     <tr key={song.name}>
                       <td>{song.name}</td>
