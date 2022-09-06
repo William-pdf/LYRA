@@ -1,10 +1,12 @@
-import "./App.css";
-import { AuthProvider } from "./useToken";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Nav from "./nav/Nav";
-import SongRequestPage from "./song_request_pages/SongRequestPage";
-import AddSongForm from "./song_request_pages/AddSongForm";
-import LandingPage from "./main_page/LandingPage";
+import './App.css';
+import { AuthProvider } from './useToken';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Nav from './nav/Nav';
+import SongRequestPage from './song_request_pages/SongRequestPage';
+import AddSongForm from './song_request_pages/AddSongForm';
+import LandingPage from './main_page/LandingPage';
+import AuthDemo from './AuthDemo/AuthDemo';
+import UserHome from './AuthDemo/UserHome';
 
 function App(props) {
   let {categories} = props
@@ -16,7 +18,7 @@ function App(props) {
         <Nav />
         <div className="container">
           <Routes>
-            <Route path="/" element={<LandingPage />}/>
+            <Route path="/" element={<LandingPage />} />
             <Route path="catalog/">
               {/* <Route 
                 index
@@ -24,10 +26,9 @@ function App(props) {
                   songs={songs}
                 />} 
               /> */}
-              <Route path="add/" 
-                element={<AddSongForm 
-                  categories={categories}
-                />} 
+              <Route
+                path="add/"
+                element={<AddSongForm categories={categories} />}
               />
               {/* <Route path="edit/"
                 element={<EditSongPage 
@@ -36,11 +37,7 @@ function App(props) {
               /> */}
             </Route>
             <Route path="requests/">
-              <Route 
-                index 
-                element={<SongRequestPage 
-                />} 
-              /> 
+              <Route index element={<SongRequestPage />} />
               {/* <Route path='${artist_name}/'
                 element={<PublicRequestPage
                   songs={songs}
@@ -63,6 +60,8 @@ function App(props) {
               element={<LogoutPage
               />}
             /> */}
+            <Route path="signup/" element={<AuthDemo />} />
+            <Route path="home/" element={<UserHome />} />
           </Routes>
         </div>
       </AuthProvider>

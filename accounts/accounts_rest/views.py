@@ -81,6 +81,7 @@ def create_user(json_content):
 
 
 @require_http_methods(["GET", "PUT", "DELETE"])
+@auth.jwt_login_required
 def api_account_detail(request, id):
     try:
         account = CustomUser.objects.filter(is_active=True).get(id=id)

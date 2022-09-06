@@ -1,10 +1,10 @@
-import { NavLink } from "react-router-dom";
-import logo from "../lyra_logo/L_only_trans.png"
-import "./nav.css"
+import { NavLink } from 'react-router-dom';
+import logo from '../lyra_logo/L_only_trans.png';
+import './nav.css';
 
 function Nav() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark"  >
+    <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
           <img className="logo" src={logo} alt="Lyra" />
@@ -16,13 +16,12 @@ function Nav() {
           data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span 
-            className="navbar-toggler-icon">
-          </span>
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0" id="nav-list" >
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0" id="nav-list">
             <li className="nav-item">
               <NavLink className="nav-link" to="catalog/">
                 <h3 className="link-nav">CATALOG</h3>

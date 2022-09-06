@@ -1,39 +1,42 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-async function loadLyraViews(){
+async function loadLyraViews() {
   let songsData, categoriesData;
 
-  const songsResponse = await fetch(`${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`);
-  const categoriesResponse = await fetch(`${process.env.REACT_APP_DJANGO_SERVICE}/api/categories`);
+  const songsResponse = await fetch(
+    `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`,
+    { credentials: 'include' }
+  );
+  const categoriesResponse = await fetch(
+    `${process.env.REACT_APP_DJANGO_SERVICE}/api/categories`,
+    { credentials: 'include' }
+  );
 
-  if (songsResponse.ok){
+  if (songsResponse.ok) {
     songsData = await songsResponse.json();
-    console.log('songs in db:', songsData)
+    console.log('songs in db:', songsData);
   } else {
-    console.error(songsResponse)
-  };
+    console.error(songsResponse);
+  }
 
-  if (categoriesResponse.ok){
+  if (categoriesResponse.ok) {
     categoriesData = await categoriesResponse.json();
-    console.log('categories in db:', categoriesData)
+    console.log('categories in db:', categoriesData);
   } else {
-    console.error(categoriesResponse)
-  };
-
+    console.error(categoriesResponse);
+  }
 
   root.render(
     <React.StrictMode>
-      <script 
-        src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js">
-      </script>
-      <App 
-        songs={songsData} 
+      <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+      <App
+        songs={songsData}
         //can change this to songsData.{something} to get specific parts of the song in list, like songsData.title or songsData.artist
         categories={categoriesData}
         //same with this

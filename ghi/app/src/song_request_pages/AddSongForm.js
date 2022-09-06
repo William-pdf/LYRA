@@ -1,14 +1,13 @@
-import React from "react";
+import React from 'react';
 
 class AddSongForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      artist: "",
-      category: "",
-      categories: [],
-      // requestable: false,
+      title: '',
+      artist: '',
+      category: '',
+      is_requestable: true,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleArtistChange = this.handleArtistChange.bind(this);
@@ -19,17 +18,16 @@ class AddSongForm extends React.Component {
   async handleSubmit(event) {
     event.preventDefault();
     const data = { ...this.state };
-    console.log(data);
-    delete data.categories;
-    console.log(data);
+    console.log('####', data);
 
-    const songUrl = "http://localhost:8000/api/songs";
+    const songUrl = 'http://localhost:8000/trl/api/songs/';
     const fetchOptions = {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
+      credentials: 'include',
     };
     const songResponse = await fetch(songUrl, fetchOptions);
     if (songResponse.ok) {
@@ -37,20 +35,11 @@ class AddSongForm extends React.Component {
       console.log(newSong);
 
       const cleared = {
-        title: "",
-        artist: "",
-        category: "",
+        title: '',
+        artist: '',
+        category: '',
       };
       this.setState(cleared);
-    }
-  }
-
-  async componentDidMount() {
-    const url = "http://localhost:8000/api/categories/";
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      this.setState({ categories: data.categories });
     }
   }
 
@@ -75,7 +64,7 @@ class AddSongForm extends React.Component {
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Add a song</h1>
-            <form onSubmit={this.handleSubmit} id="create-automobile-form">
+            <form onSubmit={this.handleSubmit} id="create-song-form">
               <div className="form-floating mb-3">
                 <input
                   value={this.state.title}
@@ -112,7 +101,7 @@ class AddSongForm extends React.Component {
                   className="form-select"
                 >
                   <option value="category">Choose a category</option>
-                  {this.props.categories.categories.map(cat => {
+                  {this.props.categories.categories.map((cat) => {
                     return (
                       <option key={cat.id} value={cat.id}>
                         {cat.name}
