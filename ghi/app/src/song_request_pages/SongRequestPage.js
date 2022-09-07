@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-grid";
 import { useToken } from "../useToken";
 
 function SongRequestsPage(props) {
+  const { songs } = props;
   const [user, setUser] = useState("");
   const [token] = useToken();
   const [songInfo, setSongInfo] = useState({
@@ -11,17 +12,18 @@ function SongRequestsPage(props) {
     search: "",
     is_requested: false,
     requests: [],
-    songs: [],
   });
 
   useEffect(() => {
     async function loadData() {
-      const response = await fetch("http://localhost:8000/trl/api/songs/");
-      if (response.ok) {
-        const data = await response.json();
-        setSongInfo({ ...songInfo, songs: data });
-      }
-      console.log(token);
+      // const response = await fetch("http://localhost:8000/trl/api/songs/", {
+      //   credentials: "include",
+      // });
+      // if (response.ok) {
+      //   const data = await response.json();
+      //   setSongInfo({ ...songInfo, songs: data });
+      // }
+      // console.log(token);
       async function getCurrentUser() {
         const url = `${process.env.REACT_APP_ACCOUNTS_HOST}api/tokens/me/`;
         const response = await fetch(url, {
@@ -50,8 +52,8 @@ function SongRequestsPage(props) {
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
-      const data = await response.json();
-      const updatedList = [...songInfo.songs];
+      console.log(songs);
+      const updatedList = [...songs];
       let index = updatedList.indexOf(song);
       const queuedSong = updatedList.splice(index, 1);
       setSongInfo({ ...songInfo, songs: updatedList });
@@ -78,7 +80,7 @@ function SongRequestsPage(props) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const songs_list = songInfo.songs.filter((song) => {
+    const songs_list = songs.filter((song) => {
       return song.name === songInfo.name;
     });
     setSongInfo({ ...songInfo, songs: songs_list });
@@ -113,7 +115,7 @@ function SongRequestsPage(props) {
               </tr>
             </thead>
             <tbody>
-              {songInfo.songs.songs?.map((song) => {
+              {songs?.map((song) => {
                 return (
                   <tr key={song.id}>
                     <td>{song.title}</td>
@@ -121,7 +123,7 @@ function SongRequestsPage(props) {
                       <button
                         onClick={() => handleQueue(song.id)}
                         type="button"
-                        className="btn btn-danger"
+                        className="btn btn-success"
                       >
                         Queue
                       </button>
