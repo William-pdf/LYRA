@@ -79,7 +79,7 @@ export function useToken() {
       await fetch(url, { method: 'delete', credentials: 'include' });
       internalToken = null;
       setToken(null);
-      navigate('/');
+      navigate('login/');
     }
   }
 
@@ -96,7 +96,7 @@ export function useToken() {
     if (response.ok) {
       const token = await getTokenInternal();
       setToken(token);
-      navigate('/home');
+      navigate('/account/');
     }
     let error = await response.json();
     return handleErrorMessage(error);
@@ -109,7 +109,7 @@ export function useToken() {
       body: JSON.stringify({
         username,
         password,
-        // email,
+        email,
       }),
       headers: {
         'Content-Type': 'application/json',

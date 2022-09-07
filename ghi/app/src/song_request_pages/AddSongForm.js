@@ -125,6 +125,7 @@ class AddSongForm extends React.Component {
                     id="is_requestable"
                     className="form-select"
                   >
+                    <option value="">Is Song Requestable?</option>
                     <option value="true">True</option>
                     <option value="false">False</option>
                   </select>
