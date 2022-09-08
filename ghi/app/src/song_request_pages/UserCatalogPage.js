@@ -1,16 +1,16 @@
 import React from 'react';
 import { useToken } from '../useToken';
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function UserCatalog(props) {
     const { songs } = props;
     const [token] = useToken();
-    // const [song, setSong] = useState('');
     const [user, setUser] = useState('');
     const navigate = useNavigate();
+
     
     useEffect(() => {
         async function getCurrentUser() {
@@ -22,57 +22,71 @@ export default function UserCatalog(props) {
             if (response.ok) {
                 const user = await response.json();
                 setUser(user);
-                console.log(user)
+                console.log("USSR:", user)
             }
         } if (token) {
             getCurrentUser();
+        } else {
+            navigate("login/")
         }
     }, [token]);
-    const navToEdit = async (e) => {
-        const songID = e.target.value
-        navigate(`/catalog/${songID}`)
+
+
+    function navToEdit(songID) {
+        navigate(`/catalog/${songID}/`)
+        console.log(songID)
     }
     
 
-    console.log(songs.songs)
+    console.log("USER:", user)
+    console.log("SONG.SONGS:", songs.songs)
+    const filterSongs = songs.songs.filter(sng => {
+        if (sng.owner_artist.toLowerCase() === user.artist_name.toLowerCase()) {
+            return sng;
+        } else {
+            console.log(sng)
+        }
+    })
+    console.log("Filter songs:", filterSongs)
+    const tBodies = filterSongs.map((song, index) => {
+        const songValues = Object.values(song)
+        const songsRows = songValues.map((value, i) => {
+            const songTitle = i === 0 ? <td rowSpan={songValues.length + 1} value={song.id} onClick={() => navToEdit(song.id)}>{song.title}</td> : null
+            const songArtist = i === 0 ? <td rowSpan={songValues.length + 1}>{song.artist}</td> : null
+            const songRequestable = i === 0 ? <td rowSpan={songValues.length + 1}>{song.is_requestable.toString().toUpperCase()}</td> : null
+            const editLink = i === 0 ? <button rowSpan={songValues.length + 1} value={song.id} onClick={() => navToEdit(song.id)}>EDIT</button> : null
+            return (
+                <tr key={i}>
+                    {songTitle}
+                    {songArtist}
+                    {songRequestable}
+                    {editLink}
+                </tr>
+            )
+        });
+        return (
+        <tbody key={index} className="catalog-body">
+            {songsRows}
+        </tbody>
+        )
+    })
     return (
-        <>
-            <table>
-                <thead>
-                    <tr>
-                        <th colSpan="4">YOUR SONGS</th>
-                    </tr>
-                    <tr>
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Category</th>
-                        <th>Requestable</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                {songs.songs.filter(sng => {
-                    if (sng.owner_artist === user.id) {
-                        return sng;
-                    } else {
-                        console.log(sng)
-                    }
-                }).map(song => {
-                    <tr>
-                        <td value={song.id} onClick={() => navToEdit()}>
-                            {song.title}
-                        </td>
-                        <td>{song.artist}</td>
-                        <td>{song.category}</td>
-                        <td>{song.requestable}</td>
-                        <td value={song.id} onClick={() => navToEdit()}>
-                            Edit
-                        </td>
-                    </tr>
-                })}
-                </tbody>
-            </table>
-        </>
-    );
+        <div>
+        <table>
+            <thead>
+                <tr>
+                    <th colSpan="4">YOUR SONGS</th>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Requestable</th>
+                    <th></th>
+                </tr>
+            </thead>
+            {tBodies}
+        </table>
+        </div>
+    )
 }
 
