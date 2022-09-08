@@ -37,7 +37,6 @@ function App(props) {
                 element={<EditSongPage 
                   categories={categories}
                 />}  */}
-              />
             </Route>
             <Route path="requests/:ownerArtist/">
               <Route
