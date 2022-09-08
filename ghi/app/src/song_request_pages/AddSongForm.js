@@ -98,7 +98,7 @@ class AddSongForm extends React.Component {
                 />
                 <label htmlFor="artist">Artist</label>
               </div>
-              <div className="mb-3">
+              <div className="form-floating mb-3">
                 <select
                   value={this.state.category}
                   onChange={this.handleCategoryChange}
@@ -116,19 +116,19 @@ class AddSongForm extends React.Component {
                     );
                   })}
                 </select>
-                <div className="form-floating mb-3">
-                  <select
-                    value={this.state.is_requestable}
-                    onChange={this.handleRequestableChange}
-                    name="is_requestable"
-                    id="is_requestable"
-                    className="form-select"
-                  >
-                    <option value="">Is Song Requestable?</option>
-                    <option value="true">True</option>
-                    <option value="false">False</option>
-                  </select>
-                </div>
+              </div>
+              <div className="form-floating mb-3">
+                <label htmlFor='requestable' className='form-label'>Is Requestable?</label>
+                <select
+                  value={this.state.is_requestable}
+                  onChange={this.handleRequestableChange}
+                  name="is_requestable"
+                  id="is_requestable"
+                  className="form-select"
+                >
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
               </div>
               <button className="btn btn-primary">Create</button>
             </form>
