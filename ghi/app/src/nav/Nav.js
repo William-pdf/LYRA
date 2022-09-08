@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useToken } from '../useToken';
-import logo from '../lyra_logo/L_only_trans.png';
-import './nav.css';
+import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useToken } from "../useToken";
+import logo from "../lyra_logo/L_only_trans.png";
+import "./nav.css";
 
 function Nav() {
   // eslint-disable-next-line no-unused-vars
   const [token, login, logout] = useToken();
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
   useEffect(() => {
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {
-        credentials: 'include',
+        credentials: "include",
       });
       if (response.ok) {
         const userResponse = await response.json();
@@ -80,4 +80,5 @@ function Nav() {
     </nav>
   );
 }
+
 export default Nav;

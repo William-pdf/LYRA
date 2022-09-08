@@ -1,30 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-grid";
-import { useToken } from "../useToken";
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-grid';
+import { useToken } from '../useToken';
+import { useParams } from 'react-router-dom';
 
 function SongRequestsPage(props) {
-  const [user, setUser] = useState("");
+  const { songs } = props;
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState('');
   const [token] = useToken();
   const [songInfo, setSongInfo] = useState({
-    next_song: "",
-    most_requested: "",
-    search: "",
+    next_song: '',
+    most_requested: '',
+    search: '',
+    is_requested: false,
     requests: [],
-    songs: [],
   });
+  const [requestableSongs, setRequestableSongs] = useState([]);
+  const { ownerArtist } = useParams();
 
   useEffect(() => {
     async function loadData() {
-      const response = await fetch("http://localhost:8000/trl/api/songs/");
-      if (response.ok) {
-        const data = await response.json();
-        setSongInfo({ ...songInfo, songs: data });
-      }
-      console.log(token);
+      //
+      // TODO: Filter display songs by user passed in url param
+      // Need to convert passed artist name string to artist id
+      //
+      songs.songs[0].owner_artist = 'test';
+      setRequestableSongs(
+        songs.songs.filter(
+          (song) => song.is_requestable && song.owner_artist === ownerArtist
+        )
+      );
+
       async function getCurrentUser() {
         const url = `${process.env.REACT_APP_ACCOUNTS_HOST}api/tokens/me/`;
         const response = await fetch(url, {
-          credentials: "include",
+          credentials: 'include',
         });
         if (response.ok) {
           const user = await response.json();
@@ -38,21 +48,22 @@ function SongRequestsPage(props) {
     loadData();
   }, []);
 
-  async function handleQueue(song) {
-    console.log(song);
-    const url = `http://localhost:8000/trl/api/songs/${song}/`;
+  async function handleQueue(songID) {
+    console.log(songID);
+    const url = `http://localhost:8000/trl/api/songs/${songID}/`;
     const requestOption = {
-      method: "PUT",
-      body: JSON.stringify(song),
-      headers: { "Content-Type": "application/json" },
+      method: 'PUT',
+      body: JSON.stringify({ is_requested: true }),
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
-      const data = await response.json();
-      const updatedList = [...songInfo.songs];
-      let index = updatedList.indexOf(song);
-      const queuedSong = updatedList.splice(index, 1);
-      setSongInfo({ ...songInfo, songs: updatedList });
+      console.log(songs);
+      const filteredSongs = requestableSongs.filter(
+        (song) => song.id !== songID
+      );
+      setRequestableSongs(filteredSongs);
     }
   }
 
@@ -60,10 +71,10 @@ function SongRequestsPage(props) {
     console.log(song);
     const songsUrl = `http://localhost:8080/api/songs/${song}/`;
     const fetchConfig = {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify(song),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
   }
@@ -76,7 +87,7 @@ function SongRequestsPage(props) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const songs_list = songInfo.songs.filter((song) => {
+    const songs_list = songs.filter((song) => {
       return song.name === songInfo.name;
     });
     setSongInfo({ ...songInfo, songs: songs_list });
@@ -111,22 +122,28 @@ function SongRequestsPage(props) {
               </tr>
             </thead>
             <tbody>
-              {songInfo.songs.songs?.map((song) => {
-                return (
-                  <tr key={song.id}>
-                    <td>{song.title}</td>
-                    <td>
-                      <button
-                        onClick={() => handleQueue(song.id)}
-                        type="button"
-                        className="btn btn-danger"
-                      >
-                        Queue
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
+              {requestableSongs
+                .filter((song) => {
+                  if (song.is_requested === false) {
+                    return song;
+                  }
+                })
+                .map((song) => {
+                  return (
+                    <tr key={song.id}>
+                      <td>{song.title}</td>
+                      <td>
+                        <button
+                          onClick={() => handleQueue(song.id)}
+                          type="button"
+                          className="btn btn-success"
+                        >
+                          Queue
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </Row>
