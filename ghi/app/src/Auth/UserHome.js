@@ -6,8 +6,6 @@ function UserHome() {
   // eslint-disable-next-line no-unused-vars
   const [token, login, logout] = useToken();
   const [user, setUser] = useState('');
-  const [songTitle, setSongTitle] = useState('');
-  const [artist, setArtist] = useState('');
 
   useEffect(() => {
     async function getCurrentUser() {
