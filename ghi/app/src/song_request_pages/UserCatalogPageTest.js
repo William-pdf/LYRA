@@ -8,8 +8,6 @@ import { useNavigate } from 'react-router-dom';
 export default function UserCatalog(props) {
     const { songs } = props;
     const [token] = useToken();
-    // const [song, setSong] = useState('');
-    // const [songID, setSongID] = useState();
     const [user, setUser] = useState('');
     const navigate = useNavigate();
 
@@ -50,9 +48,8 @@ export default function UserCatalog(props) {
         const songsRows = songValues.map((value, i) => {
             const songTitle = i === 0 ? <td rowSpan={songValues.length + 1} value={song.id} onClick={() => navToEdit(song.id)}>{song.title}</td> : null
             const songArtist = i === 0 ? <td rowSpan={songValues.length + 1}>{song.artist}</td> : null
-            // const songCategory = i === 0 ? <td rowSpan={songValues.length + 1}>{song.category.name.toString()}</td> : null
             const songRequestable = i === 0 ? <td rowSpan={songValues.length + 1}>{song.is_requestable.toString().toUpperCase()}</td> : null
-            const editLink = i === 0 ? <td rowSpan={songValues.length + 1} value={song.id} onClick={() => navToEdit(song.id)} id="hello">EDIT</td> : null
+            const editLink = i === 0 ? <button rowSpan={songValues.length + 1} value={song.id} onClick={() => navToEdit(song.id)}>EDIT</button> : null
             return (
                 <tr key={i}>
                     {songTitle}
@@ -78,7 +75,6 @@ export default function UserCatalog(props) {
                 <tr>
                     <th>Title</th>
                     <th>Artist</th>
-                    {/* <th>Category</th> */}
                     <th>Requestable</th>
                     <th></th>
                 </tr>
