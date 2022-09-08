@@ -17,14 +17,10 @@ function SongRequestsPage(props) {
   });
   const [requestableSongs, setRequestableSongs] = useState([]);
   const { ownerArtist } = useParams();
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     async function loadData() {
-      //
-      // TODO: Filter display songs by user passed in url param
-      // Need to convert passed artist name string to artist id
-      //
-      songs.songs[0].owner_artist = 'test';
       setRequestableSongs(
         songs.songs.filter(
           (song) => song.is_requestable && song.owner_artist === ownerArtist
@@ -59,7 +55,6 @@ function SongRequestsPage(props) {
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
-      console.log(songs);
       const filteredSongs = requestableSongs.filter(
         (song) => song.id !== songID
       );
@@ -79,16 +74,11 @@ function SongRequestsPage(props) {
     };
   }
 
-  function handleSearchChange(e) {
-    const value = e.target.value;
-    setSongInfo({ ...songInfo, search: value });
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const songs_list = songs.filter((song) => {
-      return song.name === songInfo.name;
+    const songs_list = requestableSongs.filter((song) => {
+      console.log(song);
     });
     setSongInfo({ ...songInfo, songs: songs_list });
   }
@@ -101,53 +91,52 @@ function SongRequestsPage(props) {
           <div className="main-search-input fl-wrap">
             <div className="main-search-input-item">
               <input
-                onChange={handleSearchChange}
-                value={songInfo.search}
-                type="text"
+                className="prompt"
+                value={searchInput}
                 placeholder="Search song"
-                name="search"
-                id="search"
+                onChange={(e) => setSearchInput(e.target.value)}
               />
             </div>
             <button className="main-search-button">Search</button>
           </div>
         </div>
       </form>
-      <Container>
-        <Row>
-          <table>
-            <thead>
-              <tr>
-                <th>Songs</th>
-              </tr>
-            </thead>
-            <tbody>
-              {requestableSongs
-                .filter((song) => {
-                  if (song.is_requested === false) {
-                    return song;
-                  }
-                })
-                .map((song) => {
-                  return (
-                    <tr key={song.id}>
-                      <td>{song.title}</td>
-                      <td>
-                        <button
-                          onClick={() => handleQueue(song.id)}
-                          type="button"
-                          className="btn btn-success"
-                        >
-                          Queue
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </Row>
-      </Container>
+      <table>
+        <thead>
+          <tr>
+            <th>Songs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requestableSongs
+            .filter((song) => {
+              if (song.is_requested === false) {
+                return song;
+              }
+            })
+            .filter((searched) => {
+              if (searched.title.includes(searchInput)) {
+                return searched;
+              }
+            })
+            .map((song) => {
+              return (
+                <tr key={song.id}>
+                  <td>{song.title}</td>
+                  <td>
+                    <button
+                      onClick={() => handleQueue(song.id)}
+                      type="button"
+                      className="btn btn-success"
+                    >
+                      Queue
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
     </>
   );
 }

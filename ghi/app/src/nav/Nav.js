@@ -61,6 +61,7 @@ function Nav() {
                 <NavLink className="nav-link" to="" onClick={() => logout()}>
                   <h3 className="link-nav">LOGOUT</h3>
                 </NavLink>
+              ) : (
                 // <button
                 //   onClick={() => logout()}
                 //   type="button"
@@ -68,7 +69,6 @@ function Nav() {
                 // >
                 //   Logout
                 // </button>
-              ) : (
                 <NavLink className="nav-link" to="login/">
                   <h3 className="link-nav">LOGIN</h3>
                 </NavLink>
