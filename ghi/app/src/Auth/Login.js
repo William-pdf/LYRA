@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import { useToken } from '../useToken';
+import React, { useState } from "react";
+import { useToken } from "../useToken";
+import "./login.css";
 
 export default function Login() {
   // eslint-disable-next-line no-unused-vars
   const [token, login, logout] = useToken();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     login(username, password);
-    setUsername('');
-    setPassword('');
+    setUsername("");
+    setPassword("");
   };
 
   const handleLogout = () => {
@@ -49,13 +50,6 @@ export default function Login() {
           Submit
         </button>
       </form>
-      <button
-        onClick={() => handleLogout()}
-        type="button"
-        className="btn btn-primary"
-      >
-        Logout
-      </button>
     </>
   );
 }
