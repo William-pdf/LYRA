@@ -33,14 +33,8 @@ def api_songs(request):
         songs = Song.objects.all()
         return JsonResponse({"songs": songs}, encoder=SongEncoder, safe=False)
     else:
-        # json.loads() requires type string, bytes, or bytearray, so we can't directly
-        # pass in the dict from the request. E.g. json.loads(request.payload) won't work.
-        dict_from_payload = json.dumps(request.payload)
-        user_info = json.loads(dict_from_payload)
-        user_id = user_info["user"]["username"]
 
         content = json.loads(request.body)
-        content["owner_artist"] = user_id
         try:
             category = Category.objects.get(id=content["category"])
             content["category"] = category

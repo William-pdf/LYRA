@@ -1,5 +1,6 @@
 import React from "react";
 
+
 class AddSongForm extends React.Component {
   constructor(props) {
     super(props);
@@ -70,7 +71,7 @@ class AddSongForm extends React.Component {
       <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
-            <h1>Add a song</h1>
+            <h1>Add A SONG</h1>
             <form onSubmit={this.handleSubmit} id="create-song-form">
               <div className="form-floating mb-3">
                 <input
