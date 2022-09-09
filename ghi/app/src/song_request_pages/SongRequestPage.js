@@ -16,10 +16,12 @@ function SongRequestsPage(props) {
 
   useEffect(() => {
     async function loadData() {
-      setRequestableSongs(
+      async function setRequestableSongs() {
+
         songs.songs.filter(
           (song) => song.is_requestable && song.owner_artist === ownerArtist
-        )
+          
+        }
       );
 
       async function getCurrentUser() {
@@ -57,17 +59,7 @@ function SongRequestsPage(props) {
     }
   }
 
-  async function handleUnqueue(song) {
-    console.log(song);
-    const songsUrl = `http://localhost:8080/api/songs/${song}/`;
-    const fetchConfig = {
-      method: 'PUT',
-      body: JSON.stringify(song),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-  }
+  
 
   async function handleSubmit(event) {
     event.preventDefault();

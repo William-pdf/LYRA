@@ -44,6 +44,10 @@ export default function EditSong() {
           if (songResponse.ok) {
             song = await songResponse.json();
             setSong(song);
+            setTitle(song.title);
+            setArtist(song.artist);
+            setIsRequestable(song.is_requestable);
+            setCategory(song.category.name);
           }
 
           async function getCurrentUser() {
@@ -63,32 +67,7 @@ export default function EditSong() {
             }
         }
         loadSong()
-
-        async function loadSongData(song){
-          title = setTitle(song.title),
-          artist = setArtist(song.artist),
-          is_requestable = setIsRequestable(song.is_requestable),
-          category = setCategory(song.category.name)
-        }
-        loadSongData()
       })
-
-      function handleTitleChange(e) {
-        const value = e.target.value;
-        setTitle(value);
-      }
-      function handleArtistChange(e) {
-        const value = e.target.value;
-        setArtist(value)
-      }
-      function handleRequestableChange(e) {
-        const value = e.target.value;
-        setIsRequestable(value)
-      }
-      function handleCategoryChange(e) {
-        const value = e.target.value;
-        setCategory(value)
-      }
 
     
     return (
@@ -100,7 +79,7 @@ export default function EditSong() {
               <label htmlFor="title">TITLE</label>
               <input
                 value={title}
-                onChange={() => setTitle()}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder={song.title}
                 required
                 type="text"
@@ -113,7 +92,7 @@ export default function EditSong() {
               <label htmlFor="title">ARTIST</label>
               <input
                 value={artist}
-                onChange={() => handleArtistChange()}
+                onChange={(e) => setArtist(e.target.value)}
                 placeholder="artist"
                 required
                 type="text"
@@ -126,7 +105,7 @@ export default function EditSong() {
               <label htmlFor="title">CATEGORY</label>
               <input
                 value={category}
-                onChange={() => handleCategoryChange()}
+                onChange={(e) => setCategory(e.target.value)}
                 placeholder="category"
                 required
                 type="text"
@@ -139,7 +118,7 @@ export default function EditSong() {
               <label htmlFor="title">IS REQUESTABLE</label>
               <input
                 value={is_requestable}
-                onChange={() => handleRequestableChange()}
+                onChange={(e) => setIsRequestable(e.target.value)}
                 placeholder="is_requestable"
                 required
                 type="text"
