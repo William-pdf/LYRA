@@ -15,41 +15,47 @@ export default function Login() {
     setPassword("");
   };
 
-  const handleLogout = () => {
-    logout();
-  };
+  // const handleLogout = () => {
+  //   logout();
+  // };
 
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="form-floating mb-3">
-          <input
-            type="text"
-            className="form-control"
-            id="username"
-            name="username"
-            placeholder="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <label htmlFor="username">Username</label>
-        </div>
-        <div className="form-floating mb-3">
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            name="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <label htmlFor="password">Password</label>
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
+      <div className="center">
+        <h1>Login</h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className="form-floating mb-3 text-field">
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              name="username"
+              placeholder="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label htmlFor="username">Username</label>
+          </div>
+          <div className="form-floating mb-3 text-field">
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label htmlFor="password">Password</label>
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Log in
+          </button>
+          <div className="sign-up-link">
+            Not a member? <a href="/signup/">Sign up</a>
+          </div>
+        </form>
+      </div>
     </>
   );
 }
