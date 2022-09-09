@@ -3,7 +3,8 @@ import { AuthProvider } from './useToken';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './nav/Nav';
 import SongRequestPage from './song_request_pages/SongRequestPage';
-import AddSongForm from './song_request_pages/AddSongForm';
+import AddSongFormWrapper from './song_request_pages/AddSongForm';
+import ArtistFacingRequestPage from './song_request_pages/ArtistFacingRequestPage';
 import LandingPage from './main_page/LandingPage';
 import UserCatalog from './song_request_pages/UserCatalogPage';
 import EditSong from './song_request_pages/EditSongPage';
@@ -31,7 +32,7 @@ function App(props) {
               />
               <Route
                 path="add/"
-                element={<AddSongForm categories={categories} />}
+                element={<AddSongFormWrapper categories={categories} />}
               />
               <Route path=':songNav/'
                 element={<EditSong 
@@ -40,8 +41,12 @@ function App(props) {
               />
             </Route>
             <Route path="requests/">
-              {/* <Route
+              <Route
                 index
+                element={<ArtistFacingRequestPage songs={songs} />}
+              />
+              <Route
+                path=":ownerArtist/"
                 element={
                   <BandRequestPage categories={categories} songs={songs} />
                 }
