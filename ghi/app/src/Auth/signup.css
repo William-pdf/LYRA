@@ -19,6 +19,11 @@
   padding: 0 0 20px 0;
 }
 
+.login-link {
+  padding: 15px;
+  margin: 10px;
+}
+
 label[for="username"] {
   padding: 15px;
   margin: 15px;
@@ -34,7 +39,7 @@ label[for="email"] {
   margin: 15px;
 }
 
-button[type="submit"] {
+.signup-button {
   width: 100%;
   height: 50px;
   margin-bottom: 5px;

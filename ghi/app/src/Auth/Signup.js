@@ -69,7 +69,7 @@ export default function Signup() {
             />
             <label htmlFor="password">Password</label>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary signup-button">
             Sign Up
           </button>
           <div className="login-link">

@@ -44,7 +44,7 @@ export default function Login() {
             />
             <label htmlFor="password">Password</label>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary login-button">
             Log in
           </button>
           <div className="sign-up-link">
