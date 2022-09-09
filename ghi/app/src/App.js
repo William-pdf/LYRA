@@ -11,6 +11,7 @@ import EditSong from './song_request_pages/EditSongPage';
 import Login from './Auth/Login';
 import UserHome from './Auth/UserHome';
 import Signup from './Auth/Signup';
+import SongRequestsPage from './song_request_pages/SongRequestPage';
 
 function App(props) {
   let { categories, songs } = props;
@@ -48,7 +49,7 @@ function App(props) {
               <Route
                 path=":ownerArtist/"
                 element={
-                  <BandRequestPage categories={categories} songs={songs} />
+                  <SongRequestsPage categories={categories} songs={songs} />
                 }
               /> */}
               {/* <Route path=':ownerArtist/'

@@ -58,7 +58,7 @@ build-front-end-job:
 pages: # THIS STEP MUST BE NAME PAGES
   stage: deploy
   rules:
-    - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     # CHANGE CP_DEV_BRANCH TO CI_DEFAULT_BRANCH
     # WHEN MAKING FINAL DEPLOYMENTS ON MAIN BRANCH
   dependencies:
@@ -76,7 +76,7 @@ pages: # THIS STEP MUST BE NAME PAGES
 
 build-song-request-image-job: # RENAME THIS
   rules:
-    - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     # CHANGE CP_DEV_BRANCH TO CI_DEFAULT_BRANCH
     # WHEN MAKING FINAL DEPLOYMENTS ON MAIN BRANCH
   stage: build
@@ -97,7 +97,7 @@ build-song-request-image-job: # RENAME THIS
 
 build-accounts-image-job: # RENAME THIS
   rules:
-    - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     # CHANGE CP_DEV_BRANCH TO CI_DEFAULT_BRANCH
     # WHEN MAKING FINAL DEPLOYMENTS ON MAIN BRANCH
   stage: build
@@ -118,7 +118,7 @@ build-accounts-image-job: # RENAME THIS
 
 deploy-song-request-image-job:
   rules:
-    - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     # CHANGE CP_DEV_BRANCH TO CI_DEFAULT_BRANCH
     # WHEN MAKING FINAL DEPLOYMENTS ON MAIN BRANCH
   stage: deploy
@@ -147,7 +147,7 @@ deploy-song-request-image-job:
 
 deploy-accounts-image-job:
   rules:
-    - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     # CHANGE CP_DEV_BRANCH TO CI_DEFAULT_BRANCH
     # WHEN MAKING FINAL DEPLOYMENTS ON MAIN BRANCH
   stage: deploy
@@ -181,7 +181,7 @@ release-song-request-image-job: # RENAME THIS
     # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
     - deploy-song-request-image-job
   rules:
-    - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
@@ -201,7 +201,7 @@ release-accounts-image-job: # RENAME THIS
     # CHANGE THIS TO THE JOB NAME FROM THE LAST STEP
     - deploy-accounts-image-job
   rules:
-    - if: $CI_COMMIT_BRANCH == $CP_DEV_BRANCH
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
