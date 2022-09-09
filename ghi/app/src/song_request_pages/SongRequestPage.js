@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-grid';
 import { useToken } from '../useToken';
 import { useParams } from 'react-router-dom';
 
 function SongRequestsPage(props) {
   const { songs } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = useState('');
   const [token] = useToken();
-  const [songInfo, setSongInfo] = useState({
-    next_song: '',
-    most_requested: '',
-    search: '',
-    is_requested: false,
-    requests: [],
-  });
   const [requestableSongs, setRequestableSongs] = useState([]);
-  const { ownerArtist } = useParams();
   const [searchInput, setSearchInput] = useState('');
+  let { ownerArtist } = useParams();
+  ownerArtist = ownerArtist.replaceAll('-', ' ');
 
   useEffect(() => {
     async function loadData() {
@@ -26,23 +17,9 @@ function SongRequestsPage(props) {
           (song) => song.is_requestable && song.owner_artist === ownerArtist
         )
       );
-
-      async function getCurrentUser() {
-        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}api/tokens/me/`;
-        const response = await fetch(url, {
-          credentials: 'include',
-        });
-        if (response.ok) {
-          const user = await response.json();
-          setUser(user);
-        }
-      }
-      if (token) {
-        getCurrentUser();
-      }
     }
     loadData();
-  }, []);
+  }, [ownerArtist, songs]);
 
   async function handleQueue(songID) {
     console.log(songID);
@@ -62,81 +39,65 @@ function SongRequestsPage(props) {
     }
   }
 
-  async function handleUnqueue(song) {
-    console.log(song);
-    const songsUrl = `http://localhost:8080/api/songs/${song}/`;
-    const fetchConfig = {
-      method: 'PUT',
-      body: JSON.stringify(song),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    const songs_list = requestableSongs.filter((song) => {
-      console.log(song);
-    });
-    setSongInfo({ ...songInfo, songs: songs_list });
-  }
-
   return (
     <>
-      <h1>Request a song</h1>
-      <form onSubmit={handleSubmit} id="song_list">
-        <div className="main-search-input-wrap">
-          <div className="main-search-input fl-wrap">
-            <div className="main-search-input-item">
-              <input
-                className="prompt"
-                value={searchInput}
-                placeholder="Search song"
-                onChange={(e) => setSearchInput(e.target.value)}
-              />
+      {token ? (
+        <>
+          <h1>Request a song</h1>
+          <form id="song_list">
+            <div className="main-search-input-wrap">
+              <div className="main-search-input fl-wrap">
+                <div className="main-search-input-item">
+                  <input
+                    className="prompt"
+                    value={searchInput}
+                    placeholder="Search song"
+                    onChange={(e) => setSearchInput(e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
-            <button className="main-search-button">Search</button>
-          </div>
-        </div>
-      </form>
-      <table>
-        <thead>
-          <tr>
-            <th>Songs</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requestableSongs
-            .filter((song) => {
-              if (song.is_requested === false) {
-                return song;
-              }
-            })
-            .filter((searched) => {
-              if (searched.title.includes(searchInput)) {
-                return searched;
-              }
-            })
-            .map((song) => {
-              return (
-                <tr key={song.id}>
-                  <td>{song.title}</td>
-                  <td>
-                    <button
-                      onClick={() => handleQueue(song.id)}
-                      type="button"
-                      className="btn btn-success"
-                    >
-                      Queue
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+          </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Songs</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requestableSongs
+                .filter((song) => {
+                  if (song.is_requested === false) {
+                    return song;
+                  }
+                })
+                .filter((searched) => {
+                  if (searched.title.includes(searchInput)) {
+                    return searched;
+                  }
+                })
+                .map((song) => {
+                  return (
+                    <tr key={song.id}>
+                      <td>{song.title}</td>
+                      <td>
+                        <button
+                          onClick={() => handleQueue(song.id)}
+                          type="button"
+                          className="btn btn-success"
+                        >
+                          Queue
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </>
+      ) : (
+        <h1>You must be Logged In to view this page.</h1>
+      )}
     </>
   );
 }
