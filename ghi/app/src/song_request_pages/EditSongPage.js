@@ -1,6 +1,6 @@
-import { useState, useParams, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useToken } from '../useToken';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function EditSong() {
     const {songNav} = useParams();
@@ -37,33 +37,36 @@ export default function EditSong() {
 
       useEffect(() => {
         async function loadSong() {
-          const url = `${process.env.REACT_APP_DJANGO_SERVICE}trl/api/songs/${songNav}/`;
+          //const targetId = ;
+          console.log(songNav)
+          const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${(songNav)}/`;
+          const fetchConfig = {};
           const songResponse = await fetch(url, {
             credentials: "include",
           });
           if (songResponse.ok) {
-            song = await songResponse.json();
-            setSong(song);
+            const songRes = await songResponse.json();
+            setSong(songRes);
             setTitle(song.title);
             setArtist(song.artist);
             setIsRequestable(song.is_requestable);
-            setCategory(song.category.name);
+            setCategory(song.category);
           }
 
           async function getCurrentUser() {
-            const url = `${process.env.REACT_APP_ACCOUNTS_HOST}api/tokens/me/`;
+            const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
             const response = await fetch(url, {
               credentials: 'include',
             });
             if (response.ok) {
-              user = await response.json();
+              const user = await response.json();
               setUser(user);
             }
             }
             if (token) {
               getCurrentUser();
             } else {
-              navigate("login/")
+              navigate("/login/")
             }
         }
         loadSong()

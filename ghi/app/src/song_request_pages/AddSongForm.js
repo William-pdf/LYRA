@@ -7,7 +7,6 @@ class AddSongForm extends React.Component {
       title: "",
       artist: "",
       category: "",
-      categories: [],
       is_requestable: true,
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
