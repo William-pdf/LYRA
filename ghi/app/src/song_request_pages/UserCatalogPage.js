@@ -71,22 +71,27 @@ export default function UserCatalog(props) {
         )
     })
     return (
-        <div>
-        <table>
-            <thead>
-                <tr>
-                    <th colSpan="4">YOUR SONGS</th>
-                </tr>
-                <tr>
-                    <th>Title</th>
-                    <th>Artist</th>
-                    <th>Requestable</th>
-                    <th></th>
-                </tr>
-            </thead>
-            {tBodies}
-        </table>
-        </div>
+        <>  
+            <div>
+                <button onClick={() => navigate("/add/")}>Add Song</button>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colSpan="4">YOUR SONGS</th>
+                        </tr>
+                        <tr>
+                            <th>Title</th>
+                            <th>Artist</th>
+                            <th>Requestable</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {tBodies}
+                </table>
+            </div>
+        </>
     )
 }
 

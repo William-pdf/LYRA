@@ -50,16 +50,19 @@ def api_songs(request):
         return JsonResponse(song, encoder=SongEncoder, safe=False)
 
 
-@require_http_methods(["GET", "PUT"])
+@require_http_methods(["GET", "PUT", "DELETE"])
 @auth.jwt_login_required
 def api_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method == "GET":
         return JsonResponse(song, encoder=SongEncoder, safe=False)
-    else:
+    elif request.method == "POST":
         content = json.loads(request.body)
         Song.objects.filter(id=pk).update(**content)
         return JsonResponse(song, encoder=SongEncoder, safe=False)
+    else:
+        Song.objects.filter(id=pk).delete()
+        return JsonResponse({"Message:": "Song with id:f{id}, has been deleted from the database"})
 
 
 @require_http_methods(["GET", "POST"])

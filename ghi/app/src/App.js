@@ -6,6 +6,7 @@ import SongRequestPage from './song_request_pages/SongRequestPage';
 import AddSongForm from './song_request_pages/AddSongForm';
 import LandingPage from './main_page/LandingPage';
 import UserCatalog from './song_request_pages/UserCatalogPage';
+import EditSong from './song_request_pages/EditSongPage';
 import Login from './Auth/Login';
 import UserHome from './Auth/UserHome';
 import Signup from './Auth/Signup';
@@ -32,20 +33,21 @@ function App(props) {
                 path="add/"
                 element={<AddSongForm categories={categories} />}
               />
-              {/* <Route path=':songNav/'
-                element={<EditSongPage 
+              <Route path=':songNav/'
+                element={<EditSong 
                   categories={categories}
-                />}  */}
+                />} 
+              />
             </Route>
-            <Route path="requests/:ownerArtist/">
-              <Route
+            <Route path="requests/">
+              {/* <Route
                 index
                 element={
-                  <SongRequestPage categories={categories} songs={songs} />
+                  <BandRequestPage categories={categories} songs={songs} />
                 }
-              />
-              {/* <Route path='${artist_name}/'
-                element={<PublicRequestPage
+              /> */}
+              {/* <Route path=':ownerArtist/'
+                element={<SongRequestPage
                   songs={songs}
                 />}
               /> */}
