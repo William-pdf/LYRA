@@ -4,7 +4,7 @@ import "./login.css";
 
 export default function Login() {
   // eslint-disable-next-line no-unused-vars
-  const [token, login, logout] = useToken();
+  const [token, login] = useToken();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,10 +14,6 @@ export default function Login() {
     setUsername("");
     setPassword("");
   };
-
-  // const handleLogout = () => {
-  //   logout();
-  // };
 
   return (
     <>

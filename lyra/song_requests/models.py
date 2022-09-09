@@ -13,16 +13,10 @@ class Song(models.Model):
     artist = models.CharField(max_length=50, null=True, blank=True)
     is_requested = models.BooleanField(default=False)
     is_requestable = models.BooleanField(default=True)
-    owner_artist = models.PositiveIntegerField()
+    owner_artist = models.CharField(max_length=100)
     category = models.ForeignKey(
         Category, related_name="songs", on_delete=models.PROTECT
     )
 
     def __str__(self):
         return self.title
-
-    # band = models.ManyToManyField(
-    #     Band,
-    #     related_name='songs'
-    #     on_delete=models.PROTECT
-    # )
