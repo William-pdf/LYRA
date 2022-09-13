@@ -31,7 +31,7 @@ class SongEncoder(ModelEncoder):
 def api_songs(request):
     if request.method == "GET":
         songs = Song.objects.all()
-        return JsonResponse({"songs": songs}, encoder=SongEncoder, safe=False)
+        return JsonResponse({"songs":songs}, encoder=SongEncoder, safe=False)
     else:
 
         content = json.loads(request.body)

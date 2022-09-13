@@ -44,10 +44,12 @@ export default function EditSong(props) {
           //const targetId = ;
           
           const songUrl = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${(songNav)}/`;
-          const fetchConfig = {};
-          const songResponse = await fetch(songUrl, {
+          const fetchConfig = {
+            method: "GET",
             credentials: "include",
-          });
+            headers: { 'Content-Type': 'application/json' }
+          };
+          const songResponse = await fetch(songUrl, fetchConfig);
           if (songResponse.ok) {
             const songRes = await songResponse.json();
             setSong(songRes);

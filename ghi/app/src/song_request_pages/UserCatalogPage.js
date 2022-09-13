@@ -16,12 +16,10 @@ import { useNavigate } from 'react-router-dom';
 export default function UserCatalog() {
     const [songs, setSongs] = useState()
     const [token] = useToken();
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState();
     const navigate = useNavigate();
     
-    console.log("USER:", user)
-    console.log("ARTISTNAME:", user.artist_name)
-
+    
     
     
     function navToEdit(songID) {
@@ -37,46 +35,57 @@ export default function UserCatalog() {
                 { credentials: 'include',}
                 );
                 if (response.ok) {
-                const userData = await response.json();
-                setUser(userData);  
-            } else {
-                navigate("/login/")
+                    const userData = await response.json();
+                    setUser(userData);  
+                } else {
+                    navigate("/login/")
+                } 
+            } if (token) {
+                getCurrentUser();
             } 
-        } if (token) {
-            getCurrentUser();
-        } 
+            
+            
+    }, [token]);
         
+    useEffect(() => {
         async function get_songs() {
             
-            const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs`
+            const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`
             const fetchConfig = {
                 method: "GET",
+                headers: { 'Content-Type': 'application/json' },
                 credentials: "include"
             }
             const response = await fetch(url, fetchConfig);
             if (response.ok) {
-                const songData = await response.json();
-                setSongs(songData)
-                console.log("SONG DATA:", songData)
-
+                const songsData = await response.json();
+                setSongs(songsData)
             }
             
         }
         get_songs();
+    });
+
+    useEffect(() => {
+        function filterSongs() {
+            const filteredSongs = songs.filter(song => {
+                if (song.owner_artist === user.artist_name) {
+                    return song
+                }
+            })
+            setSongs(filteredSongs)
+        }
+        filterSongs();
+    });
+
+        
+        
         console.log("SONGS:", songs)
         
-    }, [token]);
-    
-    const filterSongs = songs.songs.filter(sng => {
-        console.log("OWNERARTIST:", sng.owner_artist)
-        if (sng.owner_artist === user.artist_name) {
-            return sng;
-        } else {
-            console.log(sng)
-        }
-    })
-    console.log("Filter songs:", filterSongs)
-    const tBodies = filterSongs.map((song, index) => {
+        console.log("USER:", user)
+        console.log("ARTISTNAME:", user)
+        
+    const tBodies = songs.map((song, index) => {
         const songValues = Object.values(song)
         const songsRows = songValues.map((value, i) => {
             const songTitle = i === 0 ? <td rowSpan={songValues.length + 1} value={song.id} onClick={() => navToEdit(song.id)}>{song.title}</td> : null

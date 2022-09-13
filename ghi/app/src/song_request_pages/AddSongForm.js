@@ -135,7 +135,7 @@ class AddSongForm extends React.Component {
                   className="form-select"
                 >
                   <option value="">Choose a category</option>
-                  {this.props.categories.categories.map((cat) => {
+                  {this.props.categories.map((cat) => {
                     return (
                       <option key={cat.id} value={cat.id}>
                         {cat.name}

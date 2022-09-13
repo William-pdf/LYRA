@@ -6,7 +6,7 @@ import SongRequestPage from './song_request_pages/SongRequestPage';
 import AddSongFormWrapper from './song_request_pages/AddSongForm';
 import ArtistFacingRequestPage from './song_request_pages/ArtistFacingRequestPage';
 import LandingPage from './main_page/LandingPage';
-import UserCatalog from './song_request_pages/UserCatalogPage';
+import UserCatalog from './song_request_pages/UserCatalogTest';
 import EditSong from './song_request_pages/EditSongPage';
 import Login from './Auth/Login';
 import UserHome from './Auth/UserHome';

@@ -44,29 +44,38 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" id="nav-list">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="catalog/">
-                <h3 className="link-nav">CATALOG</h3>
-              </NavLink>
-            </li>
-            <li>
               {token ? (
-                <NavLink className="nav-link" to="" onClick={() => logout()}>
-                  <h3 className="link-nav">LOGOUT</h3>
-                </NavLink>
-              ) : (
-                <NavLink className="nav-link" to="login/">
-                  <h3 className="link-nav">LOGIN</h3>
-                </NavLink>
-              )}
-            </li>
-            <li>
-              {!token && (
-                  <NavLink className="nav-link" to="signup/">
-                    <h3 className="link-nav">SIGN-UP</h3>
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="" onClick={() => logout()}>
+                    <h3 className="link-nav">LOGOUT</h3>
                   </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="account/">
+                    <h3 className="link-nav">ACCOUNT</h3>
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="catalog/">
+                    <h3 className="link-nav">CATALOG</h3>
+                  </NavLink>
+                </li>
+              </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="login/">
+                      <h3 className="link-nav">LOGIN</h3>
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="signup/">
+                      <h3 className="link-nav">SIGN-UP</h3>
+                    </NavLink>
+                  </li>
+                </>
               )}
-            </li>
           </ul>
         </div>
       </div>
