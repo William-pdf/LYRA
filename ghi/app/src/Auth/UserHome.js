@@ -1,11 +1,13 @@
 import React from 'react';
 import { useToken } from '../useToken';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 function UserHome() {
   const [token] = useToken();
   const [user, setUser] = useState('');
   const [artistName, setArtistName] = useState('');
+  let navigate = useNavigate()
 
   useEffect(() => {
     async function getCurrentUser() {
