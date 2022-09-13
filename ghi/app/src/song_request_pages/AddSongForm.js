@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useToken } from '../useToken';
 
 function AddSongFormWrapper(props) {
   const [token] = useToken();
   const [user, setUser] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getCurrentUser() {
@@ -21,9 +23,14 @@ function AddSongFormWrapper(props) {
     }
   }, [token]);
 
-  return <AddSongForm categories={props.categories} user={user} />;
+  return (
+    <AddSongForm
+      categories={props.categories}
+      user={user}
+      navigate={navigate}
+    />
+  );
 }
-
 
 class AddSongForm extends React.Component {
   constructor(props) {
@@ -47,6 +54,9 @@ class AddSongForm extends React.Component {
     const data = { ...this.state };
     delete data['categories'];
     data['owner_artist'] = this.props.user.artist_name;
+    data['is_requestable'] === 'true'
+      ? (data['is_requestable'] = true)
+      : (data['is_requestable'] = false);
 
     const songUrl = 'http://localhost:8000/trl/api/songs/';
     const fetchOptions = {
@@ -69,6 +79,7 @@ class AddSongForm extends React.Component {
         is_requestable: true,
       };
       this.setState(cleared);
+      this.props.navigate('/catalog/');
     }
   }
 
@@ -145,7 +156,9 @@ class AddSongForm extends React.Component {
                 </select>
               </div>
               <div className="form-floating mb-3">
-                <label htmlFor='requestable' className='form-label'>Is Requestable?</label>
+                <label htmlFor="requestable" className="form-label">
+                  Is Requestable?
+                </label>
                 <select
                   value={this.state.is_requestable}
                   onChange={this.handleRequestableChange}
