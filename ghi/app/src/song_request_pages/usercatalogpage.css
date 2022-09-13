@@ -1,0 +1,13 @@
+.center {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  background: white;
+  border-radius: 10px;
+}
+
+.content-table {
+  border-collapse: collapse;
+}
