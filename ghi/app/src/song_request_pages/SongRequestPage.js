@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useToken } from "../useToken";
-import { useParams } from "react-router-dom";
-import "./songrequests.css";
+import React, { useState, useEffect } from 'react';
+import { useToken } from '../useToken';
+import { useParams } from 'react-router-dom';
+import './songrequests.css';
 
 function SongRequestsPage(props) {
   const { songs } = props;
   const [token] = useToken();
   const [requestableSongs, setRequestableSongs] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   let { ownerArtist } = useParams();
-  ownerArtist = ownerArtist.replaceAll("-", " ");
+  ownerArtist = ownerArtist.replaceAll('-', ' ');
 
   useEffect(() => {
     async function loadData() {
       setRequestableSongs(
         songs.songs.filter(
-          (song) => song.is_requestable && song.owner_artist === ownerArtist
+          (song) =>
+            song.is_requestable &&
+            song.owner_artist.toLowerCase() === ownerArtist.toLowerCase()
         )
       );
     }
@@ -26,10 +28,10 @@ function SongRequestsPage(props) {
     console.log(songID);
     const url = `http://localhost:8000/trl/api/songs/${songID}/`;
     const requestOption = {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({ is_requested: true }),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
