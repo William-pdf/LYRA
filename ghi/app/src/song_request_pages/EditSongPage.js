@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { useToken } from '../useToken';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -14,7 +14,6 @@ export default function EditSong(props) {
     const [category, setCategory] = useState(song.category);
     const [owner_artist, setOwnerArtist] = useState(song.owner_artist)
     const navigate = useNavigate();
-
 
     useEffect(() => {
       async function getCurrentUser() {
@@ -64,28 +63,28 @@ export default function EditSong(props) {
       preLoad()
     }, [song])
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setOwnerArtist(user.artist_name)
-        const data = {
-          title: title,
-          artist: artist,
-          is_requestable: is_requestable,
-          category: category,
-          owner_artist: owner_artist
-        };
-        const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${song.id}/`;
-        const fetchConfig = {
-          method: 'PUT',
-          body: JSON.stringify(data),
-          credentials: 'include',
-        };
-    
-        const response = await fetch(url, fetchConfig);
-        if (response.ok) {
-          navigate('/catalog/');
-        }
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setOwnerArtist(user.artist_name);
+    const data = {
+      title: title,
+      artist: artist,
+      is_requestable: is_requestable,
+      category: category,
+      owner_artist: owner_artist,
+    };
+    const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${song.id}/`;
+    const fetchConfig = {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      credentials: 'include',
+    };
+
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      navigate('/catalog/');
+    }
+  };
 
     console.log("SONG IN EDIT:", song)
     console.log("USER FOR EDIT:", user)

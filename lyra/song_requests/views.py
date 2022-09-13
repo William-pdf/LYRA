@@ -31,7 +31,7 @@ class SongEncoder(ModelEncoder):
 def api_songs(request):
     if request.method == "GET":
         songs = Song.objects.all()
-        return JsonResponse({"songs":songs}, encoder=SongEncoder, safe=False)
+        return JsonResponse({"songs": songs}, encoder=SongEncoder, safe=False)
     else:
 
         content = json.loads(request.body)
@@ -56,7 +56,9 @@ def api_song(request, pk):
         return JsonResponse(song, encoder=SongEncoder, safe=False)
     else:
         Song.objects.filter(id=pk).delete()
-        return JsonResponse({"Message:": "Song with id:f{id}, has been deleted from the database"})
+        return JsonResponse(
+            {"Message:": "Song with id:f{id}, has been deleted from the database"}
+        )
 
 
 @require_http_methods(["GET", "POST"])

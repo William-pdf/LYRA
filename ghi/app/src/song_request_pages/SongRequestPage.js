@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useToken } from '../useToken';
 import { useParams } from 'react-router-dom';
+import './songrequests.css';
 
 function SongRequestsPage(props) {
   const { songs } = props;
@@ -14,13 +15,15 @@ function SongRequestsPage(props) {
     async function loadData() {
       setRequestableSongs(
         songs.songs.filter(
-          (song) => song.is_requestable && song.owner_artist === ownerArtist
-        )    
-      )  
+          (song) =>
+            song.is_requestable &&
+            song.owner_artist.toLowerCase() === ownerArtist.toLowerCase()
+        )
+      );
     }
     // eslint-disable-next-line no-unused-expressions
-    loadData()
-    [ownerArtist, songs]});
+    loadData()[(ownerArtist, songs)];
+  });
 
   async function handleQueue(songID) {
     console.log(songID);
@@ -43,7 +46,7 @@ function SongRequestsPage(props) {
   return (
     <>
       {token ? (
-        <>
+        <div className="center">
           <h1>Request a song</h1>
           <form id="song_list">
             <div className="main-search-input-wrap">
@@ -67,16 +70,8 @@ function SongRequestsPage(props) {
             </thead>
             <tbody>
               {requestableSongs
-                .filter((song) => {
-                  if (song.is_requested === false) {
-                    return song;
-                  }
-                })
-                .filter((searched) => {
-                  if (searched.title.includes(searchInput)) {
-                    return searched;
-                  }
-                })
+                .filter((song) => song.is_requested === false)
+                .filter((searched) => searched.title.includes(searchInput))
                 .map((song) => {
                   return (
                     <tr key={song.id}>
@@ -95,7 +90,7 @@ function SongRequestsPage(props) {
                 })}
             </tbody>
           </table>
-        </>
+        </div>
       ) : (
         <h1>You must be Logged In to view this page.</h1>
       )}
