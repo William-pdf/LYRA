@@ -21,8 +21,9 @@ function SongRequestsPage(props) {
         )
       );
     }
-    loadData();
-  }, [ownerArtist, songs]);
+    // eslint-disable-next-line no-unused-expressions
+    loadData()[(ownerArtist, songs)];
+  });
 
   async function handleQueue(songID) {
     console.log(songID);

@@ -24,6 +24,7 @@ function AddSongFormWrapper(props) {
   return <AddSongForm categories={props.categories} user={user} />;
 }
 
+
 class AddSongForm extends React.Component {
   constructor(props) {
     super(props);
@@ -96,7 +97,7 @@ class AddSongForm extends React.Component {
       <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
-            <h1>Add a song</h1>
+            <h1>Add A SONG</h1>
             <form onSubmit={this.handleSubmit} id="create-song-form">
               <div className="form-floating mb-3">
                 <input
@@ -124,7 +125,7 @@ class AddSongForm extends React.Component {
                 />
                 <label htmlFor="artist">Artist</label>
               </div>
-              <div className="mb-3">
+              <div className="form-floating mb-3">
                 <select
                   value={this.state.category}
                   onChange={this.handleCategoryChange}
@@ -134,7 +135,7 @@ class AddSongForm extends React.Component {
                   className="form-select"
                 >
                   <option value="">Choose a category</option>
-                  {this.props.categories.categories.map((cat) => {
+                  {this.props.categories.map((cat) => {
                     return (
                       <option key={cat.id} value={cat.id}>
                         {cat.name}
@@ -142,19 +143,19 @@ class AddSongForm extends React.Component {
                     );
                   })}
                 </select>
-                <div className="form-floating mb-3">
-                  <select
-                    value={this.state.is_requestable}
-                    onChange={this.handleRequestableChange}
-                    name="is_requestable"
-                    id="is_requestable"
-                    className="form-select"
-                  >
-                    <option value="">Is Song Requestable?</option>
-                    <option value="true">True</option>
-                    <option value="false">False</option>
-                  </select>
-                </div>
+              </div>
+              <div className="form-floating mb-3">
+                <label htmlFor='requestable' className='form-label'>Is Requestable?</label>
+                <select
+                  value={this.state.is_requestable}
+                  onChange={this.handleRequestableChange}
+                  name="is_requestable"
+                  id="is_requestable"
+                  className="form-select"
+                >
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
               </div>
               <button className="btn btn-primary">Create</button>
             </form>
