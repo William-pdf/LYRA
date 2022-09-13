@@ -59,7 +59,7 @@ function SongRequestsPage(props) {
               </div>
             </div>
           </form>
-          <table>
+          <table className="table table-striped">
             <thead>
               <tr>
                 <th>Songs</th>
