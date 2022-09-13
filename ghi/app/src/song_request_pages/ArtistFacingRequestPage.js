@@ -25,7 +25,7 @@ function ArtistFacingRequestPage(props) {
 
   useEffect(() => {
     setRequestedSongs(
-      songs.songs.filter((song) => song.owner_artist === user.artist_name)
+      songs.filter((song) => song.owner_artist === user.artist_name)
     );
   }, [user, songs]);
 

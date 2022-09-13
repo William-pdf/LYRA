@@ -61,6 +61,11 @@ function Nav() {
                     <h3 className="link-nav">CATALOG</h3>
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="requests/">
+                    <h3 className="link-nav">LIVE REQUEST</h3>
+                  </NavLink>
+                </li>
               </>
               ) : (
                 <>

@@ -14,7 +14,7 @@ function SongRequestsPage(props) {
   useEffect(() => {
     async function loadData() {
       setRequestableSongs(
-        songs.songs.filter(
+        songs.filter(
           (song) =>
             song.is_requestable &&
             song.owner_artist.toLowerCase() === ownerArtist.toLowerCase()
@@ -22,8 +22,8 @@ function SongRequestsPage(props) {
       );
     }
     // eslint-disable-next-line no-unused-expressions
-    loadData()[(ownerArtist, songs)];
-  });
+    loadData();
+  }, [ownerArtist, songs]);
 
   async function handleQueue(songID) {
     console.log(songID);
