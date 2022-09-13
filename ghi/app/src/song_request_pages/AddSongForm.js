@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useToken } from '../useToken';
 
 function AddSongFormWrapper(props) {
   const [token] = useToken();
   const [user, setUser] = useState('');
+  let navigate = useNavigate();
 
   useEffect(() => {
     async function getCurrentUser() {
@@ -33,7 +35,7 @@ class AddSongForm extends React.Component {
       artist: '',
       category: '',
       categories: [],
-      is_requestable: true,
+      is_requestable: "True",
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleArtistChange = this.handleArtistChange.bind(this);
@@ -66,7 +68,7 @@ class AddSongForm extends React.Component {
         title: '',
         artist: '',
         category: '',
-        is_requestable: true,
+        is_requestable: "True",
       };
       this.setState(cleared);
     }
@@ -152,9 +154,10 @@ class AddSongForm extends React.Component {
                   name="is_requestable"
                   id="is_requestable"
                   className="form-select"
-                >
-                  <option value="true">True</option>
-                  <option value="false">False</option>
+                > 
+                  <option value="">Choose an Option</option>
+                  <option value="'True'">True</option>
+                  <option value="'False'">False</option>
                 </select>
               </div>
               <button className="btn btn-primary">Create</button>

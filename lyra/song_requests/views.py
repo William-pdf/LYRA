@@ -50,7 +50,7 @@ def api_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method == "GET":
         return JsonResponse(song, encoder=SongEncoder, safe=False)
-    elif request.method == "POST":
+    elif request.method == "PUT":
         content = json.loads(request.body)
         Song.objects.filter(id=pk).update(**content)
         return JsonResponse(song, encoder=SongEncoder, safe=False)
