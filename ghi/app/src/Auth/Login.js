@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { useToken } from "../useToken";
-import "./login.css";
+import React, { useState } from 'react';
+import { useToken } from '../useToken';
+import './login.css';
 
 export default function Login() {
   // eslint-disable-next-line no-unused-vars
   const [token, login] = useToken();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     login(username, password);
-    setUsername("");
-    setPassword("");
+    setUsername('');
+    setPassword('');
   };
 
   return (
