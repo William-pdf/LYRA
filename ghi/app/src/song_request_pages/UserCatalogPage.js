@@ -5,12 +5,29 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export default function UserCatalog(props) {
-    const { songs } = props;
+
+
+
+
+
+
+
+
+export default function UserCatalog() {
+    const [songs, setSongs] = useState()
     const [token] = useToken();
     const [user, setUser] = useState('');
     const navigate = useNavigate();
+    
+    console.log("USER:", user)
+    console.log("ARTISTNAME:", user.artist_name)
 
+    
+    
+    function navToEdit(songID) {
+        navigate(`/catalog/${songID}/`)
+        
+    }
     
     useEffect(() => {
         async function getCurrentUser() {
@@ -18,30 +35,41 @@ export default function UserCatalog(props) {
             const response = await fetch(
                 url, 
                 { credentials: 'include',}
-            );
-            if (response.ok) {
-                const user = await response.json();
-                setUser(user);
-                console.log("USSR:", user)
-            }
+                );
+                if (response.ok) {
+                const userData = await response.json();
+                setUser(userData);  
+            } else {
+                navigate("/login/")
+            } 
         } if (token) {
             getCurrentUser();
-        } else {
-            navigate("login/")
+        } 
+        
+        async function get_songs() {
+            
+            const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs`
+            const fetchConfig = {
+                method: "GET",
+                credentials: "include"
+            }
+            const response = await fetch(url, fetchConfig);
+            if (response.ok) {
+                const songData = await response.json();
+                setSongs(songData)
+                console.log("SONG DATA:", songData)
+
+            }
+            
         }
+        get_songs();
+        console.log("SONGS:", songs)
+        
     }, [token]);
-
-
-    function navToEdit(songID) {
-        navigate(`/catalog/${songID}/`)
-        console.log(songID)
-    }
     
-
-    console.log("USER:", user)
-    console.log("SONG.SONGS:", songs.songs)
     const filterSongs = songs.songs.filter(sng => {
-        if (sng.owner_artist.toLowerCase() === user.artist_name.toLowerCase()) {
+        console.log("OWNERARTIST:", sng.owner_artist)
+        if (sng.owner_artist === user.artist_name) {
             return sng;
         } else {
             console.log(sng)
@@ -73,7 +101,7 @@ export default function UserCatalog(props) {
     return (
         <>  
             <div>
-                <button onClick={() => navigate("/add/")}>Add Song</button>
+                <button onClick={() => navigate("add/")}>Add Song</button>
             </div>
             <div>
                 <table>

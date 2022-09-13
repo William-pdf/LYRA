@@ -50,11 +50,6 @@ function Nav() {
               </NavLink>
             </li>
             <li>
-              <NavLink className="nav-link" to="catalog/">
-                <h3 className="link-nav">BUTTS</h3>
-              </NavLink>
-            </li>
-            <li>
               {token ? (
                 <NavLink className="nav-link" to="" onClick={() => logout()}>
                   <h3 className="link-nav">LOGOUT</h3>
@@ -63,6 +58,13 @@ function Nav() {
                 <NavLink className="nav-link" to="login/">
                   <h3 className="link-nav">LOGIN</h3>
                 </NavLink>
+              )}
+            </li>
+            <li>
+              {!token && (
+                  <NavLink className="nav-link" to="signup/">
+                    <h3 className="link-nav">SIGN-UP</h3>
+                  </NavLink>
               )}
             </li>
           </ul>

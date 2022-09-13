@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useToken } from '../useToken';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function EditSong() {
+export default function EditSong(props) {
+
     const {songNav} = useParams();
     const [token] = useToken();
     const [user, setUser] = useState();
@@ -11,20 +12,23 @@ export default function EditSong() {
     const [artist, setArtist] = useState('');
     const [is_requestable, setIsRequestable] = useState('');
     const [category, setCategory] = useState();
+    const [owner_artist, setOwnerArtist] = useState('')
     const navigate = useNavigate();
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setOwnerArtist(user.artist_name)
         const data = {
           title: title,
           artist: artist,
           is_requestable: is_requestable,
-          category: category
+          category: category,
+          owner_artist: owner_artist
         };
-        const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`;
+        const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${song.id}/`;
         const fetchConfig = {
-          method: 'post',
+          method: 'PUT',
           body: JSON.stringify(data),
           credentials: 'include',
         };
@@ -38,52 +42,50 @@ export default function EditSong() {
       useEffect(() => {
         async function loadSong() {
           //const targetId = ;
-          console.log(songNav)
-          const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${(songNav)}/`;
+          
+          const songUrl = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${(songNav)}/`;
           const fetchConfig = {};
-          const songResponse = await fetch(url, {
+          const songResponse = await fetch(songUrl, {
             credentials: "include",
           });
           if (songResponse.ok) {
             const songRes = await songResponse.json();
             setSong(songRes);
-            setTitle(song.title);
-            setArtist(song.artist);
-            setIsRequestable(song.is_requestable);
-            setCategory(song.category);
+
           }
 
+        }
           async function getCurrentUser() {
-            const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
-            const response = await fetch(url, {
+            const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
+            const userResponse = await fetch(userUrl, {
               credentials: 'include',
             });
-            if (response.ok) {
-              const user = await response.json();
-              setUser(user);
-            }
-            }
-            if (token) {
-              getCurrentUser();
+            if (userResponse.ok) {
+              const userData = await userResponse.json();
+              setUser(userData);
             } else {
               navigate("/login/")
             }
-        }
+          } 
+        if (token) {
+          getCurrentUser();
+          
+        } 
         loadSong()
-      })
-
+      }, [token])
+    console.log("SONG IN EDIT:", song)
+    console.log("USER FOR EDIT:", user)
     
     return (
       <>
         <div>
           <h1>EDIT SONG</h1>
-          <form onSubmit={() => handleSubmit()}>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <label htmlFor="title">TITLE</label>
             <div className="form-floating mb-3">
-              <label htmlFor="title">TITLE</label>
               <input
-                value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={song.title}
+                defaultValue={song.title}
                 required
                 type="text"
                 name="title"
@@ -91,12 +93,11 @@ export default function EditSong() {
                 className="form-control"
               />
             </div>
+            <label htmlFor="title">ARTIST</label>
             <div className="form-floating mb-3">
-              <label htmlFor="title">ARTIST</label>
               <input
-                value={artist}
                 onChange={(e) => setArtist(e.target.value)}
-                placeholder="artist"
+                defaultValue={song.artist}            
                 required
                 type="text"
                 name="artist"
@@ -104,23 +105,29 @@ export default function EditSong() {
                 className="form-control"
               />
             </div>
+            <label htmlFor="title">CATEGORY</label>
             <div className="form-floating mb-3">
-              <label htmlFor="title">CATEGORY</label>
-              <input
-                value={category}
+              <select
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="category"
+                defaultValue={song.category}            
                 required
-                type="text"
                 name="category"
                 id="category"
                 className="form-control"
-              />
+              >
+                <option value="">Choose a category</option>
+                  {props.categories.categories.map((cat) => {
+                    return (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </option>
+                    );
+                  })}
+              </select>
             </div>
+            <label htmlFor="title">IS REQUESTABLE</label>
             <div className="form-floating mb-3">
-              <label htmlFor="title">IS REQUESTABLE</label>
-              <input
-                value={is_requestable}
+              <select
                 onChange={(e) => setIsRequestable(e.target.value)}
                 placeholder="is_requestable"
                 required
@@ -128,8 +135,12 @@ export default function EditSong() {
                 name="is_requestable"
                 id="is_requestable"
                 className="form-control"
-              />
+              >
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
             </div>
+            <button className="btn btn-primary">UPDATE</button>
           </form>
         </div>
       </>
