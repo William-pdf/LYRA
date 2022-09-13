@@ -36,9 +36,9 @@ async function loadLyraViews() {
     <React.StrictMode>
       <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
       <App
-        songs={songsData}
+        songs={songsData.songs}
         //can change this to songsData.{something} to get specific parts of the song in list, like songsData.title or songsData.artist
-        categories={categoriesData}
+        categories={categoriesData.categories}
         //same with this
       />
     </React.StrictMode>

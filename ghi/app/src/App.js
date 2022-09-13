@@ -2,13 +2,15 @@ import "./App.css";
 import { AuthProvider } from "./useToken";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "./nav/Nav";
-import SongRequestPage from "./song_request_pages/SongRequestPage";
 import AddSongFormWrapper from "./song_request_pages/AddSongForm";
 import ArtistFacingRequestPage from "./song_request_pages/ArtistFacingRequestPage";
 import LandingPage from "./main_page/LandingPage";
+import UserCatalog from "./song_request_pages/UserCatalogPage";
+import EditSong from "./song_request_pages/EditSongPage";
 import Login from "./Auth/Login";
 import UserHome from "./Auth/UserHome";
 import Signup from "./Auth/Signup";
+import SongRequestsPage from "./song_request_pages/SongRequestPage";
 
 function App(props) {
   let { categories, songs } = props;
@@ -22,20 +24,15 @@ function App(props) {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="catalog/">
-              {/* <Route 
-                index
-                element={<MyCatalogPage 
-                  songs={songs}
-                />} 
-              /> */}
+              <Route index element={<UserCatalog songs={songs} />} />
               <Route
                 path="add/"
                 element={<AddSongFormWrapper categories={categories} />}
               />
-              {/* <Route
-                path="edit/"
-                element={<EditSongPage categories={categories} />}
-              /> */}
+              <Route
+                path=":songNav/"
+                element={<EditSong categories={categories} />}
+              />
             </Route>
             <Route path="requests/">
               <Route
@@ -45,11 +42,11 @@ function App(props) {
               <Route
                 path=":ownerArtist/"
                 element={
-                  <SongRequestPage categories={categories} songs={songs} />
+                  <SongRequestsPage categories={categories} songs={songs} />
                 }
               />
-              {/* <Route path='${artist_name}/'
-                element={<PublicRequestPage
+              {/* <Route path=':ownerArtist/'
+                element={<SongRequestPage
                   songs={songs}
                 />}
               /> */}

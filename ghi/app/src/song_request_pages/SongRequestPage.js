@@ -16,11 +16,12 @@ function SongRequestsPage(props) {
       setRequestableSongs(
         songs.songs.filter(
           (song) => song.is_requestable && song.owner_artist === ownerArtist
-        )
-      );
+        )    
+      )  
     }
-    loadData();
-  }, [ownerArtist, songs]);
+    // eslint-disable-next-line no-unused-expressions
+    loadData()
+    [ownerArtist, songs]});
 
   async function handleQueue(songID) {
     console.log(songID);
