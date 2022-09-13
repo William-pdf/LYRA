@@ -69,16 +69,8 @@ function SongRequestsPage(props) {
             </thead>
             <tbody>
               {requestableSongs
-                .filter((song) => {
-                  if (song.is_requested === false) {
-                    return song;
-                  }
-                })
-                .filter((searched) => {
-                  if (searched.title.includes(searchInput)) {
-                    return searched;
-                  }
-                })
+                .filter((song) => song.is_requested === false)
+                .filter((searched) => searched.title.includes(searchInput))
                 .map((song) => {
                   return (
                     <tr key={song.id}>

@@ -69,7 +69,7 @@ function ArtistFacingRequestPage(props) {
                           type="button"
                           className="btn btn-success"
                         >
-                          Queue
+                          Remove Request
                         </button>
                       </td>
                     </tr>
