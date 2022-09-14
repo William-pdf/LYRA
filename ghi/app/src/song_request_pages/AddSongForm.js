@@ -11,7 +11,7 @@ function AddSongFormWrapper(props) {
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {
-        credentials: 'include',
+        credentials: "include",
       });
       if (response.ok) {
         const user = await response.json();
@@ -58,14 +58,14 @@ class AddSongForm extends React.Component {
       ? (data['is_requestable'] = true)
       : (data['is_requestable'] = false);
 
-    const songUrl = 'http://localhost:8000/trl/api/songs/';
+    const songUrl = "http://localhost:8000/trl/api/songs/";
     const fetchOptions = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     };
     const songResponse = await fetch(songUrl, fetchOptions);
     if (songResponse.ok) {
