@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from .models import Song, Category
+import os
 import json
 
 client = Client()
@@ -7,17 +8,18 @@ client = Client()
 
 # written by carter
 class SongModelTests(TestCase):
+    api_test_host = os.environ.get("LYRA_TEST_HOST")
     def setUp(self):
         Category.objects.create(id=1, name="Rock")
         Song.objects.create(id=1, title="test song", artist="Matt", category_id=1)
 
     def test_api_songs_returns_200(self):
-        response = client.get("http://localhost:8000/trl/api/songs/")
+        response = client.get(f"{self.api_test_host}/api/songs/")
 
         self.assertEqual(response.status_code, 200, "Not Getting a 200 Code")
 
     def test_api_song_returns_200(self):
-        response = client.get("http://localhost:8000/trl/api/songs/1/")
+        response = client.get(f"{self.api_test_host}/api/songs/1/")
 
         self.assertEqual(response.status_code, 200, "Not Getting a 200 Code")
 
@@ -32,7 +34,7 @@ class SongModelTests(TestCase):
         )
 
         response = client.post(
-            "http://localhost:8000/trl/api/songs/", post_song, "json"
+            f"{self.api_test_host}/api/songs/", post_song, "json"
         )
 
         print(response)
@@ -43,7 +45,7 @@ class SongModelTests(TestCase):
         update_song = json.dumps({"artist": "Jim Smith"})
 
         response = client.put(
-            "http://localhost:8000/trl/api/songs/1/", update_song, "json"
+            f"{self.api_test_host}/api/songs/1/", update_song, "json"
         )
 
         self.assertEqual(response.status_code, 200, "Not Getting a 200 Code")
@@ -51,24 +53,25 @@ class SongModelTests(TestCase):
 
 # written by carter
 class CategoryModelTests(TestCase):
+    api_test_host = os.environ.get("LYRA_TEST_HOST")
     def setUp(self):
         Category.objects.create(id=1, name="Rock")
         Song.objects.create(id=1, title="test song", artist="Matt", category_id=1)
 
     def test_api_get_all_categories(self):
-        response = client.get("http://localhost:8000/trl/api/categories/")
+        response = client.get(f"{self.api_test_host}/api/categories/")
 
         self.assertEqual(response.status_code, 200, "Not getting a 200 code bud.")
 
     def test_api_get_category(self):
-        response = client.get("http://localhost:8000/trl/api/categories/1/")
+        response = client.get(f"{self.api_test_host}/api/categories/1/")
 
         self.assertEqual(response.status_code, 200, "Not getting a 200 code bud.")
 
     def test_api_post_category(self):
         post_cat = json.dumps({"id": 2, "name": "Jazz"})
         response = client.post(
-            "http://localhost:8000/trl/api/categories/", post_cat, "json"
+            f"{self.api_test_host}/api/categories/", post_cat, "json"
         )
 
         self.assertEqual(response.status_code, 200, "Not getting a 200 code bud.")
@@ -77,7 +80,7 @@ class CategoryModelTests(TestCase):
         update_cat = json.dumps({"name": "Blues"})
 
         response = client.put(
-            "http://localhost:8000/trl/api/categories/1/", update_cat, "json"
+            f"{self.api_test_host}/api/categories/1/", update_cat, "json"
         )
 
         self.assertEqual(response.status_code, 200, "Not getting a 200 code bud.")

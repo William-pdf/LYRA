@@ -31,7 +31,7 @@ export default function EditSong(props) {
       if (token) {
         getCurrentUser();
       } 
-    }, [token])
+    }, [token, navigate])
 
     useEffect(() => {
       async function loadSong() {
