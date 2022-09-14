@@ -79,7 +79,7 @@ export function useToken() {
       await fetch(url, { method: 'delete', credentials: 'include' });
       internalToken = null;
       setToken(null);
-      navigate('/');
+      navigate('login/');
     }
   }
 
@@ -89,14 +89,14 @@ export function useToken() {
     form.append('username', username);
     form.append('password', password);
     const response = await fetch(url, {
-      method: 'post',
+      method: 'POST',
       credentials: 'include',
       body: form,
     });
     if (response.ok) {
       const token = await getTokenInternal();
       setToken(token);
-      return;
+      navigate('/account/');
     }
     let error = await response.json();
     return handleErrorMessage(error);

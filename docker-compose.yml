@@ -10,23 +10,24 @@ services:
       - ./ghi/app:/app
     ports:
       - "3000:3000"
-    environment: 
+    environment:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
-      REACT_APP_DJANGO_SERVICE: http://localhost:8000
+      PUBLIC_URL: http://localhost:3000
+      REACT_APP_DJANGO_SERVICE: http://localhost:8000/trl
       REACT_APP_ACCOUNTS_HOST: http://localhost:8001
   postgres:
     build:
       context: ./relational-data
       dockerfile: ./Dockerfile.dev
     volumes:
-    - lyra-data:/var/lib/postgresql/data
+      - lyra-data:/var/lib/postgresql/data
     environment:
-    - POSTGRES_MULTIPLE_DATABASES=lyra,accounts
-    - POSTGRES_PASSWORD=test-databases
+      - POSTGRES_MULTIPLE_DATABASES=lyra,accounts
+      - POSTGRES_PASSWORD=test-databases
     ports:
-    - 15432:5432
+      - 15432:5432
   lyra:
     build:
       context: ./lyra
@@ -42,19 +43,19 @@ services:
       WAIT_HOSTS: postgres:5432
       WAIT_TIMEOUT: 240
       DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb
+      LYRA_TEST_HOST: "http://localhost:8000/trl"
   accounts:
     build:
-        context: ./accounts
-        dockerfile: ./Dockerfile.dev
+      context: ./accounts
+      dockerfile: ./Dockerfile.dev
     ports:
-        - "8001:8000"
+      - "8001:8000"
     volumes:
-        - ./accounts:/app
+      - ./accounts:/app
     depends_on:
       - postgres
     environment:
-        DATABASE_URL: "postgres://lyra:password@postgres:5432/accounts"
-        WAIT_HOSTS: postgres:5432
-        WAIT_TIMEOUT: 240
-        DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb
-
+      DATABASE_URL: "postgres://lyra:password@postgres:5432/accounts"
+      WAIT_HOSTS: postgres:5432
+      WAIT_TIMEOUT: 240
+      DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb

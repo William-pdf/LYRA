@@ -1,0 +1,26 @@
+.logo {
+    height: 100px;
+    width: 100px;
+}
+
+.link-nav {
+    color: #ffed0d
+}
+
+
+#nav-list {
+    display: inline-flex;
+    align-items: flex-start;
+    padding-left: 10%;
+    padding-top: 5%;
+}
+
+.navbar {
+    background-color: #820ce8
+}
+
+/* .bg-image {
+    background-image: url('https://media.self.com/photos/5e70f72443731c000882cfe7/4:3/w_2560%2Cc_limit/GettyImages-125112134.jpg');
+    height: 100vh;
+    width: 100vh;
+} */
