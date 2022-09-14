@@ -23,6 +23,7 @@ async function loadLyraViews() {
     console.log('songs in db:', songsData);
   } else {
     console.error(songsResponse);
+    songsData = []
   }
 
   if (categoriesResponse.ok) {
@@ -30,6 +31,7 @@ async function loadLyraViews() {
     console.log('categories in db:', categoriesData);
   } else {
     console.error(categoriesResponse);
+    categoriesData = []
   }
 
   root.render(

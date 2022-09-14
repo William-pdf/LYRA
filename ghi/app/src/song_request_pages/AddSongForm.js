@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToken } from '../useToken';
+import "./addsong.css";
 
 function AddSongFormWrapper(props) {
   const [token] = useToken();
@@ -11,7 +12,7 @@ function AddSongFormWrapper(props) {
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {
-        credentials: 'include',
+        credentials: "include",
       });
       if (response.ok) {
         const user = await response.json();
@@ -58,14 +59,14 @@ class AddSongForm extends React.Component {
       ? (data['is_requestable'] = true)
       : (data['is_requestable'] = false);
 
-    const songUrl = 'http://localhost:8000/trl/api/songs/';
+    const songUrl = "http://localhost:8000/trl/api/songs/";
     const fetchOptions = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     };
     const songResponse = await fetch(songUrl, fetchOptions);
     if (songResponse.ok) {
@@ -105,79 +106,73 @@ class AddSongForm extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="offset-3 col-6">
-          <div className="shadow p-4 mt-4">
-            <h1>Add A SONG</h1>
-            <form onSubmit={this.handleSubmit} id="create-song-form">
-              <div className="form-floating mb-3">
-                <input
-                  value={this.state.title}
-                  onChange={this.handleTitleChange}
-                  placeholder="Title"
-                  required
-                  type="text"
-                  name="title"
-                  id="title"
-                  className="form-control"
-                />
-                <label htmlFor="title">Title</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  value={this.state.artist}
-                  onChange={this.handleArtistChange}
-                  placeholder="Artist"
-                  required
-                  type="text"
-                  name="artist"
-                  id="artist"
-                  className="form-control"
-                />
-                <label htmlFor="artist">Artist</label>
-              </div>
-              <div className="form-floating mb-3">
-                <select
-                  value={this.state.category}
-                  onChange={this.handleCategoryChange}
-                  required
-                  name="category"
-                  id="category"
-                  className="form-select"
-                >
-                  <option value="">Choose a category</option>
-                  {this.props.categories.map((cat) => {
-                    return (
-                      <option key={cat.id} value={cat.id}>
-                        {cat.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div className="form-floating mb-3">
-                <label htmlFor="requestable" className="form-label">
-                  Is Requestable?
-                </label>
-                <select
-                  value={this.state.is_requestable}
-                  onChange={this.handleRequestableChange}
-                  name="is_requestable"
-                  id="is_requestable"
-                  className="form-select"
-                > 
-                  <option value="">Choose an Option</option>
-                  <option value="'True'">True</option>
-                  <option value="'False'">False</option>
-                </select>
-              </div>
-              <button className="btn btn-primary">Create</button>
-            </form>
+      <div className="offset-3 col-6 center-card">
+        <h1>Add a song</h1>
+        <form onSubmit={this.handleSubmit} id="create-song-form">
+          <div className="form-floating mb-3 text-field">
+            <input
+              value={this.state.title}
+              onChange={this.handleTitleChange}
+              placeholder="Title"
+              required
+              type="text"
+              name="title"
+              id="title"
+              className="form-control"
+            />
+            <label htmlFor="title">Title</label>
           </div>
-        </div>
+          <div className="form-floating mb-3 text-field">
+            <input
+              value={this.state.artist}
+              onChange={this.handleArtistChange}
+              placeholder="Artist"
+              required
+              type="text"
+              name="artist"
+              id="artist"
+              className="form-control"
+            />
+            <label htmlFor="artist">Artist</label>
+          </div>
+          <div className="mb-3 text-field">
+            <select
+              value={this.state.category}
+              onChange={this.handleCategoryChange}
+              required
+              name="category"
+              id="category"
+              className="form-select"
+            >
+              <option value="">Choose a category</option>
+              {this.props.categories.map((cat) => {
+                return (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                );
+              })}
+            </select>
+            <div className="form-floating mb-3 text-field">
+              <select
+                value={this.state.is_requestable}
+                onChange={this.handleRequestableChange}
+                name="is_requestable"
+                id="is_requestable"
+                className="form-select"
+              >
+                <option value="">Is Song Requestable?</option>
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
+            </div>
+          </div>
+          <button className="btn btn-primary add-button">Create</button>
+        </form>
       </div>
     );
   }
 }
+
 
 export default AddSongFormWrapper;

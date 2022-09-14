@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useToken } from '../useToken';
+import React, { useState, useEffect } from "react";
+import { useToken } from "../useToken";
 
 function ArtistFacingRequestPage(props) {
   const { songs } = props;
   const [token] = useToken();
   const [requestedSongs, setRequestedSongs] = useState([]);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
 
   useEffect(() => {
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {
-        credentials: 'include',
+        credentials: "include",
       });
       if (response.ok) {
         const user = await response.json();
@@ -33,10 +33,10 @@ function ArtistFacingRequestPage(props) {
     console.log(songID);
     const url = `http://localhost:8000/trl/api/songs/${songID}/`;
     const requestOption = {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify({ is_requested: false }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {

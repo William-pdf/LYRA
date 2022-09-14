@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useToken } from '../useToken';
-import { useParams } from 'react-router-dom';
-import './songrequests.css';
+import React, { useState, useEffect } from "react";
+import { useToken } from "../useToken";
+import { useParams } from "react-router-dom";
+import "./songrequests.css";
 
 function SongRequestsPage(props) {
   const { songs } = props;
   const [token] = useToken();
   const [requestableSongs, setRequestableSongs] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   let { ownerArtist } = useParams();
-  ownerArtist = ownerArtist.replaceAll('-', ' ');
+  ownerArtist = ownerArtist.replaceAll("-", " ");
 
   useEffect(() => {
     async function loadData() {
@@ -29,10 +29,10 @@ function SongRequestsPage(props) {
     console.log(songID);
     const url = `http://localhost:8000/trl/api/songs/${songID}/`;
     const requestOption = {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify({ is_requested: true }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
@@ -53,7 +53,7 @@ function SongRequestsPage(props) {
               <div className="main-search-input fl-wrap">
                 <div className="main-search-input-item">
                   <input
-                    className="prompt"
+                    className="prompt search-bar"
                     value={searchInput}
                     placeholder="Search song"
                     onChange={(e) => setSearchInput(e.target.value)}
@@ -62,10 +62,11 @@ function SongRequestsPage(props) {
               </div>
             </div>
           </form>
-          <table>
-            <thead>
+          <table className="table table-striped content-table">
+            <thead className="table-header">
               <tr>
-                <th>Songs</th>
+                <th className="table-text">Songs</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -75,12 +76,12 @@ function SongRequestsPage(props) {
                 .map((song) => {
                   return (
                     <tr key={song.id}>
-                      <td>{song.title}</td>
+                      <td className="table-text">{song.title}</td>
                       <td>
                         <button
                           onClick={() => handleQueue(song.id)}
                           type="button"
-                          className="btn btn-success"
+                          className="btn queue-button"
                         >
                           Queue
                         </button>

@@ -1,6 +1,6 @@
-.center {
+.catalog-center {
   position: absolute;
-  top: 45%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 500px;
@@ -8,9 +8,8 @@
   border-radius: 10px;
 }
 
-.center h1 {
+.catalog-center h3 {
   text-align: center;
-  margin-top: 6%;
 }
 
 .content-table {
@@ -34,12 +33,18 @@
 }
 
 .content-table tbody tr {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #dddddd;
 }
 
-.queue-button {
-  background-color: #820ce8;
-  color: white;
+.edit-button {
+  width: 90%;
+  height: 50px;
+  margin-bottom: 5px;
+  border: 1px solid;
+  background: #820ce8;
+  border-radius: 25px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .table-text {
@@ -57,9 +62,4 @@
   border-radius: 25px;
   font-size: 18px;
   font-weight: 700;
-}
-
-.search-bar {
-  margin-top: 3%;
-  margin-left: 30%;
 }
