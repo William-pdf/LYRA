@@ -14,7 +14,7 @@ function SongRequestsPage(props) {
   useEffect(() => {
     async function loadData() {
       setRequestableSongs(
-        songs.songs.filter(
+        songs.filter(
           (song) =>
             song.is_requestable &&
             song.owner_artist.toLowerCase() === ownerArtist.toLowerCase()
@@ -22,8 +22,8 @@ function SongRequestsPage(props) {
       );
     }
     // eslint-disable-next-line no-unused-expressions
-    loadData()[(ownerArtist, songs)];
-  });
+    loadData();
+  }, [ownerArtist, songs]);
 
   async function handleQueue(songID) {
     console.log(songID);
@@ -53,7 +53,7 @@ function SongRequestsPage(props) {
               <div className="main-search-input fl-wrap">
                 <div className="main-search-input-item">
                   <input
-                    className="prompt"
+                    className="prompt search-bar"
                     value={searchInput}
                     placeholder="Search song"
                     onChange={(e) => setSearchInput(e.target.value)}
@@ -62,10 +62,11 @@ function SongRequestsPage(props) {
               </div>
             </div>
           </form>
-          <table className="table table-striped">
-            <thead>
+          <table className="table table-striped content-table">
+            <thead className="table-header">
               <tr>
-                <th>Songs</th>
+                <th className="table-text">Songs</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -75,12 +76,12 @@ function SongRequestsPage(props) {
                 .map((song) => {
                   return (
                     <tr key={song.id}>
-                      <td>{song.title}</td>
+                      <td className="table-text">{song.title}</td>
                       <td>
                         <button
                           onClick={() => handleQueue(song.id)}
                           type="button"
-                          className="btn btn-success"
+                          className="btn queue-button"
                         >
                           Queue
                         </button>
