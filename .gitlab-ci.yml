@@ -45,9 +45,9 @@ build-front-end-job:
     REACT_APP_ACCOUNTS_HOST: https://lyra-accounts-api.herokuapp.com/
     REACT_APP_DJANGO_SERVICE: https://lyra-song-request-api.herokuapp.com/trl/
     # SEE BELOW HOW TO SET THIS
-  needs:
-    - lyra-unit-test-job
-    - accounts-unit-test-job
+  # needs:
+  # - lyra-unit-test-job
+  # - accounts-unit-test-job
   script:
     - cd ghi
     - cd app
