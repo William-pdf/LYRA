@@ -16,6 +16,8 @@ variables:
 lyra-unit-test-job:
   image: python:3-bullseye
   stage: test
+  rules:
+    - if: $CI_COMMIT_BRANCH == $MR_DEV_BRANCH
   script:
     - cd lyra
     - pip install -r requirements.txt
@@ -24,39 +26,31 @@ lyra-unit-test-job:
 accounts-unit-test-job:
   image: python:3-bullseye
   stage: test
+  rules:
+    - if: $CI_COMMIT_BRANCH == $MR_DEV_BRANCH
   script:
     - cd accounts
     - pip install -r requirements.txt
     - python manage.py test
 
-# lyra-unit-test-job:
-#   image: python:3-bullseye
-#   stage: test
-#   needs:
-#     - accounts-unit-test-job
-#   script:
-#     - cd lyra
-#     - pip install -r requirements.txt
-#     - python manage.py test
-
 lint-job:
   image: python:3-bullseye
   stage: test
+  rules:
+    - if: $CI_COMMIT_BRANCH == $MR_DEV_BRANCH
   script:
     - pip install flake8
     - flake8 lyra
 
 build-front-end-job:
   stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   image: node:lts-bullseye
   variables:
     PUBLIC_URL: https://deion.liu.gitlab.io/band-managing-app
     REACT_APP_ACCOUNTS_HOST: https://lyra-accounts-api.herokuapp.com
     REACT_APP_DJANGO_SERVICE: https://lyra-song-request-api.herokuapp.com/trl/
-    # SEE BELOW HOW TO SET THIS
-  # needs:
-  # - lyra-unit-test-job
-  # - accounts-unit-test-job
   script:
     - cd ghi
     - cd app
