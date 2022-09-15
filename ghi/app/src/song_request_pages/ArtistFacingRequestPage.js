@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useToken } from "../useToken";
+import { useNavigate } from "react-router-dom"
 
-function ArtistFacingRequestPage(props) {
-  const { songs } = props;
+function ArtistFacingRequestPage() {
+  const [songs, setSongs] = useState([])
   const [token] = useToken();
   const [requestedSongs, setRequestedSongs] = useState([]);
   const [user, setUser] = useState("");
+  let navigate = useNavigate();
 
   useEffect(() => {
     async function getCurrentUser() {
@@ -21,7 +23,24 @@ function ArtistFacingRequestPage(props) {
     if (token) {
       getCurrentUser();
     }
-  }, [songs, token]);
+  }, [token]);
+
+  useEffect(() => {
+    async function fetchUpdatedSongs() {
+      const songsResponse = await fetch(
+        `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`,
+        { credentials: 'include' }
+      );
+
+      if (songsResponse.ok) {
+        const songData = await songsResponse.json();
+        setSongs(songData.songs)
+      } else if (songsResponse.status === 403) {
+        navigate('/login/')
+    }
+    }
+    fetchUpdatedSongs();
+  }, [user]);
 
   useEffect(() => {
     setRequestedSongs(

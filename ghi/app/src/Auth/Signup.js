@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToken} from "../useToken";
 import "./signup.css";
+
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [token, login] = useToken();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,7 +27,8 @@ export default function Signup() {
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      navigate("/login/");
+      login(username, password)
+      navigate("/account/");
     }
   };
 
