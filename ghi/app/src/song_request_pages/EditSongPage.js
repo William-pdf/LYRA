@@ -17,6 +17,9 @@ export default function EditSong(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
+
+      document.title = 'Edit Song'
+
       async function getCurrentUser() {
         const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
         const userResponse = await fetch(userUrl, {

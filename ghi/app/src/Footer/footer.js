@@ -3,7 +3,7 @@ import logo from "../lyra_logo/logo_skinny_trans.png"
 import "./footer.css";
 
 const Footer = () => {
-    let url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    let url = "https://tinyurl.com/LyraCareers"
     return (
         <div className="main-footer">
             <div className="container">

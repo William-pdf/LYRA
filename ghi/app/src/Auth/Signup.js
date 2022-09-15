@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToken} from "../useToken";
 import "./signup.css";
@@ -10,6 +10,10 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [token, login] = useToken();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Sign Up'
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();

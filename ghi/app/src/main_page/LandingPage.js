@@ -1,8 +1,12 @@
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../lyra_logo/logo_trans.png"
 import "./LP.css"
 
 function LandingPage() {
+    useEffect(() => {
+        document.title = 'LYRA'
+    })
     return (
         <main>
             <div className="px-4 py-5 my-5 text-center">

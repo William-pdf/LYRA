@@ -11,6 +11,9 @@ export default function UserCatalog(props) {
   const [token] = useToken();
 
   useEffect(() => {
+
+    document.title = 'My Song Catalog'
+
     async function getCurrentUser() {
       const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const userResponse = await fetch(userUrl, {
@@ -37,7 +40,6 @@ export default function UserCatalog(props) {
 
       if (songsResponse.ok) {
         const songData = await songsResponse.json();
-        console.log('fetchupdated', songData);
         setFilterSongs(
           songData.songs.filter(
             (song) => song.owner_artist === user.artist_name

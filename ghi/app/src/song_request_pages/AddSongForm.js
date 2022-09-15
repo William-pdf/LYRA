@@ -10,6 +10,9 @@ function AddSongFormWrapper() {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    document.title = 'Add Song'
+
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {

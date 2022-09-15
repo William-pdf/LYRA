@@ -11,6 +11,7 @@ variables:
   DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
   DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb
   LYRA_TEST_HOST: "http://localhost:8000/trl"
+  DEPLOYED_HOST: "https://deion.liu.gitlab.io/band-managing-app"
 
 lyra-unit-test-job:
   image: python:3-bullseye
@@ -40,7 +41,7 @@ build-front-end-job:
   image: node:lts-bullseye
   variables:
     PUBLIC_URL: https://deion.liu.gitlab.io/band-managing-app
-    REACT_APP_ACCOUNTS_HOST: https://lyra-accounts-api.herokuapp.com/
+    REACT_APP_ACCOUNTS_HOST: https://lyra-accounts-api.herokuapp.com
     REACT_APP_DJANGO_SERVICE: https://lyra-song-request-api.herokuapp.com/trl
   needs:
     - lyra-unit-test-job
