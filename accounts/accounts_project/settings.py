@@ -56,16 +56,17 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 ALLOWED_HOSTS = [
+    "accounts",
     ".localhost",
     "127.0.0.1",
     "[::1]",
-    'lyra-accounts-api.herokuapp.com',
+    "lyra-accounts-api.herokuapp.com",
     os.environ.get("DEPLOYED_HOST", "localhost"),
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    os.environ.get("CORS_HOST", "http://localhost:3000")
+    os.environ.get("CORS_HOST", "http://localhost:3000"),
 ]
 
 CORS_ALLOW_CREDENTIALS = True

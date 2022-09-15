@@ -99,9 +99,20 @@ def api_account_detail(request, id):
         account.save()
         return JsonResponse(account, encoder=AccountDetailEncoder, safe=False)
     else:
-        account.is_active = False
-        account.save()
-        return JsonResponse({"message": "User successfully deleted."})
+        will_hard_delete = json.loads(request.body)["will_hard_delete"]
+
+        # Checks a string instead of a Python upper-case True value
+        if will_hard_delete == "true":
+            account.delete()
+            return JsonResponse(
+                {"message": f"User with id {id} successfully hard deleted."}
+            )
+        elif will_hard_delete == "false":
+            account.is_active = False
+            account.save()
+            return JsonResponse(
+                {"message": "User with id {id} successfully deactivated."}
+            )
 
 
 @require_http_methods(["POST"])
