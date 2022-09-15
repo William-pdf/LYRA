@@ -13,8 +13,7 @@ function SongRequestsPage() {
   ownerArtist = ownerArtist.replaceAll('-', ' ');
 
   useEffect(() => {
-
-    document.title = `${ownerArtist} Live Requests`
+    document.title = `${ownerArtist} Live Requests`;
 
     async function fetchUpdatedSongs() {
       const songsResponse = await fetch(
@@ -31,7 +30,7 @@ function SongRequestsPage() {
       }
     }
     fetchUpdatedSongs();
-  }, [token, navigate]);
+  }, [token, navigate, ownerArtist]);
 
   useEffect(() => {
     async function loadData() {
