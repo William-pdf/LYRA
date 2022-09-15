@@ -1,10 +1,8 @@
-import React from "react";
-import { useToken } from "../useToken";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "./usercatalogpage.css";
-
-
+import React from 'react';
+import { useToken } from '../useToken';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './usercatalogpage.css';
 
 export default function UserCatalog(props) {
   const [filterSongs, setFilterSongs] = useState([]);
@@ -45,11 +43,12 @@ export default function UserCatalog(props) {
             (song) => song.owner_artist === user.artist_name
           )
         );
+      } else if (songsResponse.status === 403) {
+        navigate('/login/');
       }
     }
     fetchUpdatedSongs();
-  }, [token, user]);
-    
+  }, [user, navigate]);
 
   async function navToEdit(songID) {
     navigate(`/catalog/${songID}/`);
@@ -105,7 +104,7 @@ export default function UserCatalog(props) {
   return (
     <>
       <div>
-        <button className="add-song-button" onClick={() => navigate("add/")}>
+        <button className="add-song-button" onClick={() => navigate('add/')}>
           Add Song
         </button>
       </div>

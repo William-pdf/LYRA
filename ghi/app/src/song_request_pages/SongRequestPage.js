@@ -1,15 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useToken } from "../useToken";
-import { useParams } from "react-router-dom";
-import "./songrequests.css";
+import React, { useState, useEffect } from 'react';
+import { useToken } from '../useToken';
+import { useNavigate, useParams } from 'react-router-dom';
+import './songrequests.css';
 
-function SongRequestsPage(props) {
-  const { songs } = props;
+function SongRequestsPage() {
+  const [songs, setSongs] = useState([]);
   const [token] = useToken();
   const [requestableSongs, setRequestableSongs] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
+  let navigate = useNavigate();
   let { ownerArtist } = useParams();
-  ownerArtist = ownerArtist.replaceAll("-", " ");
+  ownerArtist = ownerArtist.replaceAll('-', ' ');
+
+  useEffect(() => {
+    async function fetchUpdatedSongs() {
+      const songsResponse = await fetch(
+        `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`,
+        { credentials: 'include' }
+      );
+
+      if (songsResponse.ok) {
+        const songData = await songsResponse.json();
+        console.log('fetchupdated', songData);
+        setSongs(songData.songs);
+      } else if (songsResponse.status === 403) {
+        navigate('/login/');
+      }
+    }
+    fetchUpdatedSongs();
+  }, [token, navigate]);
 
   useEffect(() => {
     async function loadData() {
@@ -29,10 +48,10 @@ function SongRequestsPage(props) {
     console.log(songID);
     const url = `http://localhost:8000/trl/api/songs/${songID}/`;
     const requestOption = {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({ is_requested: true }),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
