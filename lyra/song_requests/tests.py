@@ -1,4 +1,3 @@
-from re import I
 from django.test import TestCase, Client
 from .models import Song, Category
 from http.cookies import SimpleCookie
