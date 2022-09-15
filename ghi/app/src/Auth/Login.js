@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToken } from '../useToken';
 import './login.css';
 
@@ -7,6 +7,10 @@ export default function Login() {
   const [token, login] = useToken();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    document.title = 'Login'
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,15 +1,16 @@
 import React from 'react';
 import { useToken } from '../useToken';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
 
 function UserHome() {
   const [token] = useToken();
   const [user, setUser] = useState('');
   const [artistName, setArtistName] = useState('');
-  let navigate = useNavigate()
 
   useEffect(() => {
+
+    document.title = 'Account'
+    
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {

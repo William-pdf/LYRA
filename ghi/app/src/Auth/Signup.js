@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useToken} from "../useToken";
 import "./signup.css";
 
+
 export default function Signup() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const [token, login] = useToken();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Sign Up'
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,14 +25,15 @@ export default function Signup() {
     };
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/accounts/`;
     const fetchConfig = {
-      method: "post",
+      method: 'post',
       body: JSON.stringify(data),
-      credentials: "include",
+      credentials: 'include',
     };
 
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      navigate("/login/");
+      login(username, password);
+      navigate('/account/');
     }
   };
 
