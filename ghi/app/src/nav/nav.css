@@ -1,22 +1,22 @@
 .logo {
-    height: 100px;
-    width: 100px;
+  height: 100px;
+  width: 100px;
 }
 
 .link-nav {
-    color: #ffed0d
+  color: #ffed0d;
 }
 
-
 #nav-list {
-    display: inline-flex;
-    align-items: flex-start;
-    padding-left: 10%;
-    padding-top: 5%;
+  display: inline-flex;
+  align-items: flex-start;
+  padding-left: 10%;
+  padding-top: 5%;
 }
 
 .navbar {
-    background-color: #820ce8
+  background-color: #820ce8;
+  z-index: 1;
 }
 
 /* .bg-image {
