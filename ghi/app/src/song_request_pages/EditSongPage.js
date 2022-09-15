@@ -16,6 +16,9 @@ export default function EditSong(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    document.title = 'Edit Song'
+
     async function getCurrentUser() {
       const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const userResponse = await fetch(userUrl, {
@@ -25,13 +28,13 @@ export default function EditSong(props) {
         const userData = await userResponse.json();
         setUser(userData);
       } else {
-        navigate('/login/');
+        navigate("/login/")
       }
-    }
+    } 
     if (token) {
       getCurrentUser();
-    }
-  }, [token, navigate]);
+    } 
+  }, [token, navigate])
 
   useEffect(() => {
     async function loadSong() {

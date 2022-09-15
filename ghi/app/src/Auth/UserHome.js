@@ -8,6 +8,9 @@ function UserHome() {
   const [artistName, setArtistName] = useState('');
 
   useEffect(() => {
+
+    document.title = 'Account'
+    
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {

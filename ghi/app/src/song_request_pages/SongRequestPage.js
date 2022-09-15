@@ -13,6 +13,9 @@ function SongRequestsPage() {
   ownerArtist = ownerArtist.replaceAll('-', ' ');
 
   useEffect(() => {
+
+    document.title = `${ownerArtist} Live Requests`
+
     async function fetchUpdatedSongs() {
       const songsResponse = await fetch(
         `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`,

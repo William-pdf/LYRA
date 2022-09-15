@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useToken } from '../useToken';
-import './signup.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useToken} from "../useToken";
+import "./signup.css";
+
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -10,6 +11,10 @@ export default function Signup() {
   // eslint-disable-next-line no-unused-vars
   const [token, login] = useToken();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Sign Up'
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
