@@ -10,21 +10,23 @@ variables:
   POSTGRES_PASSWORD: test
   DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
   DJWTO_SIGNING_KEY: a058fd957fe86c22fd672668b6d717bc98f7852321ce62751d4b4fc0d7c5e2fb
-  LYRA_TEST_HOST: "http://localhost:8000/trl"
-
-lyra-unit-test-job:
-  image: python:3-bullseye
-  stage: test
-  script:
-    - cd lyra
-    - pip install -r requirements.txt
-    - python manage.py test
+  LYRA_TEST_HOST: 'http://localhost:8000/trl'
 
 accounts-unit-test-job:
   image: python:3-bullseye
   stage: test
   script:
     - cd accounts
+    - pip install -r requirements.txt
+    - python manage.py test
+
+lyra-unit-test-job:
+  image: python:3-bullseye
+  stage: test
+  needs:
+    - accounts-unit-test-job
+  script:
+    - cd lyra
     - pip install -r requirements.txt
     - python manage.py test
 
