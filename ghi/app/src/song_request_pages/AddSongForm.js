@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useToken } from '../useToken';
 import "./addsong.css";
 
-function AddSongFormWrapper(props) {
+function AddSongFormWrapper() {
   const [token] = useToken();
   const [user, setUser] = useState('');
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,9 +25,27 @@ function AddSongFormWrapper(props) {
     }
   }, [token]);
 
+  useEffect(() => {
+    async function fetchUpdatedCategories() {
+      const catResponse = await fetch(
+        `${process.env.REACT_APP_DJANGO_SERVICE}/api/categories/`,
+        { credentials: 'include' }
+      );
+
+      if (catResponse.ok) {
+        const catData = await catResponse.json();
+        console.log('fetchupdated', catData);
+        setCategories(catData.categories)
+      } else if (catResponse.status === 403) {
+        navigate('/login/')
+      }
+    }
+    fetchUpdatedCategories();
+  }, [token]);
+
   return (
     <AddSongForm
-      categories={props.categories}
+      categories={categories}
       user={user}
       navigate={navigate}
     />

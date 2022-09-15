@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./usercatalogpage.css";
 
-
-
 export default function UserCatalog(props) {
   const [filterSongs, setFilterSongs] = useState([]);
   const [user, setUser] = useState({});
@@ -45,15 +43,18 @@ export default function UserCatalog(props) {
             (song) => song.owner_artist === user.artist_name
           )
         );
+      } else if (songsResponse.status === 403) {
+          navigate('/login/')
       }
     }
     fetchUpdatedSongs();
-  }, [token, user]);
+  }, [user]);
     
 
   async function navToEdit(songID) {
     navigate(`/catalog/${songID}/`);
   }
+  
 
   const tBodies = filterSongs.map((song, index) => {
     const songValues = Object.values(song);

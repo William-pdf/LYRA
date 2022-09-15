@@ -8,6 +8,7 @@ export default function EditSong(props) {
     const [token] = useToken();
     const [user, setUser] = useState();
     const [song, setSong] = useState({});
+    const [categories, setCategories] = useState([]);
     const [title, setTitle] = useState(song.title);
     const [artist, setArtist] = useState(song.artist);
     const [is_requestable, setIsRequestable] = useState(song.is_requestable);
@@ -51,6 +52,23 @@ export default function EditSong(props) {
     }, [user])
 
     useEffect(() => {
+      async function fetchUpdatedCategories() {
+        const catResponse = await fetch(
+          `${process.env.REACT_APP_DJANGO_SERVICE}/api/categories/`,
+          { credentials: 'include' }
+        );
+  
+        if (catResponse.ok) {
+          const catData = await catResponse.json();
+          setCategories(catData.categories)
+        } else if (catResponse.status === 403) {
+          navigate('/login/')
+        }
+      }
+      fetchUpdatedCategories();
+    }, [token]);
+
+    useEffect(() => {
       async function preLoad() {
         if (song) {
           setTitle(song.title)
@@ -86,8 +104,20 @@ export default function EditSong(props) {
     }
   };
 
-    console.log("SONG IN EDIT:", song)
-    console.log("USER FOR EDIT:", user)
+  async function handleDelete() {
+    const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${song.id}/`;
+    const fetchConfig = {
+      method: 'DELETE',
+      credentials: 'include',
+    };
+    const response = await fetch(url, fetchConfig);
+    if (response.ok) {
+      const deleteData = await response.json()
+      console.log(deleteData)
+      navigate('/catalog/');
+    }
+
+  }
     
     return (
       <>
@@ -129,7 +159,7 @@ export default function EditSong(props) {
                 className="form-control"
               >
                 <option value="">Choose a category</option>
-                  {props.categories.map((cat) => {
+                  {categories.map((cat) => {
                     return (
                       <option key={cat.id} value={cat.id}>
                         {cat.name}
@@ -156,6 +186,7 @@ export default function EditSong(props) {
             </div>
             <button className="btn btn-primary">UPDATE</button>
           </form>
+            <button className="btn delete" onClick={() => handleDelete()}>DELETE</button>
         </div>
       </>
     )

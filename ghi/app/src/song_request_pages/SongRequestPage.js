@@ -1,15 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useToken } from "../useToken";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./songrequests.css";
 
-function SongRequestsPage(props) {
-  const { songs } = props;
+function SongRequestsPage() {
+  const [songs, setSongs] = useState([]);
   const [token] = useToken();
   const [requestableSongs, setRequestableSongs] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  let navigate = useNavigate();
   let { ownerArtist } = useParams();
   ownerArtist = ownerArtist.replaceAll("-", " ");
+
+  useEffect(() => {
+    async function fetchUpdatedSongs() {
+      const songsResponse = await fetch(
+        `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`,
+        { credentials: 'include' }
+      );
+
+      if (songsResponse.ok) {
+        const songData = await songsResponse.json();
+        console.log('fetchupdated', songData);
+        setSongs(songData.songs)
+      } else if (songsResponse.status === 403) {
+        navigate('/login/')
+      }
+    }
+    fetchUpdatedSongs();
+  }, [token]);
 
   useEffect(() => {
     async function loadData() {
@@ -24,6 +43,7 @@ function SongRequestsPage(props) {
     // eslint-disable-next-line no-unused-expressions
     loadData();
   }, [ownerArtist, songs]);
+
 
   async function handleQueue(songID) {
     console.log(songID);
