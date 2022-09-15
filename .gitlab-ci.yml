@@ -29,6 +29,16 @@ accounts-unit-test-job:
     - pip install -r requirements.txt
     - python manage.py test
 
+# lyra-unit-test-job:
+#   image: python:3-bullseye
+#   stage: test
+#   needs:
+#     - accounts-unit-test-job
+#   script:
+#     - cd lyra
+#     - pip install -r requirements.txt
+#     - python manage.py test
+
 lint-job:
   image: python:3-bullseye
   stage: test
@@ -42,21 +52,22 @@ build-front-end-job:
   variables:
     PUBLIC_URL: https://deion.liu.gitlab.io/band-managing-app
     REACT_APP_ACCOUNTS_HOST: https://lyra-accounts-api.herokuapp.com
-    REACT_APP_DJANGO_SERVICE: https://lyra-song-request-api.herokuapp.com/trl
-  needs:
-    - lyra-unit-test-job
-    - accounts-unit-test-job
+    REACT_APP_DJANGO_SERVICE: https://lyra-song-request-api.herokuapp.com/trl/
+    # SEE BELOW HOW TO SET THIS
+  # needs:
+  # - lyra-unit-test-job
+  # - accounts-unit-test-job
   script:
     - cd ghi
     - cd app
     - npm install
     - npm run build
-    - cp build/index.html build/404.html 
+    - cp build/index.html build/404.html
   artifacts:
     paths:
-      - ghi/app/build/ 
+      - ghi/app/build/
 
-pages: 
+pages:
   stage: deploy
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -70,7 +81,7 @@ pages:
     paths:
       - public
 
-build-song-request-image-job: 
+build-song-request-image-job:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   stage: build
@@ -85,7 +96,7 @@ build-song-request-image-job:
     - docker push ${CI_REGISTRY_IMAGE}/song_request:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/song_request:latest
 
-build-accounts-image-job: 
+build-accounts-image-job:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   stage: build
@@ -132,7 +143,7 @@ deploy-accounts-image-job:
     - docker tag ${CI_REGISTRY_IMAGE}/accounts:latest registry.heroku.com/$HEROKU_ACCOUNTS_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_ACCOUNTS_APP/web:latest
 
-release-song-request-image-job: 
+release-song-request-image-job:
   stage: deploy
   image: node:10.17-alpine
   needs:
@@ -145,7 +156,7 @@ release-song-request-image-job:
   script:
     - heroku container:release web --app $HEROKU_SONG_REQUEST_APP
 
-release-accounts-image-job: 
+release-accounts-image-job:
   stage: deploy
   image: node:10.17-alpine
   needs:

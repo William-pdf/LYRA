@@ -1,6 +1,6 @@
-import React from "react";
-import logo from "../lyra_logo/logo_skinny_trans.png"
-import "./footer.css";
+import React from 'react';
+// import logo from "../lyra_logo/logo_skinny_trans.png"
+import './footer.css';
 
 const Footer = () => {
     let url = "https://tinyurl.com/LyraCareers"
