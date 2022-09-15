@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToken } from '../useToken';
-import "./addsong.css";
+import './addsong.css';
 
 function AddSongFormWrapper() {
   const [token] = useToken();
@@ -13,7 +13,7 @@ function AddSongFormWrapper() {
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {
-        credentials: "include",
+        credentials: 'include',
       });
       if (response.ok) {
         const user = await response.json();
@@ -35,20 +35,16 @@ function AddSongFormWrapper() {
       if (catResponse.ok) {
         const catData = await catResponse.json();
         console.log('fetchupdated', catData);
-        setCategories(catData.categories)
+        setCategories(catData.categories);
       } else if (catResponse.status === 403) {
-        navigate('/login/')
+        navigate('/login/');
       }
     }
     fetchUpdatedCategories();
-  }, [token]);
+  }, [token, navigate]);
 
   return (
-    <AddSongForm
-      categories={categories}
-      user={user}
-      navigate={navigate}
-    />
+    <AddSongForm categories={categories} user={user} navigate={navigate} />
   );
 }
 
@@ -60,7 +56,7 @@ class AddSongForm extends React.Component {
       artist: '',
       category: '',
       categories: [],
-      is_requestable: "True",
+      is_requestable: 'True',
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleArtistChange = this.handleArtistChange.bind(this);
@@ -78,14 +74,14 @@ class AddSongForm extends React.Component {
       ? (data['is_requestable'] = true)
       : (data['is_requestable'] = false);
 
-    const songUrl = "http://localhost:8000/trl/api/songs/";
+    const songUrl = 'http://localhost:8000/trl/api/songs/';
     const fetchOptions = {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      credentials: "include",
+      credentials: 'include',
     };
     const songResponse = await fetch(songUrl, fetchOptions);
     if (songResponse.ok) {
@@ -96,7 +92,7 @@ class AddSongForm extends React.Component {
         title: '',
         artist: '',
         category: '',
-        is_requestable: "True",
+        is_requestable: 'True',
       };
       this.setState(cleared);
       this.props.navigate('/catalog/');
@@ -192,6 +188,5 @@ class AddSongForm extends React.Component {
     );
   }
 }
-
 
 export default AddSongFormWrapper;

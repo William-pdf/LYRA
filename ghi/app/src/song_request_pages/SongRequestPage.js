@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useToken } from "../useToken";
-import { useNavigate, useParams } from "react-router-dom";
-import "./songrequests.css";
+import React, { useState, useEffect } from 'react';
+import { useToken } from '../useToken';
+import { useNavigate, useParams } from 'react-router-dom';
+import './songrequests.css';
 
 function SongRequestsPage() {
   const [songs, setSongs] = useState([]);
   const [token] = useToken();
   const [requestableSongs, setRequestableSongs] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState('');
   let navigate = useNavigate();
   let { ownerArtist } = useParams();
-  ownerArtist = ownerArtist.replaceAll("-", " ");
+  ownerArtist = ownerArtist.replaceAll('-', ' ');
 
   useEffect(() => {
     async function fetchUpdatedSongs() {
@@ -22,13 +22,13 @@ function SongRequestsPage() {
       if (songsResponse.ok) {
         const songData = await songsResponse.json();
         console.log('fetchupdated', songData);
-        setSongs(songData.songs)
+        setSongs(songData.songs);
       } else if (songsResponse.status === 403) {
-        navigate('/login/')
+        navigate('/login/');
       }
     }
     fetchUpdatedSongs();
-  }, [token]);
+  }, [token, navigate]);
 
   useEffect(() => {
     async function loadData() {
@@ -44,15 +44,14 @@ function SongRequestsPage() {
     loadData();
   }, [ownerArtist, songs]);
 
-
   async function handleQueue(songID) {
     console.log(songID);
     const url = `http://localhost:8000/trl/api/songs/${songID}/`;
     const requestOption = {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({ is_requested: true }),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {

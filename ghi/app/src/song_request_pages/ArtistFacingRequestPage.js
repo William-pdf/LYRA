@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useToken } from "../useToken";
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect } from 'react';
+import { useToken } from '../useToken';
+import { useNavigate } from 'react-router-dom';
 
 function ArtistFacingRequestPage() {
-  const [songs, setSongs] = useState([])
+  const [songs, setSongs] = useState([]);
   const [token] = useToken();
   const [requestedSongs, setRequestedSongs] = useState([]);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState('');
   let navigate = useNavigate();
 
   useEffect(() => {
     async function getCurrentUser() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
       const response = await fetch(url, {
-        credentials: "include",
+        credentials: 'include',
       });
       if (response.ok) {
         const user = await response.json();
@@ -34,13 +34,13 @@ function ArtistFacingRequestPage() {
 
       if (songsResponse.ok) {
         const songData = await songsResponse.json();
-        setSongs(songData.songs)
+        setSongs(songData.songs);
       } else if (songsResponse.status === 403) {
-        navigate('/login/')
-    }
+        navigate('/login/');
+      }
     }
     fetchUpdatedSongs();
-  }, [user]);
+  }, [user, navigate]);
 
   useEffect(() => {
     setRequestedSongs(
@@ -52,10 +52,10 @@ function ArtistFacingRequestPage() {
     console.log(songID);
     const url = `http://localhost:8000/trl/api/songs/${songID}/`;
     const requestOption = {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({ is_requested: false }),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
     };
     const response = await fetch(url, requestOption);
     if (response.ok) {
