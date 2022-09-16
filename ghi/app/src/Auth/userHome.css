@@ -1,0 +1,66 @@
+.container{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+.detailContainer{
+    justify-content: space-between;
+
+}
+.accountTitle{
+    color: white;
+}
+.userNameContainer{
+    display:flex
+}
+.userNameTitle{
+    color:white;
+    font-weight:700;
+}
+.userNameText{
+    color:yellow;
+    margin-left: 10px;
+}
+.artistNameTitle{
+    color: white;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+.artistNameText{
+    color:yellow;
+    text-transform: capitalize;
+    margin-left: 10px;
+}
+.emailTitle{
+    color:white;
+    text-transform: capitalize;
+    font-weight: 700;
+}
+.emailText{
+    color:yellow;
+    margin-left: 10px;
+}
+.containerform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.form-floating{
+    width: 300px;
+}
+.form-control{
+    color: #2D333A;
+    height: '50px !important';
+}
+.btn-setName{
+width: 100px;
+  height: 60px;
+  background: #820ce8;
+  border-radius: 7px;
+  font-size: 17px;
+  font-weight: 400;
+  color: white;
+  margin-left: 10px;
+}

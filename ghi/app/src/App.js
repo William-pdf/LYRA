@@ -12,6 +12,7 @@ import UserHome from "./Auth/UserHome";
 import Signup from "./Auth/Signup";
 import SongRequestsPage from "./song_request_pages/SongRequestPage";
 import Footer from './Footer/footer'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   
@@ -19,6 +20,7 @@ function App() {
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   return (
     <div className="page-container">
+      <GoogleOAuthProvider clientId="185659198707-b5fmgdl8h28km10ukjdgk7r9nilidh39.apps.googleusercontent.com">
       <BrowserRouter basename={basename}>
         <AuthProvider>
           <Nav />
@@ -54,6 +56,7 @@ function App() {
           </div>
         </AuthProvider>
       </BrowserRouter>
+      </GoogleOAuthProvider>
       <Footer/>
     </div>
   );

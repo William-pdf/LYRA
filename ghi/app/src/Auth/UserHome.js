@@ -1,6 +1,7 @@
 import React from 'react';
 import { useToken } from '../useToken';
 import { useState, useEffect } from 'react';
+import "./userHome.css"
 
 function UserHome() {
   const [token] = useToken();
@@ -52,12 +53,14 @@ function UserHome() {
       {token ? (
         <>
           <div className="container shadow p-4 mt-4">
-            <h3>Account Details:</h3>
-            <div>username: {user.username}</div>
-            <div>artist name: {user.artist_name}</div>
-            <div>email: {user.email}</div>
+            <div className='detailContainer'>
+            <h3 className='accountTitle'>Account Details</h3>
+            <div className='userNameContainer'><p className='userNameTitle'>Username: </p> <p className='userNameText'>{user.username}</p></div>
+            <div className='userNameContainer'><p className='artistNameTitle'>artist name: </p> <p className='artistNameText'>{user.artist_name}</p></div>
+            <div className='userNameContainer'><p className='emailTitle'>email: </p><p className='emailText'>{user.email}</p></div>
+            </div>
           </div>
-          <form className="d-flex" onSubmit={(e) => handleSubmit(e)}>
+          <form className="containerform" onSubmit={(e) => handleSubmit(e)}>
             <div className="form-floating">
               <input
                 type="text"
@@ -68,9 +71,9 @@ function UserHome() {
                 value={artistName}
                 onChange={(e) => setArtistName(e.target.value)}
               />
-              <label htmlFor="artist-name">Enter your new Artist Name</label>
+              <label htmlFor="artist-name">Enter Your New Artist Name</label>
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn-setName">
               Set Name
             </button>
           </form>
