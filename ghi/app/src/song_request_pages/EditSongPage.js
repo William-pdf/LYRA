@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useToken } from '../useToken';
 import { useNavigate, useParams } from 'react-router-dom';
+import './editsong.css';
 
 export default function EditSong(props) {
   const { songNav } = useParams();
@@ -122,7 +123,8 @@ export default function EditSong(props) {
 
   return (
     <>
-      <div>
+      <div className='wrap'>
+      <div className='card'>
         <h1>EDIT SONG</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="title">TITLE</label>
@@ -187,9 +189,12 @@ export default function EditSong(props) {
           </div>
           <button className="btn btn-primary">UPDATE</button>
         </form>
-        <button className="btn delete" onClick={() => handleDelete()}>
-          DELETE
-        </button>
+        <div className='delete-btn'>
+          <button className="btn btn-secondary" onClick={() => handleDelete()}>
+            DELETE
+          </button>
+        </div>
+      </div>  
       </div>
     </>
   );

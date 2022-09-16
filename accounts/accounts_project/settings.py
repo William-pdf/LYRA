@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-_r81ou#$sr9g4yn71p=edhz^1zeclk3s)%get9qxizui$fibh*"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not os.environ.get("DEBUG")
 
 
 AUTH_USER_MODEL = "accounts_rest.CustomUser"
@@ -60,12 +60,15 @@ ALLOWED_HOSTS = [
     ".localhost",
     "127.0.0.1",
     "[::1]",
+    "lyra-song-request-api.herokuapp.com",
     "lyra-accounts-api.herokuapp.com",
     os.environ.get("DEPLOYED_HOST", "localhost"),
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://lyra-song-request-api.herokuapp.com",
+    "https://lyra-song-request-api.herokuapp.com",
     os.environ.get("CORS_HOST", "http://localhost:3000"),
 ]
 
@@ -144,4 +147,5 @@ DJWTO_CSRF = False
 DJWTO_ACCESS_TOKEN_LIFETIME = timedelta(days=1)
 
 # Your DEBUG value MUST be False in production
-DJWTO_SAME_SITE = "LAX" if DEBUG else "NONE"
+DJWTO_SAME_SITE = "NONE"
+DJWTO_DOMAIN = 'herokuapp.com'

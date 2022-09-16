@@ -1,10 +1,6 @@
 .catalog-center {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   min-width: 500px;
-  background: white;
+  background-color: white;
   border-radius: 10px;
 }
 
@@ -21,8 +17,8 @@
 }
 
 .table-header {
-  background-color: yellow;
-  color: #820ce8;
+  background-color: #820ce8;
+  color:  yellow;
   text-align: left;
   font-weight: bold;
 }
@@ -41,25 +37,32 @@
   height: 50px;
   margin-bottom: 5px;
   border: 1px solid;
-  background: #820ce8;
   border-radius: 25px;
   font-size: 18px;
   font-weight: 700;
 }
 
 .table-text {
+  
   font-weight: bold;
   font-size: medium;
 }
 
-.add-song-button {
-  margin-top: 8%;
-  width: 10%;
-  height: 50px;
-  margin-bottom: 5px;
-  border: 1px solid;
-  background: yellow;
-  border-radius: 25px;
-  font-size: 18px;
-  font-weight: 700;
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.add-div{
+  padding-right: 3rem;
+  padding-bottom: 8rem;
+}
+
+#add-btn {
+  color: black;
+  background-color: yellow;
+  
 }

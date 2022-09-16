@@ -1,8 +1,4 @@
 .center {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   min-width: 500px;
   background: white;
   border-radius: 10px;
@@ -62,4 +58,11 @@
 .search-bar {
   margin-top: 3%;
   margin-left: 30%;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
 }

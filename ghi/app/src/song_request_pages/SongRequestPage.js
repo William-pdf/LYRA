@@ -23,7 +23,6 @@ function SongRequestsPage() {
 
       if (songsResponse.ok) {
         const songData = await songsResponse.json();
-        console.log('fetchupdated', songData);
         setSongs(songData.songs);
       } else if (songsResponse.status === 403) {
         navigate('/login/');
@@ -48,7 +47,7 @@ function SongRequestsPage() {
 
   async function handleQueue(songID) {
     console.log(songID);
-    const url = `http://localhost:8000/trl/api/songs/${songID}/`;
+    const url = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/${songID}/`;
     const requestOption = {
       method: 'PUT',
       body: JSON.stringify({ is_requested: true }),
@@ -67,51 +66,55 @@ function SongRequestsPage() {
   return (
     <>
       {token ? (
-        <div className="center">
-          <h1>Request a song</h1>
-          <form id="song_list">
-            <div className="main-search-input-wrap">
-              <div className="main-search-input fl-wrap">
-                <div className="main-search-input-item">
-                  <input
-                    className="prompt search-bar"
-                    value={searchInput}
-                    placeholder="Search song"
-                    onChange={(e) => setSearchInput(e.target.value)}
-                  />
+        <div className="wrap">
+          <div className="center">
+            <h1 className="p-2">Send {ownerArtist} a song request</h1>
+            <form id="song_list">
+              <div className="main-search-input-wrap">
+                <div className="main-search-input fl-wrap">
+                  <div className="main-search-input-item">
+                    <input
+                      className="prompt search-bar"
+                      value={searchInput}
+                      placeholder="Search song"
+                      onChange={(e) => setSearchInput(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-          <table className="table table-striped content-table">
-            <thead className="table-header">
-              <tr>
-                <th className="table-text">Songs</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {requestableSongs
-                .filter((song) => song.is_requested === false)
-                .filter((searched) => searched.title.includes(searchInput))
-                .map((song) => {
-                  return (
-                    <tr key={song.id}>
-                      <td className="table-text">{song.title}</td>
-                      <td>
-                        <button
-                          onClick={() => handleQueue(song.id)}
-                          type="button"
-                          className="btn queue-button"
-                        >
-                          Queue
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+            </form>
+            <table className="table table-striped content-table">
+              <thead className="table-header">
+                <tr>
+                  <th className="table-text">Title</th>
+                  <th className="table-text">Artist</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {requestableSongs
+                  .filter((song) => song.is_requested === false)
+                  .filter((searched) => searched.title.includes(searchInput))
+                  .map((song) => {
+                    return (
+                      <tr key={song.id}>
+                        <td className="table-text">{song.title}</td>
+                        <td className="table-text">{song.artist}</td>
+                        <td>
+                          <button
+                            onClick={() => handleQueue(song.id)}
+                            type="button"
+                            className="btn queue-button"
+                          >
+                            Request
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         <h1>You must be Logged In to view this page.</h1>

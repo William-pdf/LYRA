@@ -49,3 +49,15 @@ label[for="is_requestable"] {
   font-size: 18px;
   font-weight: 700;
 }
+
+.card {
+  padding: 1rem;
+  width: 22rem;
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
+}

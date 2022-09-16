@@ -1,0 +1,24 @@
+.card {
+    padding: 1rem;
+    width: 22rem;
+  }
+  
+.wrap {
+display: flex;
+align-items: center;
+justify-content: center;
+padding-top: 2rem;
+}
+
+.btn-secondary {
+    background-color: rgb(235, 19, 19);
+}
+
+.btn-primary {
+    background-color: #820ce8;
+}
+
+.delete-btn {
+    display: flex;
+    justify-items: end;
+}

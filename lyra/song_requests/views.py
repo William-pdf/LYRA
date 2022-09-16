@@ -4,7 +4,6 @@ from django.views.decorators.http import require_http_methods
 from .models import Song, Category
 from .json import ModelEncoder
 import json
-import djwto.authentication as auth
 
 
 class CategoryEncoder(ModelEncoder):
@@ -27,7 +26,7 @@ class SongEncoder(ModelEncoder):
 
 
 @require_http_methods(["GET", "POST"])
-@auth.jwt_login_required
+# @auth.jwt_login_required
 def api_songs(request):
     if request.method == "GET":
         songs = Song.objects.all()
@@ -45,7 +44,7 @@ def api_songs(request):
 
 
 @require_http_methods(["GET", "PUT", "DELETE"])
-@auth.jwt_login_required
+# @auth.jwt_login_required
 def api_song(request, pk):
     song = Song.objects.get(id=pk)
     if request.method == "GET":
@@ -62,7 +61,7 @@ def api_song(request, pk):
 
 
 @require_http_methods(["GET", "POST"])
-@auth.jwt_login_required
+# @auth.jwt_login_required
 def api_categories(request):
     if request.method == "GET":
         categories = Category.objects.all()
@@ -81,7 +80,7 @@ def api_categories(request):
 
 
 @require_http_methods(["GET", "PUT"])
-@auth.jwt_login_required
+# @auth.jwt_login_required
 def api_category(request, pk):
     category = Category.objects.get(id=pk)
     if request.method == "GET":
