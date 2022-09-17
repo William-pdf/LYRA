@@ -25,8 +25,10 @@ function AddSongFormWrapper() {
     }
     if (token) {
       getCurrentUser();
+    } else {
+      navigate('/login/');
     }
-  }, [token]);
+  }, [token, navigate]);
 
   useEffect(() => {
     async function fetchUpdatedCategories() {
@@ -37,14 +39,13 @@ function AddSongFormWrapper() {
 
       if (catResponse.ok) {
         const catData = await catResponse.json();
-        console.log('fetchupdated', catData);
         setCategories(catData.categories);
       } else if (catResponse.status === 403) {
         navigate('/login/');
       }
     }
     fetchUpdatedCategories();
-  }, [token, navigate]);
+  }, [user, navigate]);
 
   return (
     <AddSongForm categories={categories} user={user} navigate={navigate} />
@@ -77,7 +78,7 @@ class AddSongForm extends React.Component {
       ? (data['is_requestable'] = true)
       : (data['is_requestable'] = false);
 
-    const songUrl = 'http://localhost:8000/trl/api/songs/';
+    const songUrl = `${process.env.REACT_APP_DJANGO_SERVICE}/api/songs/`;
     const fetchOptions = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -124,7 +125,8 @@ class AddSongForm extends React.Component {
 
   render() {
     return (
-      <div className="offset-3 col-6 center-card">
+      <div className='wrap'>
+      <div className="card">
         <h1>Add a song</h1>
         <form onSubmit={this.handleSubmit} id="create-song-form">
           <div className="form-floating mb-3 text-field">
@@ -187,6 +189,7 @@ class AddSongForm extends React.Component {
           </div>
           <button className="btn btn-primary add-button">Create</button>
         </form>
+      </div>
       </div>
     );
   }

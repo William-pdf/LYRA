@@ -11,8 +11,7 @@ export default function UserCatalog(props) {
   const [token] = useToken();
 
   useEffect(() => {
-
-    document.title = 'My Song Catalog'
+    document.title = 'My Song Catalog';
 
     async function getCurrentUser() {
       const userUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/tokens/me/`;
@@ -22,14 +21,12 @@ export default function UserCatalog(props) {
       if (userResponse.ok) {
         const userData = await userResponse.json();
         setUser(userData);
-      } else {
-        navigate('/login/');
       }
     }
     if (token) {
       getCurrentUser();
     }
-  }, [token, navigate]);
+  }, [token]);
 
   useEffect(() => {
     async function fetchUpdatedSongs() {
@@ -83,7 +80,7 @@ export default function UserCatalog(props) {
             className="edit-button"
             rowSpan={songValues.length + 1}
             value={song.id}
-            onClick={() => navigate(`/catalog/${song.id}/`)}
+            onClick={() => navToEdit(song.id)}
           >
             EDIT
           </button>
@@ -105,25 +102,32 @@ export default function UserCatalog(props) {
   });
   return (
     <>
-      <div>
-        <button className="add-song-button" onClick={() => navigate('add/')}>
-          Add Song
-        </button>
-      </div>
-      <div>
-        <div className="catalog-center">
-          <h3>Your songs</h3>
-          <table className="table table-striped content-table">
-            <thead className="table-header">
-              <tr>
-                <th className="table-text">Title</th>
-                <th className="table-text">Artist</th>
-                <th className="table-text">Requestable</th>
-                <th></th>
-              </tr>
-            </thead>
-            {tBodies}
-          </table>
+      <div className="wrap">
+        <div>
+          <div className="catalog-center">
+            <div className="d-flex justify-content-between p-3">
+              <h3>Your songs</h3>
+              <button
+                type="button"
+                id="add-btn"
+                className="btn btn-primary btn-lg"
+                onClick={() => navigate('add/')}
+              >
+                Add Song
+              </button>
+            </div>
+            <table className="table table-striped content-table">
+              <thead className="table-header">
+                <tr>
+                  <th className="table-text">Title</th>
+                  <th className="table-text">Artist</th>
+                  <th className="table-text">Requestable</th>
+                  <th></th>
+                </tr>
+              </thead>
+              {tBodies}
+            </table>
+          </div>
         </div>
       </div>
     </>

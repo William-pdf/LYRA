@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useToken} from "../useToken";
-import "./signup.css";
-
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useToken } from '../useToken';
+import './signup.css';
 
 export default function Signup() {
   const [username, setUsername] = useState('');
@@ -11,10 +10,12 @@ export default function Signup() {
   // eslint-disable-next-line no-unused-vars
   const [token, login] = useToken();
   const navigate = useNavigate();
+  const [willShowError, setWillShowError] = useState(false);
+  const [errorType, setErrorType] = useState('');
 
   useEffect(() => {
-    document.title = 'Sign Up'
-  })
+    document.title = 'Sign Up';
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,16 +35,36 @@ export default function Signup() {
     if (response.ok) {
       login(username, password);
       navigate('/account/');
+    } else if (response.status === 409) {
+      const jsonMessage = await response.json();
+      const message = jsonMessage.message;
+
+      if (message.includes('username')) {
+        setErrorType('username');
+      } else if (message.includes('email')) {
+        setErrorType('email');
+      }
+      setWillShowError(true);
     }
   };
 
   return (
     <>
-      <div className="center">
+    <div className="wrap">
+      <div className="card">
         <h1>Sign up</h1>
         <form onSubmit={(e) => handleSubmit(e)}>
+          <div
+            className={`alert alert-warning ${willShowError ? '' : 'd-none'}`}
+            role="alert"
+          >
+            <div className="text-center">
+              Signup was unsuccessful. That {errorType} already exists
+            </div>
+          </div>
           <div className="form-floating mb-3 text-field">
             <input
+              required
               type="text"
               className="form-control"
               id="username"
@@ -56,6 +77,7 @@ export default function Signup() {
           </div>
           <div className="form-floating mb-3 text-field">
             <input
+              required
               type="email"
               className="form-control"
               id="email"
@@ -68,6 +90,7 @@ export default function Signup() {
           </div>
           <div className="form-floating mb-3 text-field">
             <input
+              required
               type="password"
               className="form-control"
               id="password"
@@ -82,10 +105,11 @@ export default function Signup() {
             Sign Up
           </button>
           <div className="login-link">
-            Already a member? <a href="/login/">Log in</a>
+            Already a member? <a href="https://terminal-tyrants.gitlab.io/band-managing-app/login/">Log in</a>
           </div>
         </form>
       </div>
+    </div>
     </>
   );
 }

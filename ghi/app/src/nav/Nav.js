@@ -44,43 +44,44 @@ function Nav() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" id="nav-list">
-              {token ? (
+            {token ? (
               <>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="" onClick={() => logout()}>
-                    <h3 className="link-nav">LOGOUT</h3>
+                <li className={`nav-item ${user.artist_name ? '' : 'd-none'}`}>
+                  <NavLink className="nav-link" to="catalog/">
+                    <h3 className="link-nav">CATALOG</h3>
                   </NavLink>
                 </li>
+                <li className={`nav-item ${user.artist_name ? '' : 'd-none'}`}>
+                  <NavLink className="nav-link" to="requests/">
+                    <h3 className="link-nav">REQUESTS</h3>
+                  </NavLink>
+                </li>
+
                 <li className="nav-item">
                   <NavLink className="nav-link" to="account/">
                     <h3 className="link-nav">ACCOUNT</h3>
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="catalog/">
-                    <h3 className="link-nav">CATALOG</h3>
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="requests/">
-                    <h3 className="link-nav">LIVE REQUEST</h3>
+                  <NavLink className="nav-link" to="" onClick={() => logout()}>
+                    <h3 className="link-nav">LOGOUT</h3>
                   </NavLink>
                 </li>
               </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="login/">
-                      <h3 className="link-nav">LOGIN</h3>
-                    </NavLink>
-                  </li>
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="signup/">
-                      <h3 className="link-nav">SIGN-UP</h3>
-                    </NavLink>
-                  </li>
-                </>
-              )}
+            ) : (
+              <>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="login/">
+                    <h3 className="link-nav">LOGIN</h3>
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="signup/">
+                    <h3 className="link-nav">SIGN-UP</h3>
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

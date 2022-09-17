@@ -29,3 +29,6 @@ Captain's Log Star-date 8/30/2022: Deployment Testing:
 
     bug_fix: The protected tag in the gitlab variables page will prevent a dev branch from deploying a CD pipeline.  Either remove the protected tag or make the branch a protected branch.  Error comes up as "can't interact with non TTY device."  
 
+Captain's Log Star-Date 9/14/2022: SAME_SITE Declarations:
+
+    
